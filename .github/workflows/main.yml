@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - test-cipipeline
+      - master
   pull_request:
 
 jobs:
