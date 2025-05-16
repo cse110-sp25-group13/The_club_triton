@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Page</title>
     <link rel="stylesheet" href="style.css" media="screen">
+    <script src="src/scripts/card-system.js" defer></script> 
 </head>
 <body>
     <main>
         <!--Add Cards Here-->
+        <section id="card-library-display" class="cards-container" style="display: none;"> 
+            <!-- Initially hidden, can be shown via a button or other interaction -->
+            <h2>My Card Collection</h2>
+            <!-- All cards read from IndexedDB will be displayed here using <triton_card> via JS -->
+        </section>
+        <section class="card-comparison">
+            <section id="chosen-ai-card-slot" class="chosen-card-slot">
+                <!-- The <triton_card> chosen by the AI will be placed here by JS -->
+            </section>
+            <section id="chosen-player-card-slot" class="chosen-card-slot">
+                <!-- The <triton_card> chosen by the player will be placed here by JS -->
+            </section>
+        </section>
     </main>
     <section class = "timer">
         <div id = "timer">
@@ -32,19 +46,17 @@
                 </tr>
             </table>
         </section>
-        <section class = "player-deck">
-            <div id = "player-name">
+        <section class="player-deck">
+            <div id="player-name">
                 <span>Student</span>
             </div>
-            <table class = "player-cards">
-                <tr >
-                    <td class= "player-card" id = "player-card-1">Card 1</td>
-                    <td class= "player-card" id = "player-card-2">Card 2</td>
-                    <td class= "player-card" id = "player-card-3">Card 3</td>
-                    <td class= "player-card" id = "player-card-4">Card 4</td>
-                    <td class= "player-card" id = "player-card-5">Card 5</td>
-                </tr>
-            </table>
+            <div id="player-hand-cards" class="cards-container">
+                <!-- <triton_card> components will be dynamically added here by JS -->
+                <!-- For example, JS might generate: -->
+                <!-- <triton-card card-id="structure001"></triton-card> -->
+                <!-- <triton-card card-id="dining001"></triton-card> -->
+                <!-- ... (5 cards) -->
+            </div>
         </section>
     </section>
     <section class = "card-comparison">
