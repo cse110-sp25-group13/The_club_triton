@@ -1,0 +1,60 @@
+/* From w3c */
+
+:root{
+  --card-wdith: 150px;
+}
+/* The flip card container - set the width and height to whatever you want.
+  (remove perspective if you don't want the 3D effect */
+.card {
+  background-color: transparent;
+  aspect-ratio: auto 3/4;
+  width: var(--card-wdith);
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  
+  /* size the images */
+  img{
+    aspect-ratio: auto 3/4;
+    width: var(--card-wdith); 
+    height: calc(var(--card-wdith) * 4/3);
+  }
+}
+
+/* This container is needed to position the front and back side */
+.card-inner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 3px solid cyan;  /* change the style of border when needed */
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  
+
+}
+
+/* Style the front side (fallback if image is missing) */
+.card-front {
+  background-color: black;
+  color: white;
+  font-size: 11px;
+
+}
+
+/* Style the back side */
+.card-back {
+  transform: rotateY(180deg);
+} 
