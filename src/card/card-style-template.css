@@ -3,20 +3,15 @@
 :root{
   --card-wdith: 150px;
 }
-/* The flip card container - set the width and height to whatever you want.
-  (remove perspective if you don't want the 3D effect */
+/* The card container - set the width using the variable "--car-width"
+  (remove perspective if you don't want the 3D effect )
+*/
 .card {
   background-color: transparent;
   aspect-ratio: auto 3/4;
   width: var(--card-wdith);
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
-  
-  /* size the images */
-  img{
-    aspect-ratio: auto 3/4;
-    width: var(--card-wdith); 
-    height: calc(var(--card-wdith) * 4/3);
-  }
+
 }
 
 /* This container is needed to position the front and back side */
@@ -36,25 +31,55 @@
 }
 
 /* Position the front and back side */
-.card-front, .card-back {
+.card-front, .card-back{
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
-  
 
 }
 
-/* Style the front side (fallback if image is missing) */
+.card-front-background, .card-back-background{
+  position: absolute;
+  top: 0;
+  img{
+    aspect-ratio: auto 3/4;
+    width: var(--card-wdith); 
+    height: calc(var(--card-wdith) * 4/3);
+  }
+}
+/* Style the front side (also fallback if image is missing) */
 .card-front {
-  background-color: black;
-  color: white;
-  font-size: 11px;
-
+  color: red;
+  font-size : 15px;
+  
+  .name {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+  }
+  .type{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .rank {
+    position: absolute;
+    top: 1rem;
+    font-size: 30px;
+  }
+  .description{
+    position: absolute;
+    left: 50px;
+    bottom: 0;
+  }
 }
 
-/* Style the back side */
-.card-back {
+/* Style the back side (same fall back)*/
+.card-back{
+  background-color: blue;
+  color: red;
+  font-size: 11px;
   transform: rotateY(180deg);
 } 
