@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Card Demo</title>
+  <script type="module" src="./triton-card.js"></script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+      font-family: sans-serif;
+    }
+    
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card-container">
+      <triton-card id="dining-card"></triton-card>
+      <triton-card id="structure-card"></triton-card>
+    </div>
+  </div>
+
+  <script>
+    const diningCardData = {
+      name: "TEC Cafe",
+      front_image_placeholder: "ucsd-logo.png",
+      back_image_placeholder: "triton-logo.png",
+      ranking: 4,
+      type: "Dining",
+      rarity: 3,
+      border_color_code: '#4CAF50', // Green
+      description: "Grab coffee, tea, and pastries in the Triton Esports Center."
+    };
+    
+    const structureCardData = {
+      name: "Geisel Library",
+      front_image_placeholder: "ucsd-logo.png",
+      back_image_placeholder: "triton-logo.png",
+      ranking: 5,
+      type: "Structure",
+      rarity: 5,
+      border_color_code: '#2196F3', // Blue
+      description: "The iconic building at the heart of campus, known for its unique architecture."
+    };
+
+    // Wait until DOM is ready and component is defined
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('dining-card').cardData = diningCardData;
+      document.getElementById('structure-card').cardData = structureCardData;
+    });
+  </script>
+</body>
+</html>

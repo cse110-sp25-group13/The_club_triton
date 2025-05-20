@@ -1,0 +1,91 @@
+.card {
+  border: 4px solid #ccc;
+  border-radius: 10px;
+  padding: 12px;
+  width: 220px;
+  height: 350px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Dynamic border and shadow effects based on card type */
+.card[data-card-type="dining"] {
+  border-color: #4CAF50; /* Green */
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+.card[data-card-type="structure"] {
+  border-color: #2196F3; /* Blue */
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+}
+
+.card[data-card-type="athletics"] {
+  border-color: #FF5722; /* Orange/Red */
+  box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+}
+
+.card[data-card-type="academic"] {
+  border-color: #9C27B0; /* Purple */
+  box-shadow: 0 0 15px rgba(156, 39, 176, 0.3);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.name-type {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin: 0;
+}
+
+.type {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.ranking {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #333;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+  flex-grow: 1;
+  height: 150px; /* Fixed height for image container */
+}
+
+.image-container img {
+  max-width: 180px;
+  max-height: 150px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.rarity {
+  font-size: 0.9em;
+  color: #FFD700; /* Gold color for stars */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+  font-size: 0.85em;
+  color: #333;
+  margin-bottom: 10px;
+}
