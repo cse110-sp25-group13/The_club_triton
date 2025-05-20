@@ -1,6 +1,5 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import markdown from '@eslint/markdown';
 import css from '@eslint/css';
 import jsdoc from 'eslint-plugin-jsdoc';
 import { defineConfig } from 'eslint/config';
