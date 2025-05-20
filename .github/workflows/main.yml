@@ -34,7 +34,7 @@ jobs:
           PAT: ${{ secrets.GH_PAT }}
         run: |
           git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}.git
-          git push origin HEAD:refs/heads/${{ github.head_ref || github.ref_name }}
+          git push origin HEAD:develop
 
   validate-html:
     name: Validate HTML
