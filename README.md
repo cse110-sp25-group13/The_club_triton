@@ -1,3 +1,3 @@
 # The_club_triton
 
-bruh
+Club Penguins card game, UCSD style!
