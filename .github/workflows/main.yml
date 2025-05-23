@@ -26,7 +26,7 @@ jobs:
       #   run: |
       # git config user.name "github-actions[bot]"
       # git config user.email "github-actions[bot]@users.noreply.github.com"
-  
+
       # git add docs
       # git diff --cached --quiet || git commit -m "Update docs"
       # git push origin develop
@@ -35,8 +35,8 @@ jobs:
 
       # git reset --hard
       # git clean -fd
-      
-      # git fetch origin 
+
+      # git fetch origin
       # git switch JSdoc || git switch -c JSdoc
 
       # git pull origin JSdoc --rebase
@@ -44,8 +44,6 @@ jobs:
       # git add docs
       # git diff --cached --quiet || git commit -m "Update docs"
       # git push origin JSdoc
-        
-          
 
       # - name: Push changes with PAT
       #   env:
@@ -106,5 +104,3 @@ jobs:
 
       - name: Run Selenium Tests
         run: node selenium-tests/selenium.js
-
-    
