@@ -1,34 +1,29 @@
- <!DOCTYPE html>
- <html>
+<!doctype html>
+<html>
+  <head>
+    <title>card demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --card-wdith: 150px;
+      }
+    </style>
 
- <head>
-  <title>card demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root{
-      --card-wdith: 150px;
-    }
-  </style>
+    <script src="triton-card.js" type="module"></script>
+  </head>
 
-  <script src="triton-card.js" type="module"></script>
-
-
-</head>
-
- <body>
-  <main>
-  </main>
- </body>
+  <body>
+    <main></main>
+  </body>
 
   <script>
-  const card = document.createElement("triton-card");
-  card.front_image = "card-front.webp";
-  card.back_image = "card-back.png";
-  card.name = "From Html";
-  card.rank = "5";
-  card.type = "yeaa";
-  card.decription =  "des";
-  document.querySelector("main").appendChild(card);
+    const card = document.createElement("triton-card");
+    card.front_image = "card-front.webp";
+    card.back_image = "card-back.png";
+    card.name = "From Html";
+    card.rank = "5";
+    card.type = "yeaa";
+    card.decription = "des";
+    document.querySelector("main").appendChild(card);
   </script>
-
- </html>
+</html>

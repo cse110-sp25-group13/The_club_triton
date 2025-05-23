@@ -2,4 +2,4 @@
 
 bruh
 
-lol *2
+lol \*2
