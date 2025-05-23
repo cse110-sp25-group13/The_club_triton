@@ -26,28 +26,26 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git reset --hard
-          git clean -fd
-          
-          git fetch origin 
-          git switch JSdoc || git switch -c JSdoc
-
-          git pull origin JSdoc --rebase
-          git pull origin develop
+      
           git add docs
           git diff --cached --quiet || git commit -m "Update docs"
-          git push origin JSdoc
+          git push origin develop
+      # git config user.name "github-actions[bot]"
+      # git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # git reset --hard
+      # git clean -fd
+      
+      # git fetch origin 
+      # git switch JSdoc || git switch -c JSdoc
+
+      # git pull origin JSdoc --rebase
+      # git pull origin develop
+      # git add docs
+      # git diff --cached --quiet || git commit -m "Update docs"
+      # git push origin JSdoc
         
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
-      
-      #     git checkout JSdoc
-      #     git pull origin develop  # Ensure it's up to date
-      
-      #     git add docs
-      #     git diff --cached --quiet || git commit -m "Update docs"
-      #     git push origin develop
+          
 
       # - name: Push changes with PAT
       #   env:
