@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="card-style-template.css"> -->
+  </head>
+
+  <body>
+    <!-- template for card element -->
+    <!-- an absolute div soup -->
+    <div class="card">
+      <div class="card-inner">
+        <!-- Card Front -->
+        <div class="card-front">
+          <div class="card-front-background">
+            <img src="card-front.webp" alt="front of the card" />
+          </div>
+          <p class="name">Name of the Card</p>
+          <p class="rank">3</p>
+          <p class="type">structure</p>
+          <p class="description">description!!!</p>
+        </div>
+        <!-- Card Back -->
+        <div class="card-back">
+          <div class="card-back-background">
+            <img src="card-back.png" alt="back of the card" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- tritonCard CSS Start -->
+    <style>
+      /* From w3c */
+      :root {
+        --card-wdith: 150px;
+      }
+      /* The card container - set the width using the variable "--car-width"
+      (remove perspective if you don't want the 3D effect )
+    */
+      .card {
+        background-color: transparent;
+        aspect-ratio: auto 3/4;
+        width: var(--card-wdith);
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+      }
+
+      /* This container is needed to position the front and back side */
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 3px solid cyan; /* change the style of border when needed */
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+
+      /* Do an horizontal flip when you move the mouse over the flip box container */
+      .card:hover .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      /* Position the front and back side */
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+      }
+
+      .card-front-background,
+      .card-back-background {
+        position: absolute;
+        top: 0;
+        img {
+          aspect-ratio: auto 3/4;
+          width: var(--card-wdith);
+          height: calc(var(--card-wdith) * 4 / 3);
+        }
+      }
+      /* Style the front side (also fallback if image is missing) */
+      .card-front {
+        color: red;
+        font-size: 15px;
+
+        .name {
+          position: absolute;
+          top: 1rem;
+          right: 0;
+        }
+        .type {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        .rank {
+          position: absolute;
+          top: 1rem;
+          font-size: 30px;
+        }
+        .description {
+          position: absolute;
+          left: 50px;
+          bottom: 0;
+        }
+      }
+
+      /* Style the back side (same fall back)*/
+      .card-back {
+        background-color: blue;
+        color: red;
+        font-size: 11px;
+        transform: rotateY(180deg);
+      }
+    </style>
+    <!-- tritonCard CSS ends -->
+  </body>
+</html>
