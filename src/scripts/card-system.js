@@ -40,7 +40,7 @@ const initialCardData = [
 // For now, just define it in this file.
 
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
-const DB_NAME = 'UCSDCardsDB';
+const DB_NAME = "UCSDCardsDB";
 const DB_VERSION = 1; // Database version
 const STORE_NAME = 'cards'; // Object store name
 
