@@ -5,84 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Page</title>
     <link rel="stylesheet" href="style.css" media="screen">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a6bb0;
+            padding: 20px 0; /* Top/bottom padding only */
+        }
+
+        .game-container {
+            width: clamp(500px, 95vw, 1050px);
+            height: auto;
+            aspect-ratio: 16/10;
+            background: #a85751;
+            border: 8px solid #2b2118;
+            border-radius: 12px;
+            margin: 20px auto; /* Fixed side margins by default */
+            position: relative; /* For absolute-positioned children */
+            display: grid;
+            grid-template-rows: auto 1fr auto; /* Header, game area, footer */
+            gap: 1em; /* Consistent spacing */
+            padding: 1em; /* Internal padding */
+            font-size: clamp(12px, 1.5vw, 16px); /* Responsive base font size */
+            box-shadow: 
+                0 0 15px rgba(0, 0, 0, 0.5),
+                inset 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .play-table {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            position: absolute;
+            bottom: 0;
+            width: 92.5%;
+            height: 30%; /* Relative to container */
+            padding: 1em; /* Relative unit */    
+            background-color: #f4d1ae;
+            border: 0.5rem solid #2b2118;
+            border-bottom: none;
+            margin-left: 3.75%;
+            margin-right: 3.75%;
+            box-sizing: border-box;
+            box-shadow: 
+                0 0 15px rgba(0, 0, 0, 0.5),
+                inset 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Margin fade-out below 580px */
+        @media (max-width: 580px) {
+            .game-container {
+                margin-left: max(0px, calc(20px - (580px - 100vw) * 0.2));
+                margin-right: max(0px, calc(20px - (580px - 100vw) * 0.2));
+                width: min(clamp(500px, 95vw, 1050px), calc(100vw - 20px));
+            }
+        }
+
+    </style>
 </head>
 <body>
-    <main>
-        <!--Add Cards Here-->
-    </main>
-    <section class = "timer">
-        <div id = "timer">
-            <span>Time</span>
+    <main class = "game-container">
+        <time class = "timer" alt="game countdown"> Time </time>
+        <div class = "play-table" width="500px" height = "500 px">
+            <div class = "prof-deck">
+                <h2 id = "prof-name">Professor</h2>
+                <table>
+                    <tr class= "prof-cards">
+                        <td id = "prof-card-1">Card 1</td>
+                        <td id = "prof-card-2">Card 2</td>
+                        <td id = "prof-card-3">Card 3</td>
+                        <td id = "prof-card-4">Card 4</td>
+                        <td id = "prof-card-5">Card 5</td>
+                    </tr>
+                </table>
+            </div>
+            <div class = "student-deck">
+                <h2 id = "student-name">Student</h2>
+                <table class = "student-cards">
+                    <tr>
+                        <td id = "student-card-1">Card 1</td>
+                        <td id = "student-card-2">Card 2</td>
+                        <td id = "student-card-3">Card 3</td>
+                        <td id = "student-card-4">Card 4</td>
+                        <td id = "student-card-5">Card 5</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <!--Functionality: Timer starts when the game starts and counts down from 60 seconds-->
-        <!--Functionality: Can't be clicked. If player chooses a card, timer disappears and resets-->
-    </section>
-    <section class = "play-table">
-        <section class = "ai-deck">
-            <div id = "ai-name">
-                <span>Professor</span>
+
+        <div class = "card-comparison">
+            <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
+            <section class = "chosen-prof-card">
+                
+            </section>
+            <section class = "chosen-student-card">
+
+            </section>
+        </div>
+        <section class = "won-cards">
+            <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+            <div class = "prof-won-cards">
+                <div id = "prof-monument-card"></div>
+                <div id = "prof-building-card"></div>
+                <div id = "prof-dining-hall-card"></div>
             </div>
-            <table>
-                <tr>
-                    <td class= "ai-card" id = "ai-card-1">Card 1</td>
-                    <td class= "ai-card" id = "ai-card-2">Card 2</td>
-                    <td class= "ai-card" id = "ai-card-3">Card 3</td>
-                    <td class= "ai-card" id = "ai-card-4">Card 4</td>
-                    <td class= "ai-card" id = "ai-card-5">Card 5</td>
-                </tr>
-            </table>
-        </section>
-        <section class = "player-deck">
-            <div id = "player-name">
-                <span>Student</span>
+
+            <div class = "student-won-cards">
+                <div id = "student-monument-card"></div>
+                <div id = "student-building-card"></div>
+                <div id = "student-dining-hall-card"></div>
             </div>
-            <table class = "player-cards">
-                <tr >
-                    <td class= "player-card" id = "player-card-1">Card 1</td>
-                    <td class= "player-card" id = "player-card-2">Card 2</td>
-                    <td class= "player-card" id = "player-card-3">Card 3</td>
-                    <td class= "player-card" id = "player-card-4">Card 4</td>
-                    <td class= "player-card" id = "player-card-5">Card 5</td>
-                </tr>
-            </table>
         </section>
-    </section>
-    <section class = "card-comparison">
-        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-        AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-        <section class = "chosen-ai-card">
+
+        <section id = "rules-dropdown">
 
         </section>
-        <section class = "chosen-player-card">
+        
+        <button id = "exit-btn">
+            <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
+            <a href="game-lobby.html" title="return to lobby"></a>
+        </button>
 
-        </section>
-    </section>
-    <section class = "won-cards">
-        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-        <section class = "ai-won-cards">
-            <div id = "water-card"></div>
-                <span>water card slot</span>
-            <div id = "fire-card"></div>
-                <span>fire card slot</span>
-            <div id = "snow-card"></div>
-                <span>snow card slot</span>
-        </section>
-        <section class = "player-won-cards">
-            <div id = "water-card"></div>
-                <span>water card slot</span>
-            <div id = "fire-card"></div>
-                <span>fire card slot</span>
-            <div id = "snow-card"></div>
-                <span>snow card slot</span>
-        </section>
-    </section>
-    <section id = "rules-dropdown">
-
-    </section>
-    <button id = "exit-btn">
-        <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-        <a href="game-lobby.html" title="return to lobby"></a>
-    </button>
+    </main>
+    <script>
+    </script>
     <footer class="copyright-info"></footer>
-</body>
 </html>
