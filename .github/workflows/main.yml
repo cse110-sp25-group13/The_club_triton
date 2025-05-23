@@ -30,6 +30,7 @@ jobs:
           git fetch origin
           git switch JSdoc || git switch -c JSdoc
 
+          git pull
           git add docs
           git diff --cached --quiet || git commit -m "Update docs"
           git push origin JSdoc
