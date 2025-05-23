@@ -64,12 +64,12 @@ td {
     display: flex;
     gap: 0.5em;
 }
-.prof-won-cards > div, .student-won-cards > div {
+/* .prof-won-cards > div, .student-won-cards > div {
     width: 60px;
     aspect-ratio: 3/4;
     background: #fff;
     border-radius: 5px;
-}
+} */
 
 /* Buttons and footer */
 #exit-btn {
