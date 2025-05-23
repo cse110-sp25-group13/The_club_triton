@@ -26,20 +26,30 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-      
-          git checkout develop
-          git pull origin develop  # Ensure it's up to date
-      
+          
+          git fetch origin
+          git switch JSdoc || git switch -c JSdoc
+
           git add docs
           git diff --cached --quiet || git commit -m "Update docs"
-          git push origin develop
+          git push origin JSdoc
+        
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      #     git checkout JSdoc
+      #     git pull origin develop  # Ensure it's up to date
+      
+      #     git add docs
+      #     git diff --cached --quiet || git commit -m "Update docs"
+      #     git push origin develop
 
-      - name: Push changes with PAT
-        env:
-          PAT: ${{ secrets.GH_PAT }}
-        run: |
-          git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}.git
-          git push origin HEAD:develop
+      # - name: Push changes with PAT
+      #   env:
+      #     PAT: ${{ secrets.GH_PAT }}
+      #   run: |
+      #     git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}.git
+      #     git push origin HEAD:develop
 
   validate-html:
     name: Validate HTML
