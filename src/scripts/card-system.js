@@ -114,7 +114,7 @@ initDB();
 
 
 /**
- * Get all card data from the 'cards' object store in IndexedDB
+ * Get all card data from the 'cards' object store in IndexedDB.
  * @returns {Promise<Array<Object>>} A Promise that resolves to an array of all card objects
  */
 function getAllCards() {
