@@ -47,8 +47,7 @@ const STORE_NAME = 'cards'; // Object store name
 /**
  * Initialize the IndexedDB database.
  * If the database or object store does not exist, create them and populate with initial data.
-=======
- * @returns {Promise<Array<Object>>}
+ * @returns {Promise<IDBDatabase>}
  */
 function initDB() {
   return new Promise((resolve, reject) => {
@@ -265,3 +264,4 @@ initDB().then(() => {
 }).catch(error => {
   console.error('DB initialization failed, cannot run read tests:', error);
 });
+
