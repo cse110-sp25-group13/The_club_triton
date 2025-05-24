@@ -1,29 +1,94 @@
 <!doctype html>
 <html>
   <head>
-    <title>card demo</title>
+    <title>TritonCard Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Ensure TYPE_COLORS is accessible here or within triton-card.js -->
+    <script src="triton-card.js" type="module"></script>
+    <!-- If you need to fetch data from IndexedDB, also include card-system.js -->
+    <!-- <script src="../scripts/card-system.js" defer></script> -->
     <style>
+      body {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+      }
+      /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */
       :root {
-        --card-wdith: 150px;
+        --card-wdith: 150px; /* You can adjust this value to see card size changes */
       }
     </style>
-
-    <script src="triton-card.js" type="module"></script>
   </head>
-
   <body>
-    <main></main>
-  </body>
+    <h1>TritonCard Component Test</h1>
+    <div id="card-container">
+      <!-- Cards will be dynamically added here -->
+    </div>
 
-  <script>
-    const card = document.createElement("triton-card");
-    card.front_image = "card-front.webp";
-    card.back_image = "card-back.png";
-    card.name = "From Html";
-    card.rank = "5";
-    card.type = "yeaa";
-    card.decription = "des";
-    document.querySelector("main").appendChild(card);
-  </script>
+    <script type="module">
+      // Ensure the TritonCard class and TYPE_COLORS are defined and accessible.
+      // If TYPE_COLORS is defined outside triton-card.js, ensure this script can access it.
+      // If TYPE_COLORS is a static property within the TritonCard class, no need to redefine it here.
+
+      // Test data (can be taken from initialCardData or created manually)
+      const cardDataForTest = [
+        {
+          name: "Geisel Library (Test)",
+          type: "Structure",
+          rank: 5,
+          rarity: 4,
+          front_image_placeholder: "../card/card-front.webp", // Example path, ensure image exists or use a real placeholder
+          back_image_placeholder: "path/to/placeholder_back.png",
+          description: "Iconic library building.",
+        },
+        {
+          name: "Price Center (Test)",
+          type: "Dining",
+          rank: 4,
+          rarity: 3,
+          front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
+          back_image_placeholder: "path/to/placeholder_back.png",
+          description: "Hub for food and student orgs.",
+        },
+        {
+          name: "King Triton (Test)",
+          type: "Mascot",
+          rank: 5,
+          rarity: 5,
+          front_image_placeholder: "../card/card-front.webp",
+          back_image_placeholder: "path/to/placeholder_back.png",
+          description: "Our beloved mascot!",
+        },
+        {
+          name: "Unknown Type Card", // To test the default border color
+          type: "Mystery", // A type not defined in TYPE_COLORS
+          rank: 1,
+          rarity: 1,
+          front_image_placeholder: "../card/card-front.webp",
+          back_image_placeholder: "path/to/placeholder_back.png",
+          description: "A mysterious card.",
+        },
+      ];
+
+      const container = document.getElementById("card-container");
+
+      cardDataForTest.forEach((data) => {
+        const cardElement = document.createElement("triton-card"); // Create an instance of the component
+
+        // Set properties via setters
+        cardElement.name = data.name;
+        cardElement.type = data.type; // <<< This should trigger border color change
+        cardElement.rank = data.rank;
+        cardElement.rarity = data.rarity; // <<< This should trigger rarity display
+        if (data.front_image_placeholder)
+          cardElement.front_image = data.front_image_placeholder;
+        if (data.back_image_placeholder)
+          cardElement.back_image = data.back_image_placeholder;
+        cardElement.description = data.description;
+
+        container.appendChild(cardElement); // Add the card to the page
+      });
+    </script>
+  </body>
 </html>
