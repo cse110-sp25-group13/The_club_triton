@@ -53,10 +53,10 @@ class TritonCard extends HTMLElement {
     div.innerHTML = `
     <div class="card-inner">
       <div class="card-front">
+        <img id = "img-card-front"  alt="Image of the card">
         <div class="card-front-background">
           <img id='img-card-border' src="default_card_border_path"  alt="Card border">
         </div>
-        <img id = "img-card-front"  alt="Image of the card">
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
@@ -84,7 +84,7 @@ class TritonCard extends HTMLElement {
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
-        width: var(--card-wdith);
+        width: var(--card-width);
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
       }
 
@@ -120,7 +120,7 @@ class TritonCard extends HTMLElement {
         top: 0;
         img {
           aspect-ratio: auto 3/4;
-          width: var(--card-wdith);
+          width: var(--card-width);
           height: var(--card-height);
         }
       }
@@ -129,12 +129,8 @@ class TritonCard extends HTMLElement {
         color: black;
 
         #img-card-front{
-          position: absolute;
-          width: calc(var(--card-wdith) * 0.87);
-          height: calc(var(--card-wdith) * 0.52);
-          top: 10%;
-          left: 6%;
-          /* height: var(--card-height); */
+          width: var(--card-image-width);
+          height: var(--card-image-height);
         };
 
         .name {

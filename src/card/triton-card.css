@@ -1,0 +1,14 @@
+/* It is the variable for triton cards 
+  import/copy the following code when using <triton-card> */
+
+  :root {
+  /*define the card width*/
+  --card-width: 300px; 
+  /* card-height is calculated based on width, 3/ 4 ratio */
+  --card-height: calc(var(--card-width) * 4 / 3);
+  /* card-image, the face of the card dimension */
+  --card-image-width: calc(var(--card-width));
+  --card-image-height: calc(var(--card-width));
+  /*  */
+  --card-font-size : 1em;
+}

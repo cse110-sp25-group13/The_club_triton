@@ -13,10 +13,10 @@
       <div class="card-inner">
         <!-- Card Front -->
         <div class="card-front">
+          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
           <div class="card-front-background">
             <img id="img-card-border" src="./assets/default-card-base.png" alt="Card border">
           </div>
-          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
           <p class="name">Name of the Card</p>
           <p class="rank">3</p>
           <p class="type">structure</p>
@@ -33,7 +33,20 @@
     <!-- tritonCard CSS Start -->
     <style>
       /* From w3c */
+      :root {
+      /*define the card width*/
+      --card-width: 300px; 
+      /* card-height is calculated based on width, 3/ 4 ratio */
+      --card-height: calc(var(--card-width) * 4 / 3);
+      /* card-image, the face of the card dimension */
+      --card-image-width: calc(var(--card-width));
+      --card-image-height: calc(var(--card-width) * 4/ 3 );
+      /*  */
+      --card-font-size : 1em;
+      background-color: pink;
+    }
       @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
 
       .card {
         font-family: "Source Sans 3", sans-serif;
@@ -44,22 +57,22 @@
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
-        width: var(--card-wdith);
+        width: var(--card-width);
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
       }
 
       /* This container is needed to position the front and back side */
       .card-inner {
-        position: relative;
+        position: absolute;
         width: 100%;
         height: 100%;
-        border: 3px solid cyan; /* change the style of border when needed */
+        border: 3px solid cyan; 
+        /* change the style of border when needed */
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
       }
 
-      /* Remeber to remove this and make a function to flip the card... */
       /* Do an horizontal flip when you move the mouse over the flip box container */
       .card:hover .card-inner {
         transform: rotateY(180deg);
@@ -81,7 +94,7 @@
         top: 0;
         img {
           aspect-ratio: auto 3/4;
-          width: var(--card-wdith);
+          width: var(--card-width);
           height: var(--card-height);
         }
       }
@@ -90,12 +103,8 @@
         color: red;
 
         #img-card-front{
-          position: absolute;
-          width: calc(var(--card-wdith) * 0.87);
-          height: calc(var(--card-wdith) * 0.52);
-          top: 10%;
-          left: 6%;
-          /* height: var(--card-height); */
+          width: var(--card-image-width);
+          height: var(--card-image-height); 
         };
 
         .name {
@@ -119,6 +128,15 @@
           left: 10%;
           bottom: 24%;
         };
+      }
+
+      /* Style the back side (same fall back)*/
+      .card-back {
+        background-color: blue;
+        color: red;
+        font-size: 11px;
+        transform: rotateY(180deg);
+      };
     </style>
     <!-- tritonCard CSS ends -->
   </body>
