@@ -8,7 +8,6 @@ const initialCardData = [
     "front_image_placeholder": "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
     "back_image_placeholder": "assets/images/placeholders/geisel_back.png",
     "description": "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
-    "border_color_code": "#003A70" // Confirm Structure type color
   },
   {
     "id": "dining001",
@@ -19,7 +18,6 @@ const initialCardData = [
     "front_image_placeholder": "assets/images/placeholders/pc_food_front.png",
     "back_image_placeholder": "assets/images/placeholders/pc_food_back.png",
     "description": "A place for every craving, and every student.",
-    "border_color_code": "#FFCD00" // Confirm Dining type color
   },
   {
     "id": "mascot001",
@@ -30,7 +28,6 @@ const initialCardData = [
     "front_image_placeholder": "assets/images/placeholders/triton_front.png",
     "back_image_placeholder": "assets/images/placeholders/triton_back.png",
     "description": "The mighty ruler of the Tritons.",
-    "border_color_code": "#006A4E" // Confirm Mascot type color
   }
   // Continue to add more cards as required (5 per type, 15 total)...
 ];
@@ -216,6 +213,13 @@ function getCardById(cardId) {
     };
   });
 }
+
+
+
+
+
+
+
 
 // After ensuring initDB() is complete, try in the console:
 
