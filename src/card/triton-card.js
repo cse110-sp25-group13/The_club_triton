@@ -99,7 +99,7 @@ class TritonCard extends HTMLElement {
         transform-style: preserve-3d;
       }
 
-      /* Do an horizontal flip when you move the mouse over the flip box container */
+      /* Do an horizontal flip when you move the mouse over the flip box container*/
       .card:hover .card-inner {
         transform: rotateY(180deg);
       }
@@ -126,7 +126,7 @@ class TritonCard extends HTMLElement {
       }
       /* Style the front side (also fallback if image is missing) */
       .card-front {
-        color: red;
+        color: black;
 
         #img-card-front{
           position: absolute;
@@ -140,18 +140,18 @@ class TritonCard extends HTMLElement {
         .name {
           position: absolute;
           top: 0%;
-          right: 10%;
+          right: 5%;
         };
         .type {
           position: absolute;
-          top: -1%;
-          left: 1%;
+          top: 1.5%;
+          left: 12.5%;
         };
         .rank {
           position: absolute;
-          bottom: 20%;
+          bottom: 25%;
           left: 10%;
-          font-size: 50px;
+          font-size: 40px;
         };
         .description {
           position: absolute;
