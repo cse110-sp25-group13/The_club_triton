@@ -63,7 +63,12 @@
     "front_image_placeholder": "assets/images/placeholders/fallen_star_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Is it a house? Is it art? It's Fallen Star! This tilted cabin atop Jacobs Hall is a must-see Stuart Collection piece.",
-    "keywords": ["art installation", "Stuart Collection", "Jacobs Hall", "unique"]
+    "keywords": [
+      "art installation",
+      "Stuart Collection",
+      "Jacobs Hall",
+      "unique"
+    ]
   },
   {
     "id": "structure_007",
@@ -85,7 +90,13 @@
     "front_image_placeholder": "assets/images/placeholders/sun_god_statue_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "The vibrant Niki de Saint Phalle sculpture that inspired UCSD's legendary annual music festival. A colorful campus icon!",
-    "keywords": ["art", "sculpture", "festival namesake", "landmark", "Stuart Collection"]
+    "keywords": [
+      "art",
+      "sculpture",
+      "festival namesake",
+      "landmark",
+      "Stuart Collection"
+    ]
   },
   {
     "id": "structure_009",
@@ -141,13 +152,19 @@
     "front_image_placeholder": "assets/images/placeholders/64_degrees_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Revelle's beloved dining hall with a modern aesthetic, offering everything from burgers and milkshakes to tacos and New York steak.",
-    "keywords": ["Revelle College", "burgers", "milkshakes", "variety", "late night"]
+    "keywords": [
+      "Revelle College",
+      "burgers",
+      "milkshakes",
+      "variety",
+      "late night"
+    ]
   },
   {
     "id": "dining_004",
     "name": "Cafe Ventanas (ERC)",
     "type": "Dining",
-    "ranking": 4, 
+    "ranking": 4,
     "rarity": 3,
     "front_image_placeholder": "assets/images/placeholders/cafe_ventanas_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
@@ -207,7 +224,13 @@
     "front_image_placeholder": "assets/images/placeholders/croutons_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Found in the Student Services Center, offering fresh salads, soups, and paninis for a healthier quick meal.",
-    "keywords": ["Student Services Center", "salad", "soup", "panini", "healthy"]
+    "keywords": [
+      "Student Services Center",
+      "salad",
+      "soup",
+      "panini",
+      "healthy"
+    ]
   },
   {
     "id": "dining_010",
@@ -218,7 +241,13 @@
     "front_image_placeholder": "assets/images/placeholders/food_coop_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A student-run cooperative offering affordable, often organic or vegetarian/vegan food options near the Che Cafe.",
-    "keywords": ["student-run", "cooperative", "vegetarian", "vegan", "affordable"]
+    "keywords": [
+      "student-run",
+      "cooperative",
+      "vegetarian",
+      "vegan",
+      "affordable"
+    ]
   },
 
   {
@@ -230,7 +259,12 @@
     "front_image_placeholder": "assets/images/placeholders/village_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Modern apartment-style living for transfer and upper-division students, known for its community and amenities.",
-    "keywords": ["apartments", "transfer students", "upper-division", "community"]
+    "keywords": [
+      "apartments",
+      "transfer students",
+      "upper-division",
+      "community"
+    ]
   },
   {
     "id": "living_002",
@@ -329,6 +363,11 @@
     "front_image_placeholder": "assets/images/placeholders/ihouse_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A vibrant residential community for both international and U.S. students, fostering cross-cultural exchange and global understanding.",
-    "keywords": ["international students", "cultural exchange", "global community", "ERC adjacent"]
+    "keywords": [
+      "international students",
+      "cultural exchange",
+      "global community",
+      "ERC adjacent"
+    ]
   }
 ]
