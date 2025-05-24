@@ -34,6 +34,7 @@ class TritonCard extends HTMLElement {
   //should never use default anyway
   static default_card_border_path = "./assets/default-card-base.png"; // Update this element to have a different default border
   #card;
+  
   /**
    * Create an empty card.
    * @param {void} none
@@ -50,6 +51,11 @@ class TritonCard extends HTMLElement {
 
     // HTML
     div.classList.add("card");
+    // Responsible for flipping the card
+    div.classList.add("card-flipped");
+    // initially do not flip the card
+    div.classList.toggle('card-flipped');
+
     div.innerHTML = `
     <div class="card-inner">
       <div class="card-front">
@@ -99,11 +105,13 @@ class TritonCard extends HTMLElement {
         transform-style: preserve-3d;
       }
 
-      // No more hover flip...
-      // /* Do an horizontal flip when you move the mouse over the flip box container*/
-      // .card:hover .card-inner {
-      //   transform: rotateY(180deg);
-      // }
+      /* Do an horizontal flip when the card is flipped*/
+      .card.card-flipped .card-inner {
+        transform: rotateY(180deg);
+        .rarity, .name, .rank, .type, .description{
+          display: none;
+        }
+      }
 
       /* Position the front and back side */
       .card-front,
@@ -200,6 +208,10 @@ class TritonCard extends HTMLElement {
     this.#card = div;
   }
 
+
+  flip() {
+    this.#card.classList.toggle('card-flipped');
+  }
   /**
    * Set the card-front background image.
    * @param {string} src - The source URL of the image.

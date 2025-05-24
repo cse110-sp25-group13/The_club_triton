@@ -15,11 +15,20 @@
   </head>
   <body>
     <h1>TritonCard Component Test</h1>
+    <button id="flip-btn">flip all cards</button>
     <div id="card-container">
       <!-- Cards will be dynamically added here -->
     </div>
 
     <script type="module">
+      // FLIP FUNCTION DEMO
+      const btn = document.getElementById("flip-btn");
+      function flip_all(card_container){
+        const cards = card_container.querySelectorAll("triton-card");
+        cards.forEach(card => {
+          card.flip();
+        });
+      }
       // Ensure the TritonCard class and TYPE_COLORS are defined and accessible.
       // If TYPE_COLORS is defined outside triton-card.js, ensure this script can access it.
       // If TYPE_COLORS is a static property within the TritonCard class, no need to redefine it here.
@@ -65,6 +74,7 @@
       ];
 
       const container = document.getElementById('card-container');
+      btn.addEventListener("click", ()=>flip_all(container));
 
       cardDataForTest.forEach(data => {
         const cardElement = document.createElement('triton-card'); // Create an instance of the component
