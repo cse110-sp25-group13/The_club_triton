@@ -208,7 +208,11 @@ class TritonCard extends HTMLElement {
     this.#card = div;
   }
 
-
+  /**
+   * flip the card.
+   * @param {void} 
+   * @return {void}
+   */
   flip() {
     this.#card.classList.toggle('card-flipped');
   }
