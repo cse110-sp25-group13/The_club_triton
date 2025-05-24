@@ -3,11 +3,11 @@
  * @const {Map<string,string>}
  */
 const TYPE_COLORS = {
-  'structure': '#003A70', // Dark blue
-  'dining': '#FFCD00',    // Yellow
-  'mascot': '#006A4E',    // Dark green
-  'living': '#C0C0C0',    // Gray
-  'default': '#CCCCCC'    // A default gray border in case the type does not match
+  structure: "#003A70", // Dark blue
+  dining: "#FFCD00", // Yellow
+  mascot: "#006A4E", // Dark green
+  living: "#C0C0C0", // Gray
+  default: "#CCCCCC", // A default gray border in case the type does not match
 };
 
 /**
@@ -222,8 +222,9 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-    const img = this.#card.querySelector("#img-card-front");
-    if(img) img.src = src;
+
+    const img = this.#card.querySelector(".card-front-background > img");
+    if (img) img.src = src;
   }
 
   /**
@@ -233,7 +234,7 @@ class TritonCard extends HTMLElement {
    */
   set back_image(src) {
     const img = this.#card.querySelector(".card-back-background > img");
-    if(img) img.src = src;
+    if (img) img.src = src;
   }
 
   /**
@@ -243,7 +244,7 @@ class TritonCard extends HTMLElement {
    */
   set name(name) {
     const el = this.#card.querySelector(".name");
-    if(el) el.textContent = name;
+    if (el) el.textContent = name;
   }
 
   /**
@@ -253,7 +254,7 @@ class TritonCard extends HTMLElement {
    */
   set rank(rank) {
     const el = this.#card.querySelector(".rank");
-    if(el) el.textContent = rank;
+    if (el) el.textContent = rank;
   }
 
   /**
@@ -267,12 +268,13 @@ class TritonCard extends HTMLElement {
       typeElement.textContent = typeValue;
     }
 
-    const cardInner = this.#card.querySelector('.card-inner');
+    const cardInner = this.#card.querySelector(".card-inner");
     if (cardInner) {
       const border = this.#card.querySelector("#img-card-border");
       const normalizedType = typeValue ? typeValue.toLowerCase() : 'default';
       const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS['default'];
       const borderPath = TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+
       cardInner.style.borderColor = borderColor;
       border.src = borderPath;
     }
@@ -285,7 +287,7 @@ class TritonCard extends HTMLElement {
    */
   set description(des) {
     const el = this.#card.querySelector(".description");
-    if(el) el.textContent = des;
+    if (el) el.textContent = des;
   }
 
   /**

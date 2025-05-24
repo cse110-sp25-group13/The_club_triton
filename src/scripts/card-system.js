@@ -1,95 +1,238 @@
-const initialCardData = [
-  {
-    "id": "structure001", // Suggest ID reflects type and uniqueness
-    "name": "Geisel Library",
-    "type": "Structure", // Ensure consistent type naming
-    "ranking": 5,
-    "rarity": 4,
-    "front_image_placeholder": "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
-    "back_image_placeholder": "assets/images/placeholders/geisel_back.png",
-    "description": "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
-  },
-  {
-    "id": "dining001",
-    "name": "Price Center Food Court",
-    "type": "Dining",
-    "ranking": 4,
-    "rarity": 3,
-    "front_image_placeholder": "assets/images/placeholders/pc_food_front.png",
-    "back_image_placeholder": "assets/images/placeholders/pc_food_back.png",
-    "description": "A place for every craving, and every student.",
-  },
-  {
-    "id": "mascot001",
-    "name": "King Triton",
-    "type": "Mascot", 
-    "ranking": 5, // Mascot ranking may have a different meaning, or not used for direct comparison
-    "rarity": 5,
-    "front_image_placeholder": "assets/images/placeholders/triton_front.png",
-    "back_image_placeholder": "assets/images/placeholders/triton_back.png",
-    "description": "The mighty ruler of the Tritons.",
-  }
-  // Continue to add more cards as required (5 per type, 15 total)...
-];
+// Congratulations, you are retired, buddy.
+// Get a life, don't study CS in your next life.
+// const initialCardData = [
+//   {
+//     id: "structure001", // Suggest ID reflects type and uniqueness
+//     name: "Geisel Library",
+//     type: "Structure", // Ensure consistent type naming
+//     ranking: 5,
+//     rarity: 4,
+//     front_image_placeholder: "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
+//     back_image_placeholder: "assets/images/placeholders/geisel_back.png",
+//     description: "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
+//   },
+//   {
+//     id: "dining001",
+//     name: "Price Center Food Court",
+//     type: "Dining",
+//     ranking: 4,
+//     rarity: 3,
+//     front_image_placeholder: "assets/images/placeholders/pc_food_front.png",
+//     back_image_placeholder: "assets/images/placeholders/pc_food_back.png",
+//     description: "A place for every craving, and every student.",
+//   },
+//   {
+//     id: "mascot001",
+//     name: "King Triton",
+//     type: "Mascot",
+//     ranking: 5, // Mascot ranking may have a different meaning, or not used for direct comparison
+//     rarity: 5,
+//     front_image_placeholder: "assets/images/placeholders/triton_front.png",
+//     back_image_placeholder: "assets/images/placeholders/triton_back.png",
+//     description: "The mighty ruler of the Tritons.",
+//   },
+//   // Continue to add more cards as required (5 per type, 15 total)...
+// ];
 
 // export default initialCardData; // If using ES modules
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
+let initPromise = null; // Singleton pattern to ensure only one initialization happens
 const DB_NAME = "UCSDCardsDB";
 const DB_VERSION = 1; // Database version
 const STORE_NAME = "cards"; // Object store name
 
 /**
+ * Asynchronously fetch card data from the specified JSON file path.
+ * @param {string} jsonFilePath - The path to the JSON file.
+ * @returns {Promise<Array<Object>>} A Promise that resolves to an array of card objects.
+ */
+async function fetchCardDataFromJson(jsonFilePath) {
+  try {
+    const response = await fetch(jsonFilePath);
+    if (!response.ok) {
+      // If HTTP status code is not 2xx (e.g., 404 Not Found, 500 Server Error)
+      throw new Error(
+        `Network response was not ok: ${response.status} ${response.statusText}`,
+      );
+    }
+    const jsonData = await response.json(); // Parse JSON response body
+    console.log(
+      `Successfully fetched and parsed card data from ${jsonFilePath}`,
+    );
+    return jsonData;
+  } catch (error) {
+    console.error(
+      `Failed to fetch or parse card data from ${jsonFilePath}:`,
+      error,
+    );
+    throw error; // Re-throw error for caller to handle
+  }
+}
+
+/**
+ * Check if the 'cards' object store is empty, and if so, load and populate data from JSON file.
+ * @param {IDBDatabase} databaseInstance - The opened database instance.
+ * @returns {Promise<void>}
+ */
+function populateDataIfEmpty(databaseInstance) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        // 1. Start a readonly transaction to check data count
+        const checkTransaction = databaseInstance.transaction(
+          [STORE_NAME],
+          "readonly",
+        );
+        const objectStoreForCheck = checkTransaction.objectStore(STORE_NAME);
+        const countRequest = objectStoreForCheck.count();
+
+        // Handle the async nature of countRequest using its callbacks
+        countRequest.onsuccess = async () => {
+          const cardCount = countRequest.result;
+          console.log(`Current card count in store: ${cardCount}`);
+
+          if (cardCount === 0) {
+            console.log(
+              "Card store is empty, attempting to populate from JSON...",
+            );
+            try {
+              const cardsToLoad = await fetchCardDataFromJson(
+                "../card-data/cards.json",
+              );
+
+              if (cardsToLoad && cardsToLoad.length > 0) {
+                // 2. Start a new readwrite transaction to populate data
+                const populateTransaction = databaseInstance.transaction(
+                  [STORE_NAME],
+                  "readwrite",
+                );
+                const objectStoreForPopulate =
+                  populateTransaction.objectStore(STORE_NAME);
+
+                console.log(
+                  `Populating object store with ${cardsToLoad.length} cards from JSON...`,
+                );
+
+                const addPromises = cardsToLoad.map((card) => {
+                  return new Promise((addResolve, addReject) => {
+                    const addRequest = objectStoreForPopulate.add(card);
+                    addRequest.onsuccess = () => {
+                      console.log(`Card "${card.name}" added from JSON.`);
+                      addResolve();
+                    };
+                    addRequest.onerror = (errEvent) => {
+                      console.error(
+                        `Error adding card "${card.name}" from JSON:`,
+                        errEvent.target.error,
+                      );
+                      addReject(errEvent.target.error);
+                    };
+                  });
+                });
+
+                await Promise.all(addPromises);
+                console.log(
+                  "All initial cards successfully added to the object store from JSON.",
+                );
+
+                populateTransaction.oncomplete = () => {
+                  console.log("Data population transaction completed.");
+                  resolve(); // Main Promise resolve
+                };
+                populateTransaction.onerror = (event) => {
+                  console.error(
+                    "Data population transaction error:",
+                    event.target.error,
+                  );
+                  reject(event.target.error); // Main Promise reject
+                };
+              } else {
+                console.log(
+                  "No card data found in JSON file or JSON was empty.",
+                );
+                resolve(); // JSON is empty, still considered complete
+              }
+            } catch (fetchError) {
+              console.error(
+                "Error fetching/populating data in populateDataIfEmpty:",
+                fetchError,
+              );
+              reject(fetchError); // Main Promise reject
+            }
+          } else {
+            console.log("Card store is not empty, no need to populate.");
+            resolve(); // No need to populate, directly complete
+          }
+        };
+
+        countRequest.onerror = (event) => {
+          console.error("Error counting cards:", event.target.error);
+          reject(event.target.error); // Main Promise reject
+        };
+      } catch (transactionError) {
+        console.error(
+          "Error starting transaction in populateDataIfEmpty:",
+          transactionError,
+        );
+        reject(transactionError); // Main Promise reject
+      }
+    })(); // Immediately execute this IIFE
+  });
+}
+
+/**
  * Initialize the IndexedDB database.
+ * Uses singleton pattern to ensure only one initialization happens.
  * If the database or object store does not exist, create them and populate with initial data.
  * @returns {Promise<IDBDatabase>}
  */
 function initDB() {
-  return new Promise((resolve, reject) => {
+  if (initPromise) {
+    // If already initializing or completed, return the existing Promise
+    return initPromise;
+  }
+
+  initPromise = new Promise((resolve, reject) => {
     // 1. Open the database
     const request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
     // Triggered when the database is successfully opened
-    request.onsuccess = (event) => {
+    request.onsuccess = async (event) => {
+      // Mark callback as async
       db = event.target.result; // Save the database instance to the global variable
       console.log(
         `Successfully opened database: ${DB_NAME} version ${db.version}`,
       );
-      resolve(db); // Return the database instance
+
+      try {
+        // After database opens successfully, check and populate data if needed
+        await populateDataIfEmpty(db);
+        console.log(
+          "Database initialization and data population check complete.",
+        );
+        resolve(db); // Resolve after all operations complete
+      } catch (populateError) {
+        console.error("Error during populateDataIfEmpty:", populateError);
+        // If populateDataIfEmpty fails, the initDB Promise should also reject
+        reject(populateError);
+      }
     };
 
     // Triggered when a higher version is requested or the database is created for the first time
     request.onupgradeneeded = (event) => {
-      db = event.target.result;
+      const currentDb = event.target.result; // Use local variable instead of global
       console.log(`Upgrade needed or database creation for: ${DB_NAME}`);
 
-      // 2. Create object store if it doesn't exist
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        // Use 'id' property as the primary key (keyPath)
-        const objectStore = db.createObjectStore(STORE_NAME, { keyPath: "id" });
+      // Create object store if it doesn't exist
+      if (!currentDb.objectStoreNames.contains(STORE_NAME)) {
+        // Use 'id' property as the primary key (keyPath) - call directly without assignment
+        currentDb.createObjectStore(STORE_NAME, { keyPath: "id" });
         console.log(`Object store "${STORE_NAME}" created.`);
 
-        // (Optional) Create indexes for other properties if you need to query by them
-        // objectStore.createIndex('name', 'name', { unique: false });
-        // objectStore.createIndex('type', 'type', { unique: false });
-        // console.log('Indexes created for "name" and "type".');
-
-        // 3. Populate object store with initial data
-        // This should only run when the object store is first created
-        console.log("Populating object store with initial data...");
-        initialCardData.forEach((card) => {
-          // onupgradeneeded event automatically handles the transaction, so we can operate on objectStore directly
-          const addRequest = objectStore.add(card);
-          addRequest.onsuccess = () =>
-            console.log(`Card "${card.name}" added.`);
-          addRequest.onerror = (errEvent) =>
-            console.error(
-              `Error adding card "${card.name}":`,
-              errEvent.target.error,
-            );
-        });
+        // Data population will be handled separately after database opens successfully
       }
     };
 
@@ -99,6 +242,8 @@ function initDB() {
       reject(event.target.errorCode);
     };
   });
+
+  return initPromise;
 }
 
 // Call this function on app startup to initialize the database
@@ -228,13 +373,6 @@ function getCardById(cardId) {
   });
 }
 
-
-
-
-
-
-
-
 // After ensuring initDB() is complete, try in the console:
 
 // 1. Call initDB and wait for it to finish
@@ -253,9 +391,9 @@ initDB()
       });
 
     // Test getCardById() - assuming you have a card with id 'structure001'
-    getCardById("structure001")
+    getCardById("structure_001")
       .then((card) => {
-        console.log("--- Card by ID (structure001) ---");
+        console.log("--- Card by ID (structure_001) ---");
         if (card) {
           console.log(card);
         } else {
