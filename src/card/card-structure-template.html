@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- This template is for testing purpose only
+ The latest version, styling is in triton-card.js  
+  -->
 <html>
   <head>
     <title>card</title>
@@ -7,20 +10,29 @@
   </head>
 
   <body>
-    <!-- template for card element -->
-    <!-- an absolute div soup -->
+    <!-- template for card element 
+      an absolute div soup 
+    -->
     <div class="card">
       <div class="card-inner">
         <!-- Card Front -->
         <div class="card-front">
-          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
           <div class="card-front-background">
             <img id="img-card-border" src="./assets/default-card-base.png" alt="Card border">
           </div>
+          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
           <p class="name">Name of the Card</p>
           <p class="rank">3</p>
           <p class="type">structure</p>
-          <p class="description">description!!!</p>
+          <p class="description">1aaaaaaaaaaaaaaaaaaaaaaaaa!
+          2aaaaaaaaaaaaaaaaaaaaaaaaa!
+          3aaaaaaaaaaaaaaaaaaaaaaaaa!
+          4aaaaaaaaaaaaaaaaaaaaaaaaa!
+          5aaaaaaaaaaaaaaaaaaaaaaaaa!
+          6aaaaaaaaaaaaaaaaaaaaaaaaa!
+          7aaaaaaaaaaaaaaaaaaaaaaaaa!
+          8aaaaaaaaaaaaaaaaaaaaaaaaa!
+    </p>
         </div>
         <!-- Card Back -->
         <div class="card-back">
@@ -35,14 +47,13 @@
       /* From w3c */
       :root {
       /*define the card width*/
-      --card-width: 300px; 
+      --card-width: 444px; 
       /* card-height is calculated based on width, 3/ 4 ratio */
       --card-height: calc(var(--card-width) * 4 / 3);
-      /* card-image, the face of the card dimension */
+      /* card-image, font size scale with card-width */
       --card-image-width: calc(var(--card-width));
       --card-image-height: calc(var(--card-width) * 4/ 3 );
-      /*  */
-      --card-font-size : 1em;
+      --card-font-size : calc(var(--card-width) * 4/90);
       background-color: pink;
     }
       @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
@@ -53,12 +64,14 @@
         font-optical-sizing: auto;
         font-weight: 800;
         font-style: oblique;
-
         font-size: var(--card-font-size);
+
         background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-width);
+        /* height: var(--card-height); */
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
+      
       }
 
       /* This container is needed to position the front and back side */
@@ -66,7 +79,6 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        border: 3px solid cyan; 
         /* change the style of border when needed */
         text-align: center;
         transition: transform 0.8s;
@@ -76,6 +88,10 @@
       /* Do an horizontal flip when you move the mouse over the flip box container */
       .card:hover .card-inner {
         transform: rotateY(180deg);
+        .name, .rank, .type, .description{
+          z-index: 0;
+        }
+
       }
 
       /* Position the front and back side */
@@ -105,28 +121,56 @@
         #img-card-front{
           width: var(--card-image-width);
           height: var(--card-image-height); 
-        };
+          z-index: 0;
+        }
 
-        .name {
+        #img-card-border{
+          z-index: -1;
+        }
+
+        .name, .rank, .type, .description {
           position: absolute;
+          z-index: 2;
+          /* make sure the overflow text is hidden */
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+          word-wrap: break-word;
+          /* make sure text isn't centered */
+          text-align: left; 
+          /* Testing purpose */
+          border: 3px solid cyan; 
+          
+        }
+        .name {
+          width: calc(var(--card-width) /2);
+          height:  calc(var(--card-width) * 1/15);
+          text-align: right; 
           top: 0%;
-          right: 10%;
+          right: 5%;
         };
         .type {
-          position: absolute;
-          top: -1%;
-          left: 1%;
+          width: calc(var(--card-width) /4);
+          height:  calc(var(--card-width) * 1/15);
+          top: 1.5%;
+          left: 12.5%;;
         };
         .rank {
-          position: absolute;
-          bottom: 20%;
-          left: 10%;
-          font-size: 50px;
+          width: calc(var(--card-width) /6);
+          height:  calc(var(--card-width) * 1/6);
+          bottom: 23%;
+          left: 5%;
+          font-size: 3.5em;
         };
+
         .description {
-          position: absolute;
-          left: 10%;
-          bottom: 24%;
+
+          width: calc(var(--card-width) * 260/300);
+          height:  calc(var(--card-width) * 120/300) ;
+          line-height: 1.2;
+          left: 5%;
+          bottom: 0;          
+
         };
       }
 

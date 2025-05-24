@@ -99,10 +99,11 @@ class TritonCard extends HTMLElement {
         transform-style: preserve-3d;
       }
 
-      /* Do an horizontal flip when you move the mouse over the flip box container*/
-      .card:hover .card-inner {
-        transform: rotateY(180deg);
-      }
+      // No more hover flip...
+      // /* Do an horizontal flip when you move the mouse over the flip box container*/
+      // .card:hover .card-inner {
+      //   transform: rotateY(180deg);
+      // }
 
       /* Position the front and back side */
       .card-front,
@@ -130,31 +131,61 @@ class TritonCard extends HTMLElement {
 
         #img-card-front{
           width: var(--card-image-width);
-          height: var(--card-image-height);
-        };
+          height: var(--card-image-height); 
+          z-index: 0;
+        }
+
+        #img-card-border{
+          z-index: -1;
+        }
+
+        .name, .rank, .type, .description {
+          position: absolute;
+          z-index: 2;
+          /* make sure the overflow text is hidden */
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+          word-wrap: break-word;
+          /* make sure text isn't centered */
+          text-align: left; 
+          
+        }
 
         .name {
-          position: absolute;
+          width: calc(var(--card-width) /2);
+          height:  calc(var(--card-width) * 1/15);
+          text-align: right; 
           top: 0%;
           right: 5%;
-        };
+        }
+
         .type {
-          position: absolute;
+          width: calc(var(--card-width) /4);
+          height:  calc(var(--card-width) * 1/15);
           top: 1.5%;
-          left: 12.5%;
-        };
+          left: 12.5%;;
+        }
+
         .rank {
-          position: absolute;
-          bottom: 25%;
-          left: 10%;
-          font-size: 40px;
-        };
+          width: calc(var(--card-width) /6);
+          height:  calc(var(--card-width) * 1/6);
+          bottom: 23%;
+          left: 5%;
+          font-size: 3.5em;
+        }
+
         .description {
-          position: absolute;
-          left: 10%;
-          bottom: 24%;
-        };
+
+          width: calc(var(--card-width) * 260/300);
+          height:  calc(var(--card-width) * 120/300) ;
+          line-height: 1.2;
+          left: 5%;
+          bottom: 0;          
+
+        }
       }
+
 
       /* Style the back side (same fall back)*/
       .card-back {

@@ -6,9 +6,8 @@
   --card-width: 300px; 
   /* card-height is calculated based on width, 3/ 4 ratio */
   --card-height: calc(var(--card-width) * 4 / 3);
-  /* card-image, the face of the card dimension */
+  /* card-image, font size scale with card-width */
   --card-image-width: calc(var(--card-width));
-  --card-image-height: calc(var(--card-width));
-  /*  */
-  --card-font-size : 1em;
+  --card-image-height: calc(var(--card-width) * 4/ 3 );
+  --card-font-size : calc(var(--card-width) * 4/90);
 }
