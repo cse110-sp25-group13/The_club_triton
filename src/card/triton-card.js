@@ -9,8 +9,20 @@ const TYPE_COLORS = {
   'living': '#C0C0C0',    // Gray
   'default': '#CCCCCC'    // A default gray border in case the type does not match
 };
+const TYPE_BORDER ={
+  'structure': "./assets/blue-card-base.png",
+  'dining': "./assets/yellow-card-base.png",   
+  'mascot': "./assets/green-card-base.png",    
+  'living': "./assets/dark-card-base.png",    
+  'default': "./assets/default-card-base.png"
+}
 
+/**
+ * 
+ */
 class TritonCard extends HTMLElement {
+  //should never use default anyway
+  static default_card_border_path = "./assets/default-card-base.png"; // Update this element to have a different default border
   #card;
   /**
    * Create an empty card.
@@ -30,8 +42,9 @@ class TritonCard extends HTMLElement {
     <div class="card-inner">
       <div class="card-front">
         <div class="card-front-background">
-          <img alt="front of the card">
+          <img id='img-card-border' src="default_card_border_path"  alt="Card border">
         </div>
+        <img id = "img-card-front"  alt="Image of the card">
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
@@ -40,7 +53,7 @@ class TritonCard extends HTMLElement {
       </div>
       <div class="card-back">
         <div class="card-back-background">
-          <img alt="back of the card">
+          <img id="img-card-back" alt="back of the card">
         </div>
       </div>
     </div>
@@ -48,86 +61,92 @@ class TritonCard extends HTMLElement {
 
     // Style
     style.textContent = `
-    .card {
-      background-color: transparent;
-      aspect-ratio: auto 3/4;
-      width: var(--card-wdith);
-      perspective: 1000px;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border: 3px solid cyan;
-      text-align: center;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-    }
-
-    .card:hover .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-
-    .card-front-background, .card-back-background {
-      position: absolute;
-      top: 0;
-      img {
+      .card {
+        font-size: var(--card-font-size);
+        background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-wdith);
-        height: calc(var(--card-wdith) * 4/3);
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
       }
-    }
 
-    .card-front {
-      color: red;
-      font-size: 15px;
+      /* This container is needed to position the front and back side */
+      .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 3px solid cyan; /* change the style of border when needed */
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
 
-      .name {
+      /* Do an horizontal flip when you move the mouse over the flip box container */
+      .card:hover .card-inner {
+        transform: rotateY(180deg);
+      }
+
+      /* Position the front and back side */
+      .card-front,
+      .card-back {
         position: absolute;
-        top: 1rem;
-        right: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
       }
-      .type {
+
+      .card-front-background,
+      .card-back-background {
         position: absolute;
         top: 0;
-        left: 0;
+        img {
+          aspect-ratio: auto 3/4;
+          width: var(--card-wdith);
+          height: var(--card-height);
+        }
       }
-      .rank {
-        position: absolute;
-        top: 1rem;
-        font-size: 30px;
-      }
-      .description {
-        position: absolute;
-        left: 50px;
-        bottom: 0;
+      /* Style the front side (also fallback if image is missing) */
+      .card-front {
+        color: red;
+
+        #img-card-front{
+          position: absolute;
+          width: calc(var(--card-wdith) * 0.87);
+          height: calc(var(--card-wdith) * 0.52);
+          top: 10%;
+          left: 6%;
+          /* height: var(--card-height); */
+        };
+
+        .name {
+          position: absolute;
+          top: 1rem;
+          right: 0;
+        };
+        .type {
+          position: absolute;
+          top: 0;
+          left: 0;
+        };
+        .rank {
+          position: absolute;
+          top: 1rem;
+          font-size: 30px;
+        };
+        .description {
+          position: absolute;
+          left: 50px;
+          bottom: 0;
+        };
       }
 
-      .rarity {
-        position: absolute;
-        top: 2.5rem; 
-        right: 0.5rem; 
-        font-size: 12px; 
-        color: gold; 
-        /* We can use like "★★★☆☆" or number */
-      }
-    }
-
-    .card-back {
-      background-color: blue;
-      color: red;
-      font-size: 11px;
-      transform: rotateY(180deg);
-    }`;
+      /* Style the back side (same fall back)*/
+      .card-back {
+        background-color: blue;
+        color: red;
+        font-size: 11px;
+        transform: rotateY(180deg);
+      }`;
 
     this.shadowRoot.appendChild(style);
     this.shadowRoot.appendChild(div);
@@ -140,8 +159,7 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-    console.log(`${src}`);
-    const img = this.#card.querySelector(".card-front-background > img");
+    const img = this.#card.querySelector("#img-card-front");
     if(img) img.src = src;
   }
 
@@ -188,9 +206,12 @@ class TritonCard extends HTMLElement {
 
     const cardInner = this.#card.querySelector('.card-inner');
     if (cardInner) {
+      const border = this.#card.querySelector("#img-card-border");
       const normalizedType = typeValue ? typeValue.toLowerCase() : 'default';
       const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS['default'];
+      const borderPath = TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
       cardInner.style.borderColor = borderColor;
+      border.src = borderPath;
     }
   }
 

@@ -14,8 +14,9 @@
         <!-- Card Front -->
         <div class="card-front">
           <div class="card-front-background">
-            <img src="card-front.webp" alt="front of the card" />
+            <img id="img-card-border" src="./assets/default-card-base.png" alt="Card border">
           </div>
+          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
           <p class="name">Name of the Card</p>
           <p class="rank">3</p>
           <p class="type">structure</p>
@@ -33,12 +34,18 @@
     <style>
       /* From w3c */
       :root {
-        --card-wdith: 150px;
+        --card-wdith: 300px; /*define the card width*/
+        --card-height: calc(var(--card-wdith) * 4 / 3);
+        --card-image-width:  calc(var(--card-wdith) * 0.835);
+        --card-image-height: calc(var(--card-wdith) * 0.52);
+        --card-font-size : 1em;
       }
       /* The card container - set the width using the variable "--car-width"
       (remove perspective if you don't want the 3D effect )
     */
+
       .card {
+        font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-wdith);
@@ -78,34 +85,41 @@
         img {
           aspect-ratio: auto 3/4;
           width: var(--card-wdith);
-          height: calc(var(--card-wdith) * 4 / 3);
+          height: var(--card-height);
         }
       }
       /* Style the front side (also fallback if image is missing) */
       .card-front {
         color: red;
-        font-size: 15px;
+
+        #img-card-front{
+          position: absolute;
+          width: var(--card-image-width);
+          height: var(--card-image-height);
+          top: 12%;
+          left: 6.8%;
+        };
 
         .name {
           position: absolute;
           top: 1rem;
           right: 0;
-        }
+        };
         .type {
           position: absolute;
           top: 0;
           left: 0;
-        }
+        };
         .rank {
           position: absolute;
           top: 1rem;
           font-size: 30px;
-        }
+        };
         .description {
           position: absolute;
           left: 50px;
           bottom: 0;
-        }
+        };
       }
 
       /* Style the back side (same fall back)*/

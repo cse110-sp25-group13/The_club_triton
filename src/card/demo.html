@@ -10,8 +10,11 @@
     <style>
       body { display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; }
       /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */
-      :root { 
-        --card-wdith: 150px; /* You can adjust this value to see card size changes */
+      :root {
+        --card-wdith: 300px; /*define the card width*/
+        --card-height: calc(var(--card-wdith) * 4 / 3);
+        --card-image-width: calc(var(var(--card-wdith)* 0.95));
+        --card-font-size : 1em;
       }
     </style>
   </head>
@@ -34,7 +37,7 @@
           rank: 5,
           rarity: 4,
           front_image_placeholder: "../card/card-front.webp", // Example path, ensure image exists or use a real placeholder
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "Iconic library building."
         },
         {
@@ -43,7 +46,7 @@
           rank: 4,
           rarity: 3,
           front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "Hub for food and student orgs."
         },
         {
@@ -52,7 +55,7 @@
           rank: 5,
           rarity: 5,
           front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "Our beloved mascot!"
         },
         {
@@ -61,7 +64,7 @@
           rank: 1,
           rarity: 1,
           front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "A mysterious card."
         }
       ];
@@ -77,7 +80,7 @@
         cardElement.rank = data.rank;
         cardElement.rarity = data.rarity; // <<< This should trigger rarity display
         if (data.front_image_placeholder) cardElement.front_image = data.front_image_placeholder;
-        if (data.back_image_placeholder) cardElement.back_image = data.back_image_placeholder;
+        if (data.back_image_placeholder) cardElement.back_image = data.back_image_placeholder; 
         cardElement.description = data.description;
         
         container.appendChild(cardElement); // Add the card to the page
