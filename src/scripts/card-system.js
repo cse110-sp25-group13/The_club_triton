@@ -70,78 +70,81 @@ async function fetchCardDataFromJson(jsonFilePath) {
  * @param {IDBDatabase} databaseInstance - The opened database instance.
  * @returns {Promise<void>}
  */
-async function populateDataIfEmpty(databaseInstance) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      // 1. Start a readonly transaction to check data count
-      const checkTransaction = databaseInstance.transaction([STORE_NAME], 'readonly');
-      const objectStoreForCheck = checkTransaction.objectStore(STORE_NAME);
-      const countRequest = objectStoreForCheck.count();
+function populateDataIfEmpty(databaseInstance) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        // 1. Start a readonly transaction to check data count
+        const checkTransaction = databaseInstance.transaction([STORE_NAME], 'readonly');
+        const objectStoreForCheck = checkTransaction.objectStore(STORE_NAME);
+        const countRequest = objectStoreForCheck.count();
 
-      countRequest.onsuccess = async () => {
-        const cardCount = countRequest.result;
-        console.log(`Current card count in store: ${cardCount}`);
+        // Handle the async nature of countRequest using its callbacks
+        countRequest.onsuccess = async () => {
+          const cardCount = countRequest.result;
+          console.log(`Current card count in store: ${cardCount}`);
 
-        if (cardCount === 0) {
-          console.log('Card store is empty, attempting to populate from JSON...');
-          try {
-            const cardsToLoad = await fetchCardDataFromJson('../card-data/cards.json');
+          if (cardCount === 0) {
+            console.log('Card store is empty, attempting to populate from JSON...');
+            try {
+              const cardsToLoad = await fetchCardDataFromJson('../card-data/cards.json');
 
-            if (cardsToLoad && cardsToLoad.length > 0) {
-              // 2. Start a new readwrite transaction to populate data
-              const populateTransaction = databaseInstance.transaction([STORE_NAME], 'readwrite');
-              const objectStoreForPopulate = populateTransaction.objectStore(STORE_NAME);
-              
-              console.log(`Populating object store with ${cardsToLoad.length} cards from JSON...`);
+              if (cardsToLoad && cardsToLoad.length > 0) {
+                // 2. Start a new readwrite transaction to populate data
+                const populateTransaction = databaseInstance.transaction([STORE_NAME], 'readwrite');
+                const objectStoreForPopulate = populateTransaction.objectStore(STORE_NAME);
+                
+                console.log(`Populating object store with ${cardsToLoad.length} cards from JSON...`);
 
-              const addPromises = cardsToLoad.map(card => {
-                return new Promise((addResolve, addReject) => {
-                  const addRequest = objectStoreForPopulate.add(card);
-                  addRequest.onsuccess = () => {
-                    console.log(`Card "${card.name}" added from JSON.`);
-                    addResolve();
-                  };
-                  addRequest.onerror = (errEvent) => {
-                    console.error(`Error adding card "${card.name}" from JSON:`, errEvent.target.error);
-                    addReject(errEvent.target.error);
-                  };
+                const addPromises = cardsToLoad.map(card => {
+                  return new Promise((addResolve, addReject) => {
+                    const addRequest = objectStoreForPopulate.add(card);
+                    addRequest.onsuccess = () => {
+                      console.log(`Card "${card.name}" added from JSON.`);
+                      addResolve();
+                    };
+                    addRequest.onerror = (errEvent) => {
+                      console.error(`Error adding card "${card.name}" from JSON:`, errEvent.target.error);
+                      addReject(errEvent.target.error);
+                    };
+                  });
                 });
-              });
 
-              await Promise.all(addPromises);
-              console.log('All initial cards successfully added to the object store from JSON.');
-              
-              populateTransaction.oncomplete = () => {
-                console.log('Data population transaction completed.');
-                resolve(); // Data population successful
-              };
-              populateTransaction.onerror = (event) => {
-                console.error('Data population transaction error:', event.target.error);
-                reject(event.target.error);
-              };
+                await Promise.all(addPromises);
+                console.log('All initial cards successfully added to the object store from JSON.');
+                
+                populateTransaction.oncomplete = () => {
+                  console.log('Data population transaction completed.');
+                  resolve(); // Main Promise resolve
+                };
+                populateTransaction.onerror = (event) => {
+                  console.error('Data population transaction error:', event.target.error);
+                  reject(event.target.error); // Main Promise reject
+                };
 
-            } else {
-              console.log('No card data found in JSON file or JSON was empty.');
-              resolve(); // JSON is empty, still considered complete
+              } else {
+                console.log('No card data found in JSON file or JSON was empty.');
+                resolve(); // JSON is empty, still considered complete
+              }
+            } catch (fetchError) {
+              console.error('Error fetching/populating data in populateDataIfEmpty:', fetchError);
+              reject(fetchError); // Main Promise reject
             }
-          } catch (fetchError) {
-            console.error('Error fetching/populating data in populateDataIfEmpty:', fetchError);
-            reject(fetchError);
+          } else {
+            console.log('Card store is not empty, no need to populate.');
+            resolve(); // No need to populate, directly complete
           }
-        } else {
-          console.log('Card store is not empty, no need to populate.');
-          resolve(); // No need to populate, directly complete
-        }
-      };
-      
-      countRequest.onerror = (event) => {
-        console.error('Error counting cards:', event.target.error);
-        reject(event.target.error);
-      };
-    } catch (transactionError) {
-      console.error('Error starting transaction in populateDataIfEmpty:', transactionError);
-      reject(transactionError);
-    }
+        };
+        
+        countRequest.onerror = (event) => {
+          console.error('Error counting cards:', event.target.error);
+          reject(event.target.error); // Main Promise reject
+        };
+      } catch (transactionError) {
+        console.error('Error starting transaction in populateDataIfEmpty:', transactionError);
+        reject(transactionError); // Main Promise reject
+      }
+    })(); // Immediately execute this IIFE
   });
 }
 
@@ -181,20 +184,15 @@ function initDB() {
     };
 
     // Triggered when a higher version is requested or the database is created for the first time
-    request.onupgradeneeded = (event) => { // Remove async - only handle schema creation
-      db = event.target.result;
+    request.onupgradeneeded = (event) => { 
+      const currentDb = event.target.result; // Use local variable instead of global
       console.log(`Upgrade needed or database creation for: ${DB_NAME}`);
 
-      // 2. Create object store if it doesn't exist
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        // Use 'id' property as the primary key (keyPath)
-        const objectStore = db.createObjectStore(STORE_NAME, { keyPath: "id" });
+      // Create object store if it doesn't exist
+      if (!currentDb.objectStoreNames.contains(STORE_NAME)) {
+        // Use 'id' property as the primary key (keyPath) - call directly without assignment
+        currentDb.createObjectStore(STORE_NAME, { keyPath: "id" });
         console.log(`Object store "${STORE_NAME}" created.`);
-
-        // (Optional) Create indexes for other properties if you need to query by them
-        // objectStore.createIndex('name', 'name', { unique: false });
-        // objectStore.createIndex('type', 'type', { unique: false });
-        // console.log('Indexes created for "name" and "type".');
         
         // Data population will be handled separately after database opens successfully
       }
