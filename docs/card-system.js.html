@@ -1,34 +1,65 @@
-const initialCardData = [
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: card-system.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: card-system.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const initialCardData = [
   {
-    "id": "structure001", // Suggest ID reflects type and uniqueness
-    "name": "Geisel Library",
-    "type": "Structure", // Ensure consistent type naming
-    "ranking": 5,
-    "rarity": 4,
-    "front_image_placeholder": "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
-    "back_image_placeholder": "assets/images/placeholders/geisel_back.png",
-    "description": "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
+    id: "structure001", // Suggest ID reflects type and uniqueness
+    name: "Geisel Library",
+    type: "Structure", // Ensure consistent type naming
+    ranking: 5,
+    rarity: 4,
+    front_image_placeholder: "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
+    back_image_placeholder: "assets/images/placeholders/geisel_back.png",
+    description: "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
+    border_color_code: "#003A70", // Confirm Structure type color
   },
   {
-    "id": "dining001",
-    "name": "Price Center Food Court",
-    "type": "Dining",
-    "ranking": 4,
-    "rarity": 3,
-    "front_image_placeholder": "assets/images/placeholders/pc_food_front.png",
-    "back_image_placeholder": "assets/images/placeholders/pc_food_back.png",
-    "description": "A place for every craving, and every student.",
+    id: "dining001",
+    name: "Price Center Food Court",
+    type: "Dining",
+    ranking: 4,
+    rarity: 3,
+    front_image_placeholder: "assets/images/placeholders/pc_food_front.png",
+    back_image_placeholder: "assets/images/placeholders/pc_food_back.png",
+    description: "A place for every craving, and every student.",
+    border_color_code: "#FFCD00", // Confirm Dining type color
   },
   {
-    "id": "mascot001",
-    "name": "King Triton",
-    "type": "Mascot", 
-    "ranking": 5, // Mascot ranking may have a different meaning, or not used for direct comparison
-    "rarity": 5,
-    "front_image_placeholder": "assets/images/placeholders/triton_front.png",
-    "back_image_placeholder": "assets/images/placeholders/triton_back.png",
-    "description": "The mighty ruler of the Tritons.",
-  }
+    id: "mascot001",
+    name: "King Triton",
+    type: "Mascot",
+    ranking: 5, // Mascot ranking may have a different meaning, or not used for direct comparison
+    rarity: 5,
+    front_image_placeholder: "assets/images/placeholders/triton_front.png",
+    back_image_placeholder: "assets/images/placeholders/triton_back.png",
+    description: "The mighty ruler of the Tritons.",
+    border_color_code: "#006A4E", // Confirm Mascot type color
+  },
   // Continue to add more cards as required (5 per type, 15 total)...
 ];
 
@@ -44,7 +75,7 @@ const STORE_NAME = "cards"; // Object store name
 /**
  * Initialize the IndexedDB database.
  * If the database or object store does not exist, create them and populate with initial data.
- * @returns {Promise<IDBDatabase>}
+ * @returns {Promise&lt;IDBDatabase>}
  */
 function initDB() {
   return new Promise((resolve, reject) => {
@@ -118,7 +149,7 @@ initDB();
 
 /**
  * Get all card data from the 'cards' object store in IndexedDB.
- * @returns {Promise<Array<Object>>} A Promise that resolves to an array of all card objects
+ * @returns {Promise&lt;Array&lt;Object>>} A Promise that resolves to an array of all card objects
  */
 function getAllCards() {
   return new Promise((resolve, reject) => {
@@ -172,7 +203,7 @@ function getAllCards() {
 /**
  * Get a single card by ID from the 'cards' object store in IndexedDB
  * @param {string} cardId The ID of the card to fetch
- * @returns {Promise<Object|undefined>} A Promise that resolves to the card object, or undefined if not found
+ * @returns {Promise&lt;Object|undefined>} A Promise that resolves to the card object, or undefined if not found
  */
 function getCardById(cardId) {
   return new Promise((resolve, reject) => {
@@ -228,13 +259,6 @@ function getCardById(cardId) {
   });
 }
 
-
-
-
-
-
-
-
 // After ensuring initDB() is complete, try in the console:
 
 // 1. Call initDB and wait for it to finish
@@ -283,3 +307,26 @@ initDB()
   .catch((error) => {
     console.error("DB initialization failed, cannot run read tests:", error);
   });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#initDB">initDB</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri May 23 2025 08:13:49 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
