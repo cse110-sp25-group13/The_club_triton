@@ -1,7 +1,7 @@
 /**
  * TritonCard is a custom web component representing a card with a front and back.
+ * @const {Map<string,string>}
  */
-
 const TYPE_COLORS = {
   'structure': '#003A70', // Dark blue
   'dining': '#FFCD00',    // Yellow
@@ -9,6 +9,16 @@ const TYPE_COLORS = {
   'living': '#C0C0C0',    // Gray
   'default': '#CCCCCC'    // A default gray border in case the type does not match
 };
+
+/**
+ * Key: type
+ * 
+ * Value: the path of the border with corresponding type
+ * 
+ * Current default path for our assets (but please remember to change the path when
+ * the assets directory is updated for any reason) 
+ * @const {Map<string,string>} TYPE_BORDER 
+ */
 const TYPE_BORDER ={
   'structure': "./assets/blue-card-base.png",
   'dining': "./assets/yellow-card-base.png",   
@@ -30,6 +40,8 @@ class TritonCard extends HTMLElement {
    */
   constructor() {
     super(); // Inherit everything from HTMLElement
+
+
     this.attachShadow({ mode: "open" }); // Attach a shadowDom to this component
 
     const div = document.createElement("div");
@@ -61,7 +73,14 @@ class TritonCard extends HTMLElement {
 
     // Style
     style.textContent = `
+      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
       .card {
+        font-family: "Source Sans 3", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: oblique;
+
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
@@ -120,23 +139,24 @@ class TritonCard extends HTMLElement {
 
         .name {
           position: absolute;
-          top: 1rem;
-          right: 0;
+          top: 0%;
+          right: 10%;
         };
         .type {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: -1%;
+          left: 1%;
         };
         .rank {
           position: absolute;
-          top: 1rem;
-          font-size: 30px;
+          bottom: 20%;
+          left: 10%;
+          font-size: 50px;
         };
         .description {
           position: absolute;
-          left: 50px;
-          bottom: 0;
+          left: 10%;
+          bottom: 24%;
         };
       }
 

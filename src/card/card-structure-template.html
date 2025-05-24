@@ -33,18 +33,14 @@
     <!-- tritonCard CSS Start -->
     <style>
       /* From w3c */
-      :root {
-        --card-wdith: 300px; /*define the card width*/
-        --card-height: calc(var(--card-wdith) * 4 / 3);
-        --card-image-width:  calc(var(--card-wdith) * 0.835);
-        --card-image-height: calc(var(--card-wdith) * 0.52);
-        --card-font-size : 1em;
-      }
-      /* The card container - set the width using the variable "--car-width"
-      (remove perspective if you don't want the 3D effect )
-    */
+      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
       .card {
+        font-family: "Source Sans 3", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: oblique;
+
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
@@ -63,6 +59,7 @@
         transform-style: preserve-3d;
       }
 
+      /* Remeber to remove this and make a function to flip the card... */
       /* Do an horizontal flip when you move the mouse over the flip box container */
       .card:hover .card-inner {
         transform: rotateY(180deg);
@@ -94,41 +91,34 @@
 
         #img-card-front{
           position: absolute;
-          width: var(--card-image-width);
-          height: var(--card-image-height);
-          top: 12%;
-          left: 6.8%;
+          width: calc(var(--card-wdith) * 0.87);
+          height: calc(var(--card-wdith) * 0.52);
+          top: 10%;
+          left: 6%;
+          /* height: var(--card-height); */
         };
 
         .name {
           position: absolute;
-          top: 1rem;
-          right: 0;
+          top: 0%;
+          right: 10%;
         };
         .type {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: -1%;
+          left: 1%;
         };
         .rank {
           position: absolute;
-          top: 1rem;
-          font-size: 30px;
+          bottom: 20%;
+          left: 10%;
+          font-size: 50px;
         };
         .description {
           position: absolute;
-          left: 50px;
-          bottom: 0;
+          left: 10%;
+          bottom: 24%;
         };
-      }
-
-      /* Style the back side (same fall back)*/
-      .card-back {
-        background-color: blue;
-        color: red;
-        font-size: 11px;
-        transform: rotateY(180deg);
-      }
     </style>
     <!-- tritonCard CSS ends -->
   </body>
