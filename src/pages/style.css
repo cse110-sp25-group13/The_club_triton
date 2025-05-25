@@ -146,20 +146,20 @@ td {
 }
 
 /* Margin fade-out below 580px */
-@media (max-width: 580px) {
+/* @media (max-width: 580px) {
   .game-container {
     margin-left: max(0px, calc(20px - (580px - 100vw) * 0.2));
     margin-right: max(0px, calc(20px - (580px - 100vw) * 0.2));
     width: min(clamp(500px, 95vw, 1050px), calc(100vw - 20px));
-  }
-  /* .play-table {
+  } */
+/* .play-table {
                 margin-left: max(0px, calc(20px - (580px - 100vw) * 0.2));
                 margin-right: max(0px, calc(20px - (580px - 100vw) * 0.2));
                 width: min(clamp(500px, 95vw, 1050px), calc(100vw - 20px));
             } */
-}
+/* } */
 /* ===== Responsive Adjustments ===== */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .prof-cards {
     height: 2.5em;
   }
@@ -177,9 +177,9 @@ td {
 
 @media (max-width: 500px) {
   .prof-cards td {
-    aspect-ratio: 3/1; /* Even wider on small screens */
+    aspect-ratio: 3/1; 
   }
   .student-cards td {
-    aspect-ratio: 2/3; /* Slightly wider cards */
+    aspect-ratio: 2/3; 
   }
-}
+} */
