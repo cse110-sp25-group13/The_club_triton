@@ -270,17 +270,15 @@ class TritonCard extends HTMLElement {
     if (cardInner) {
       const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
       const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
-      cardInner.style.borderColor = borderColor;      
+      cardInner.style.borderColor = borderColor;
     }
-    if(border)
-    {
+    if (border) {
       const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
       const borderPath =
-      TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+        TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
       border.src = borderPath;
       console.log("card-borer load sucessfully");
     }
-    
   }
 
   /**
