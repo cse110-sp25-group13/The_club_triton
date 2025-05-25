@@ -24,7 +24,9 @@
     "transform": {},
     "verbose": true,
     "collectCoverage": true,
-    "collectCoverageFrom": ["src/**/*.js"]
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   },
   "dependencies": {
     "chromedriver": "^136.0.0",
