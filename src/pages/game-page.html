@@ -3,94 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Page</title>
+    <title>Play Now! | Club Triton </title>
     <link rel="stylesheet" href="style.css" media="screen">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1a6bb0;
-            padding: 20px 0; /* Top/bottom padding only */
-        }
-
-        .game-container {
-            width: clamp(500px, 95vw, 1050px);
-            height: auto;
-            aspect-ratio: 16/10;
-            background: #a85751;
-            border: 8px solid #2b2118;
-            border-radius: 12px;
-            margin: 20px auto; /* Fixed side margins by default */
-            position: relative; /* For absolute-positioned children */
-            display: grid;
-            grid-template-rows: auto 1fr auto; /* Header, game area, footer */
-            gap: 1em; /* Consistent spacing */
-            padding: 1em; /* Internal padding */
-            font-size: clamp(12px, 1.5vw, 16px); /* Responsive base font size */
-            box-shadow: 
-                0 0 15px rgba(0, 0, 0, 0.5),
-                inset 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .play-table {
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-            position: absolute;
-            bottom: 0;
-            width: 92.5%;
-            height: 30%; /* Relative to container */
-            padding: 1em; /* Relative unit */    
-            background-color: #f4d1ae;
-            border: 0.5rem solid #2b2118;
-            border-bottom: none;
-            margin-left: 3.75%;
-            margin-right: 3.75%;
-            box-sizing: border-box;
-            box-shadow: 
-                0 0 15px rgba(0, 0, 0, 0.5),
-                inset 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* Margin fade-out below 580px */
-        @media (max-width: 580px) {
-            .game-container {
-                margin-left: max(0px, calc(20px - (580px - 100vw) * 0.2));
-                margin-right: max(0px, calc(20px - (580px - 100vw) * 0.2));
-                width: min(clamp(500px, 95vw, 1050px), calc(100vw - 20px));
-            }
-        }
-
-    </style>
+    <meta name="keywords" content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game">
+ 
 </head>
 <body>
     <main class = "game-container">
         <time class = "timer" alt="game countdown"> Time </time>
-        <div class = "play-table" width="500px" height = "500 px">
+        <div class = "play-table">
             <div class = "prof-deck">
-                <h2 id = "prof-name">Professor</h2>
-                <table>
-                    <tr class= "prof-cards">
-                        <td id = "prof-card-1">Card 1</td>
-                        <td id = "prof-card-2">Card 2</td>
-                        <td id = "prof-card-3">Card 3</td>
-                        <td id = "prof-card-4">Card 4</td>
-                        <td id = "prof-card-5">Card 5</td>
+                <table class = "prof-cards">
+                    <div id = "prof-name">Professor</div>
+                    <tr>    
+                        <td class="card-5" id = "prof-card-5">Card 5</td>
+                        <td class="card-4" id = "prof-card-4">Card 4</td>
+                        <td class="card-3" id = "prof-card-3">Card 3</td>
+                        <td class="card-2" id = "prof-card-2">Card 2</td>
+                        <td class="card-1" id = "prof-card-1">Card 1</td>
                     </tr>
                 </table>
             </div>
-            <div class = "student-deck">
-                <h2 id = "student-name">Student</h2>
+            <div class = "student-deck" >
                 <table class = "student-cards">
+                    <div id = "student-name">Student</div>
                     <tr>
-                        <td id = "student-card-1">Card 1</td>
-                        <td id = "student-card-2">Card 2</td>
-                        <td id = "student-card-3">Card 3</td>
-                        <td id = "student-card-4">Card 4</td>
-                        <td id = "student-card-5">Card 5</td>
+                        <td class="card-1" id = "student-card-1">Card 1</td>
+                        <td class="card-2" id = "student-card-2">Card 2</td>
+                        <td class="card-3" id = "student-card-3">Card 3</td>
+                        <td class="card-4" id = "student-card-4">Card 4</td>
+                        <td class="card-5" id = "student-card-5">Card 5</td>
                     </tr>
                 </table>
             </div>
@@ -106,6 +48,7 @@
 
             </section>
         </div>
+
         <section class = "won-cards">
             <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
             <div class = "prof-won-cards">
