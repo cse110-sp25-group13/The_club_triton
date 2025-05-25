@@ -8,7 +8,6 @@
     <!-- If you need to fetch data from IndexedDB, also include card-system.js -->
     <script src="../scripts/card-system.js" defer></script>
     <style>
-
       body {
         display: flex;
         flex-wrap: wrap;
@@ -20,8 +19,7 @@
         --card-width: 150px; /* You can adjust this value to see card size changes */
       }
     </style>
-    <link href="./triton-card.css" rel="stylesheet">
-
+    <link href="./triton-card.css" rel="stylesheet" />
   </head>
   <body>
     <h1>TritonCard Component Test</h1>
@@ -33,9 +31,9 @@
     <script type="module">
       // FLIP FUNCTION DEMO
       const btn = document.getElementById("flip-btn");
-      function flip_all(card_container){
+      function flip_all(card_container) {
         const cards = card_container.querySelectorAll("triton-card");
-        cards.forEach(card => {
+        cards.forEach((card) => {
           card.flip();
         });
       }
@@ -80,12 +78,11 @@
           rarity: 1,
           front_image_placeholder: "../card/card-front.webp",
           back_image_placeholder: "../card/card-back.png",
-          description: "A mysterious card."
-        }
+          description: "A mysterious card.",
+        },
       ];
-      const container = document.getElementById('card-container');
-      btn.addEventListener("click", ()=>flip_all(container));
-
+      const container = document.getElementById("card-container");
+      btn.addEventListener("click", () => flip_all(container));
 
       cardDataForTest.forEach((data) => {
         const cardElement = document.createElement("triton-card"); // Create an instance of the component

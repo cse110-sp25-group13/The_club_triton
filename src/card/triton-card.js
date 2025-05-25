@@ -12,36 +12,35 @@ const TYPE_COLORS = {
 
 /**
  * Key: type
- * 
+ *
  * Value: the path of the border with corresponding type
- * 
+ *
  * Current default path for our assets (but please remember to change the path when
- * the assets directory is updated for any reason) 
- * @const {Map<string,string>} TYPE_BORDER 
+ * the assets directory is updated for any reason)
+ * @const {Map<string,string>} TYPE_BORDER
  */
 const TYPE_BORDER = {
-  'structure': "./assets/blue-card-base.png",
-  'dining': "./assets/yellow-card-base.png",   
-  'mascot': "./assets/green-card-base.png",    
-  'living': "./assets/dark-card-base.png",    
-  'default': "./assets/default-card-base.png"
+  structure: "./assets/blue-card-base.png",
+  dining: "./assets/yellow-card-base.png",
+  mascot: "./assets/green-card-base.png",
+  living: "./assets/dark-card-base.png",
+  default: "./assets/default-card-base.png",
 };
 
 /**
- * 
+ *
  */
 class TritonCard extends HTMLElement {
   //should never use default anyway
   static default_card_border_path = "./assets/default-card-base.png"; // Update this element to have a different default border
   #card;
-  
+
   /**
    * Create an empty card.
    * @param {void} none
    */
   constructor() {
     super(); // Inherit everything from HTMLElement
-
 
     this.attachShadow({ mode: "open" }); // Attach a shadowDom to this component
 
@@ -54,7 +53,7 @@ class TritonCard extends HTMLElement {
     // Responsible for flipping the card
     div.classList.add("card-flipped");
     // initially do not flip the card
-    div.classList.toggle('card-flipped');
+    div.classList.toggle("card-flipped");
 
     div.innerHTML = `
     <div class="card-inner">
@@ -210,11 +209,11 @@ class TritonCard extends HTMLElement {
 
   /**
    * flip the card.
-   * @param {void} 
+   * @param {void}
    * @return {void}
    */
   flip() {
-    this.#card.classList.toggle('card-flipped');
+    this.#card.classList.toggle("card-flipped");
   }
   /**
    * Set the card-front background image.
@@ -222,7 +221,6 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-
     const img = this.#card.querySelector(".card-front-background > img");
     if (img) img.src = src;
   }
@@ -271,9 +269,10 @@ class TritonCard extends HTMLElement {
     const cardInner = this.#card.querySelector(".card-inner");
     if (cardInner) {
       const border = this.#card.querySelector("#img-card-border");
-      const normalizedType = typeValue ? typeValue.toLowerCase() : 'default';
-      const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS['default'];
-      const borderPath = TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+      const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
+      const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
+      const borderPath =
+        TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
 
       cardInner.style.borderColor = borderColor;
       border.src = borderPath;

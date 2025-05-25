@@ -18,21 +18,26 @@
         <!-- Card Front -->
         <div class="card-front">
           <div class="card-front-background">
-            <img id="img-card-border" src="./assets/default-card-base.png" alt="Card border">
+            <img
+              id="img-card-border"
+              src="./assets/default-card-base.png"
+              alt="Card border"
+            />
           </div>
-          <img id="img-card-front" src="card-front.webp" alt="Image of the card" />
+          <img
+            id="img-card-front"
+            src="card-front.webp"
+            alt="Image of the card"
+          />
           <p class="name">Name of the Card</p>
           <p class="rank">3</p>
           <p class="type">structure</p>
-          <p class="description">1aaaaaaaaaaaaaaaaaaaaaaaaa!
-          2aaaaaaaaaaaaaaaaaaaaaaaaa!
-          3aaaaaaaaaaaaaaaaaaaaaaaaa!
-          4aaaaaaaaaaaaaaaaaaaaaaaaa!
-          5aaaaaaaaaaaaaaaaaaaaaaaaa!
-          6aaaaaaaaaaaaaaaaaaaaaaaaa!
-          7aaaaaaaaaaaaaaaaaaaaaaaaa!
-          8aaaaaaaaaaaaaaaaaaaaaaaaa!
-    </p>
+          <p class="description">
+            1aaaaaaaaaaaaaaaaaaaaaaaaa! 2aaaaaaaaaaaaaaaaaaaaaaaaa!
+            3aaaaaaaaaaaaaaaaaaaaaaaaa! 4aaaaaaaaaaaaaaaaaaaaaaaaa!
+            5aaaaaaaaaaaaaaaaaaaaaaaaa! 6aaaaaaaaaaaaaaaaaaaaaaaaa!
+            7aaaaaaaaaaaaaaaaaaaaaaaaa! 8aaaaaaaaaaaaaaaaaaaaaaaaa!
+          </p>
         </div>
         <!-- Card Back -->
         <div class="card-back">
@@ -46,18 +51,17 @@
     <style>
       /* From w3c */
       :root {
-      /*define the card width*/
-      --card-width: 444px; 
-      /* card-height is calculated based on width, 3/ 4 ratio */
-      --card-height: calc(var(--card-width) * 4 / 3);
-      /* card-image, font size scale with card-width */
-      --card-image-width: calc(var(--card-width));
-      --card-image-height: calc(var(--card-width) * 4/ 3 );
-      --card-font-size : calc(var(--card-width) * 4/90);
-      background-color: pink;
-    }
-      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-
+        /*define the card width*/
+        --card-width: 444px;
+        /* card-height is calculated based on width, 3/ 4 ratio */
+        --card-height: calc(var(--card-width) * 4 / 3);
+        /* card-image, font size scale with card-width */
+        --card-image-width: calc(var(--card-width));
+        --card-image-height: calc(var(--card-width) * 4 / 3);
+        --card-font-size: calc(var(--card-width) * 4 / 90);
+        background-color: pink;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 
       .card {
         font-family: "Source Sans 3", sans-serif;
@@ -71,7 +75,6 @@
         width: var(--card-width);
         /* height: var(--card-height); */
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
-      
       }
 
       /* This container is needed to position the front and back side */
@@ -88,10 +91,12 @@
       /* Do an horizontal flip when you move the mouse over the flip box container */
       .card:hover .card-inner {
         transform: rotateY(180deg);
-        .name, .rank, .type, .description{
+        .name,
+        .rank,
+        .type,
+        .description {
           z-index: 0;
         }
-
       }
 
       /* Position the front and back side */
@@ -118,17 +123,20 @@
       .card-front {
         color: red;
 
-        #img-card-front{
+        #img-card-front {
           width: var(--card-image-width);
-          height: var(--card-image-height); 
+          height: var(--card-image-height);
           z-index: 0;
         }
 
-        #img-card-border{
+        #img-card-border {
           z-index: -1;
         }
 
-        .name, .rank, .type, .description {
+        .name,
+        .rank,
+        .type,
+        .description {
           position: absolute;
           z-index: 2;
           /* make sure the overflow text is hidden */
@@ -137,41 +145,38 @@
           white-space: normal;
           word-wrap: break-word;
           /* make sure text isn't centered */
-          text-align: left; 
+          text-align: left;
           /* Testing purpose */
-          border: 3px solid cyan; 
-          
+          border: 3px solid cyan;
         }
         .name {
-          width: calc(var(--card-width) /2);
-          height:  calc(var(--card-width) * 1/15);
-          text-align: right; 
+          width: calc(var(--card-width) / 2);
+          height: calc(var(--card-width) * 1 / 15);
+          text-align: right;
           top: 0%;
           right: 5%;
-        };
+        }
         .type {
-          width: calc(var(--card-width) /4);
-          height:  calc(var(--card-width) * 1/15);
+          width: calc(var(--card-width) / 4);
+          height: calc(var(--card-width) * 1 / 15);
           top: 1.5%;
-          left: 12.5%;;
-        };
+          left: 12.5%;
+        }
         .rank {
-          width: calc(var(--card-width) /6);
-          height:  calc(var(--card-width) * 1/6);
+          width: calc(var(--card-width) / 6);
+          height: calc(var(--card-width) * 1 / 6);
           bottom: 23%;
           left: 5%;
           font-size: 3.5em;
-        };
+        }
 
         .description {
-
-          width: calc(var(--card-width) * 260/300);
-          height:  calc(var(--card-width) * 120/300) ;
+          width: calc(var(--card-width) * 260 / 300);
+          height: calc(var(--card-width) * 120 / 300);
           line-height: 1.2;
           left: 5%;
-          bottom: 0;          
-
-        };
+          bottom: 0;
+        }
       }
 
       /* Style the back side (same fall back)*/
@@ -180,7 +185,7 @@
         color: red;
         font-size: 11px;
         transform: rotateY(180deg);
-      };
+      }
     </style>
     <!-- tritonCard CSS ends -->
   </body>
