@@ -19,13 +19,13 @@ const TYPE_COLORS = {
  * the assets directory is updated for any reason) 
  * @const {Map<string,string>} TYPE_BORDER 
  */
-const TYPE_BORDER ={
+const TYPE_BORDER = {
   'structure': "./assets/blue-card-base.png",
   'dining': "./assets/yellow-card-base.png",   
   'mascot': "./assets/green-card-base.png",    
   'living': "./assets/dark-card-base.png",    
   'default': "./assets/default-card-base.png"
-}
+};
 
 /**
  * 
