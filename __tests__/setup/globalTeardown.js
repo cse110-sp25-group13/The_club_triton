@@ -1,15 +1,21 @@
-import { teardown as teardownDevServer } from "jest-dev-server";
 import teardownPuppeteer from "jest-environment-puppeteer/teardown";
+import { readFileSync, unlinkSync } from "fs";
 import killPort from "kill-port";
 
 export default async function globalTeardown(globalConfig) {
   await teardownPuppeteer(globalConfig);
 
   try {
-    await teardownDevServer({ port: 8080 });
-  } catch (err) {
-    console.error(err);
+    const pid = parseInt(readFileSync(".http-server-pid", "utf-8"), 10);
+    process.kill(pid);
+    unlinkSync(".http-server-pid");
+  } catch (e) {
+    /* ignore if it’s gone */
   }
 
-  await killPort(8080);
+  try {
+    await killPort(8080);
+  } catch (err) {
+    console.warn("kill-port:", err.message);
+  }
 }

@@ -1,13 +1,18 @@
-import { setup as setupDevServer } from "jest-dev-server";
+import { spawn } from "child_process";
+import { writeFileSync } from "fs";
+import waitOn from "wait-on";
 import setupPuppeteer from "jest-environment-puppeteer/setup";
 
-export default async function globalSetup(config) {
-  await setupDevServer({
-    command: "http-server ./src/pages -p 8080",
-    launchTimeout: 30000,
-    port: 8080,
-    reuseExistingServer: true,
+export default async function globalSetup(globalConfig) {
+  const server = spawn("npx", ["http-server", "./src/pages", "-p", "8080"], {
+    detached: true,
+    stdio: "ignore",
+    shell: true,
   });
 
-  await setupPuppeteer(config);
+  writeFileSync(".http-server-pid", String(server.pid));
+
+  await waitOn({ resources: ["http://localhost:8080/game-lobby.html"] });
+
+  await setupPuppeteer(globalConfig);
 }
