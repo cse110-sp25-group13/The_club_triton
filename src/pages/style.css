@@ -13,7 +13,9 @@ body {
 }
 
 .game-container {
-  width: clamp(500px, 95vw, 1050px);
+  width: 95vw;
+  /* too advance to use */
+  /* width: clamp(500px, 95vw, 1050px); */
   height: auto;
   aspect-ratio: 16/10;
   background: #a85751;
