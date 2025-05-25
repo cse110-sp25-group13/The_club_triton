@@ -58,10 +58,10 @@ class TritonCard extends HTMLElement {
     div.innerHTML = `
     <div class="card-inner">
       <div class="card-front">
-        <img id = "img-card-front"  alt="Image of the card">
         <div class="card-front-background">
-          <img id='img-card-border' src="default_card_border_path"  alt="Card border">
+          <img id='img-card-border' src=${this.default_card_border_path}  alt="Card border">
         </div>
+        <img id = "img-card-front"  alt="Image of the card">
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
@@ -139,11 +139,12 @@ class TritonCard extends HTMLElement {
         #img-card-front{
           width: var(--card-image-width);
           height: var(--card-image-height); 
-          z-index: 0;
+          z-index: -1;
         }
 
         #img-card-border{
-          z-index: -1;
+          position: absolute;
+          z-index: 1;
         }
 
         .name, .rank, .type, .description {
@@ -221,7 +222,7 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-    const img = this.#card.querySelector(".card-front-background > img");
+    const img = this.#card.querySelector("#img-card-front");
     if (img) img.src = src;
   }
 
@@ -231,7 +232,7 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set back_image(src) {
-    const img = this.#card.querySelector(".card-back-background > img");
+    const img = this.#card.querySelector("#img-card-back");
     if (img) img.src = src;
   }
 
@@ -267,16 +268,21 @@ class TritonCard extends HTMLElement {
     }
 
     const cardInner = this.#card.querySelector(".card-inner");
+    const border = this.#card.querySelector("#img-card-border");
     if (cardInner) {
-      const border = this.#card.querySelector("#img-card-border");
       const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
       const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
-      const borderPath =
-        TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
-
-      cardInner.style.borderColor = borderColor;
-      border.src = borderPath;
+      cardInner.style.borderColor = borderColor;      
     }
+    if(border)
+    {
+      const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
+      const borderPath =
+      TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+      border.src = borderPath;
+      console.log("card-borer load sucessfully");
+    }
+    
   }
 
   /**
