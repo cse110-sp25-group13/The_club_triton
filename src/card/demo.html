@@ -6,7 +6,7 @@
     <!-- Ensure TYPE_COLORS is accessible here or within triton-card.js -->
     <script src="triton-card.js" type="module"></script>
     <!-- If you need to fetch data from IndexedDB, also include card-system.js -->
-    <!-- <script src="../scripts/card-system.js" defer></script> -->
+    <script src="../scripts/card-system.js" defer></script>
     <style>
       body {
         display: flex;
@@ -39,7 +39,7 @@
           rank: 5,
           rarity: 4,
           front_image_placeholder: "../card/card-front.webp", // Example path, ensure image exists or use a real placeholder
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png", // Example path, ensure image exists or use a real placeholder
           description: "Iconic library building.",
         },
         {
@@ -48,7 +48,7 @@
           rank: 4,
           rarity: 3,
           front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "Hub for food and student orgs.",
         },
         {
@@ -57,7 +57,7 @@
           rank: 5,
           rarity: 5,
           front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "Our beloved mascot!",
         },
         {
@@ -66,7 +66,7 @@
           rank: 1,
           rarity: 1,
           front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "path/to/placeholder_back.png",
+          back_image_placeholder: "../card/card-back.png",
           description: "A mysterious card.",
         },
       ];

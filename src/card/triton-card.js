@@ -140,7 +140,6 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-    console.log(`${src}`);
     const img = this.#card.querySelector(".card-front-background > img");
     if (img) img.src = src;
   }
