@@ -1,10 +1,16 @@
-describe("Google", () => {
+describe('Game Lobby sanity check', () => {
   beforeAll(async () => {
-    await page.goto("https://google.com");
+    // dev-server will have started http-server at localhost:8080
+    await page.goto('http://localhost:8080/game-lobby.html');
   });
 
-  it('should display "google" text on page', async () => {
-    const text = await page.evaluate(() => document.body.textContent);
-    expect(text).toContain("google");
+  it('should load with the correct title', async () => {
+    const title = await page.title();
+    expect(title).toBe('Document');
+  });
+
+  it('should find the Card-Jitsu button', async () => {
+    const btn = await page.$('#card-jitsu');
+    expect(btn).toBeTruthy();
   });
 });

@@ -2,8 +2,7 @@ export default {
   preset: "jest-puppeteer",
   testMatch: ["**/__tests__/e2e/**/*.test.js"],
   verbose: true,
-  globalSetup: "jest-environment-puppeteer/setup",
-  globalTeardown: "jest-environment-puppeteer/teardown",
-  testEnvironment: "jest-environment-puppeteer",
+  globalSetup: "<rootDir>/__tests__/setup/globalSetup.js",
+  globalTeardown: "<rootDir>/__tests__/setup/globalTeardown.js",
   maxWorkers: 1,
 };

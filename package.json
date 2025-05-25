@@ -16,6 +16,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-puppeteer": "^11.0.0",
     "jsdoc": "^x.x.x",
+    "kill-port": "^2.0.1",
     "prettier": "^3.5.3",
     "puppeteer": "^24.9.0"
   },
@@ -38,6 +39,7 @@
   "dependencies": {
     "chromedriver": "^136.0.0",
     "eslint-plugin-jest": "^28.11.0",
+    "jest-dev-server": "^11.0.0",
     "jest-environment-puppeteer": "^11.0.0"
   }
 }
