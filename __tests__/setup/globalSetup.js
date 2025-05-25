@@ -4,13 +4,16 @@ import waitOn from "wait-on";
 import setupPuppeteer from "jest-environment-puppeteer/setup";
 
 export default async function globalSetup(globalConfig) {
-  const server = spawn("npx", ["http-server", "./src/pages", "-p", "8080"], {
+  const port = 8080;
+  const server = spawn("npx", ["http-server", "./src/pages", "-p", port], {
     detached: true,
     stdio: "ignore",
     shell: true,
   });
 
   writeFileSync(".http-server-pid", String(server.pid));
+
+  console.log(`\nHTTP server running on port:${port}, PID:${server.pid}`);
 
   await waitOn({ resources: ["http://localhost:8080/game-lobby.html"] });
 
