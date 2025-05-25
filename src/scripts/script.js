@@ -7,7 +7,7 @@
 
 
 import { initDB, getAllCards } from './card-system.js';
-const CARDBACK_PATH = "src\card\card-back.png";
+const CARDBACK_PATH = 'src/card/card-back.png';
 const MAX_CARDS = 5;
 const TIMER_LIMIT = 60000; // 60 seconds
 
@@ -28,8 +28,8 @@ const typeBeats = {
 
 
 // UI elements
-const playerDeckEl = document.querySelector('.player-cards');
-const aiDeckEl = document.querySelector('.ai-card'); // For if we want to animate ai hand to table
+const playerDeckEl = document.querySelector('.player-hand-cards');
+const aiDeckEl = document.querySelector('.ai-deck .ai-card'); // For if we want to animate ai hand to table
 const playerWonSlots = document.querySelector('.player-won-cards');
 const aiWonSlots = document.querySelector('.ai-won-cards');
 const chosenPlayerSlot = document.querySelector('.chosen-player-card');
@@ -63,14 +63,17 @@ function drawCards(count,ai) {
      
         const randomIndex = Math.floor(Math.random()*deck.length);
         const cardObj = deck[randomIndex];
+        hand.push(cardObj);
+        //create triton card el
         const tritonCard = document.createElement('triton-card');
         tritonCard.cardData = cardObj;
        
         if(ai){
-            tritonCard.src = CARDBACK_PATH;
-            aiDeckEl.appendChild(tritonCard);
+          tritonCard.src = CARDBACK_PATH;
+          aiDeckEl[i].appendChild(tritonCard);
         }else{
-            playerDeckEl.appendChild(tritonCard);
+          tritonCard.src = cardObj.front_image_placeholder;
+          playerDeckEl.appendChild(tritonCard);
         }
   }
   return hand;
@@ -296,3 +299,15 @@ function resetTimer() {
 
 
 window.addEventListener('DOMContentLoaded', initGame);
+export {
+  determineWinner,
+  updateScore,
+  playerScore,
+  aiScore,
+  typeBeats,
+  drawCards,
+  deck,
+  playerDeckEl,
+  aiDeckEl,
+  CARDBACK_PATH
+};
