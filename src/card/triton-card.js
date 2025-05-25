@@ -139,17 +139,15 @@ class TritonCard extends HTMLElement {
         #img-card-front{
           width: var(--card-image-width);
           height: var(--card-image-height); 
-          z-index: -1;
         }
 
         #img-card-border{
           position: absolute;
-          z-index: 1;
         }
 
         .name, .rank, .type, .description {
           position: absolute;
-          z-index: 2;
+          z-index: 1;
           /* make sure the overflow text is hidden */
           overflow: hidden;
           text-overflow: ellipsis;
