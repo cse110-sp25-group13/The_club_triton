@@ -16,17 +16,27 @@
       }
       /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */
       :root {
-        --card-wdith: 150px; /* You can adjust this value to see card size changes */
+        --card-width: 150px; /* You can adjust this value to see card size changes */
       }
     </style>
+    <link href="./triton-card.css" rel="stylesheet" />
   </head>
   <body>
     <h1>TritonCard Component Test</h1>
+    <button id="flip-btn">flip all cards</button>
     <div id="card-container">
       <!-- Cards will be dynamically added here -->
     </div>
 
     <script type="module">
+      // FLIP FUNCTION DEMO
+      const btn = document.getElementById("flip-btn");
+      function flip_all(card_container) {
+        const cards = card_container.querySelectorAll("triton-card");
+        cards.forEach((card) => {
+          card.flip();
+        });
+      }
       // Ensure the TritonCard class and TYPE_COLORS are defined and accessible.
       // If TYPE_COLORS is defined outside triton-card.js, ensure this script can access it.
       // If TYPE_COLORS is a static property within the TritonCard class, no need to redefine it here.
@@ -49,6 +59,7 @@
           rarity: 3,
           front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
           back_image_placeholder: "../card/card-back.png",
+
           description: "Hub for food and student orgs.",
         },
         {
@@ -70,8 +81,8 @@
           description: "A mysterious card.",
         },
       ];
-
       const container = document.getElementById("card-container");
+      btn.addEventListener("click", () => flip_all(container));
 
       cardDataForTest.forEach((data) => {
         const cardElement = document.createElement("triton-card"); // Create an instance of the component
@@ -81,6 +92,7 @@
         cardElement.type = data.type; // <<< This should trigger border color change
         cardElement.rank = data.rank;
         cardElement.rarity = data.rarity; // <<< This should trigger rarity display
+
         if (data.front_image_placeholder)
           cardElement.front_image = data.front_image_placeholder;
         if (data.back_image_placeholder)
