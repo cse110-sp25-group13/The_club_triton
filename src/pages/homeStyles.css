@@ -1,41 +1,41 @@
 .navbar {
-    background-color: #03629C;
-    top:0; /*move box to top*/
-    left: 0; /*make box occupy  all horizontal space*/
-    right: 0;
-    padding: 1vmax;
-    position: fixed;
+  background-color: #03629c;
+  top: 0; /*move box to top*/
+  left: 0; /*make box occupy  all horizontal space*/
+  right: 0;
+  padding: 1vmax;
+  position: fixed;
 }
 
 .navbar ul {
-    display: flex;
-    justify-content: space-around;
-    list-style-type: none; /* Hide bullet points*/
-    align-items: center; 
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none; /* Hide bullet points*/
+  align-items: center;
 }
 
-.navbar a{
-    color: white; /* Removes default blue or purple color*/
-    text-decoration: none; /* Removes underline*/
+.navbar a {
+  color: white; /* Removes default blue or purple color*/
+  text-decoration: none; /* Removes underline*/
 }
 
 .navbar li {
-    font-size: 2vh;
-    display: inline;
-    color: white;
+  font-size: 2vh;
+  display: inline;
+  color: white;
 }
 
 body {
-    background-color: #ffcd00;
+  background-color: #ffcd00;
 }
 
 .description {
-    background-color: #03629C;
-    bottom: 1vh; /*move box to bottom*/
-    left: 20vw; /*make box occupy almost all horizontal space*/
-    right: 20vw;
-    padding: 1vmax;
-    position: fixed;
-    border-radius: 1vmin; /* round the corners*/
-    color: white;
+  background-color: #03629c;
+  bottom: 1vh; /*move box to bottom*/
+  left: 20vw; /*make box occupy almost all horizontal space*/
+  right: 20vw;
+  padding: 1vmax;
+  position: fixed;
+  border-radius: 1vmin; /* round the corners*/
+  color: white;
 }
