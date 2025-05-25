@@ -1,16 +1,27 @@
-describe('Game Lobby sanity check', () => {
+import puppeteer from "puppeteer";
+
+describe("Sanity check for game-lobby.html", () => {
+  let browser;
+  let page;
+
   beforeAll(async () => {
-    // dev-server will have started http-server at localhost:8080
-    await page.goto('http://localhost:8080/game-lobby.html');
+    browser = await puppeteer.launch({ headless: true });
+    page = await browser.newPage();
   });
 
-  it('should load with the correct title', async () => {
+  afterAll(async () => {
+    await browser.close();
+  });
+
+  it("loads the game lobby page and has correct title", async () => {
+    await page.goto("http://localhost:8080/game-lobby.html");
     const title = await page.title();
-    expect(title).toBe('Document');
+    expect(title).toBe("Document");
   });
 
-  it('should find the Card-Jitsu button', async () => {
-    const btn = await page.$('#card-jitsu');
-    expect(btn).toBeTruthy();
+  it("finds the Card-Jitsu button on the page", async () => {
+    await page.goto("http://localhost:8080/game-lobby.html");
+    const button = await page.$("#card-jitsu");
+    expect(button).toBeTruthy();
   });
 });
