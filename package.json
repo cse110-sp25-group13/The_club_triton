@@ -20,20 +20,20 @@
     "puppeteer": "^24.9.0"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules ./node_modules/.bin/jest --coverage",
+    "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest --config=jest-unit.config.js",
+    "test:e2e": "node --experimental-vm-modules ./node_modules/.bin/jest --config=jest-e2e.config.js",
+    "test": "npm run test:unit && npm run test:e2e",
     "lint": "eslint .",
     "format": "prettier --write ."
   },
   "type": "module",
   "jest": {
-    "preset": "jest-puppeteer",
     "transform": {},
     "verbose": true,
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js"
-    ],
-    "testEnvironment": "jsdom"
+    ]
   },
   "dependencies": {
     "chromedriver": "^136.0.0",
