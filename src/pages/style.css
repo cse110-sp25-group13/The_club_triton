@@ -80,6 +80,27 @@ body {
 .game-board{
     background-color: #a85751;
 }
+.game-characters{
+    display: flex;
+    justify-content: space-around;
+}
+.professor-character img, 
+.student-character img  {
+    position: inherit;
+    width: 20vw;
+    aspect-ratio: 3/4;
+}
+.card-comparison {
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+}
+.chosen-prof-card,
+.chosen-student-card {
+    width: 10vw;
+    aspect-ratio: 3/4;
+    border: 3px dashed #ff9933;
+}
 .play-table {
     font-size: 1em;
     display: flex;
@@ -99,16 +120,6 @@ body {
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-.card-comparison {
-    display: flex;
-    justify-content: space-around;
-}
-.chosen-prof-card,
-.chosen-student-card {
-    width: 15vw;
-    aspect-ratio: 3/4;
-    border: 3px dashed #ff9933;
-}
 .prof-deck {
     display: flex;
     flex-direction: column;
