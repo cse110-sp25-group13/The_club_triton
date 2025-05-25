@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "chromedriver": "^136.0.0",
-    "eslint-plugin-jest": "^28.11.0"
+    "eslint-plugin-jest": "^28.11.0",
+    "jest-environment-puppeteer": "^11.0.0"
   }
 }
