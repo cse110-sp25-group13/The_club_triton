@@ -1,6 +1,15 @@
 /**
  * TritonCard is a custom web component representing a card with a front and back.
  */
+
+const TYPE_COLORS = {
+  structure: "#003A70", // Dark blue
+  dining: "#FFCD00", // Yellow
+  mascot: "#006A4E", // Dark green
+  living: "#C0C0C0", // Gray
+  default: "#CCCCCC", // A default gray border in case the type does not match
+};
+
 class TritonCard extends HTMLElement {
   #card;
   /**
@@ -26,6 +35,7 @@ class TritonCard extends HTMLElement {
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
+        <span class="rarity"></span> 
         <p class="description">description</p>
       </div>
       <div class="card-back">
@@ -76,6 +86,7 @@ class TritonCard extends HTMLElement {
         height: calc(var(--card-wdith) * 4/3);
       }
     }
+
     .card-front {
       color: red;
       font-size: 15px;
@@ -100,6 +111,15 @@ class TritonCard extends HTMLElement {
         left: 50px;
         bottom: 0;
       }
+
+      .rarity {
+        position: absolute;
+        top: 2.5rem; 
+        right: 0.5rem; 
+        font-size: 12px; 
+        color: gold; 
+        /* We can use like "★★★☆☆" or number */
+      }
     }
 
     .card-back {
@@ -120,9 +140,8 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set front_image(src) {
-    console.log(`${src}`);
     const img = this.#card.querySelector(".card-front-background > img");
-    img.src = src;
+    if (img) img.src = src;
   }
 
   /**
@@ -132,7 +151,7 @@ class TritonCard extends HTMLElement {
    */
   set back_image(src) {
     const img = this.#card.querySelector(".card-back-background > img");
-    img.src = src;
+    if (img) img.src = src;
   }
 
   /**
@@ -141,7 +160,8 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set name(name) {
-    this.#card.querySelector(".name").textContent = name;
+    const el = this.#card.querySelector(".name");
+    if (el) el.textContent = name;
   }
 
   /**
@@ -150,16 +170,27 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set rank(rank) {
-    this.#card.querySelector(".rank").textContent = rank;
+    const el = this.#card.querySelector(".rank");
+    if (el) el.textContent = rank;
   }
 
   /**
-   * Set the type displayed on the card.
-   * @param {string} type - The type to display.
+   * Set the type displayed on the card and update border color.
+   * @param {string} typeValue - The type to display.
    * @returns {void}
    */
-  set type(type) {
-    this.#card.querySelector(".type").textContent = type;
+  set type(typeValue) {
+    const typeElement = this.#card.querySelector(".type");
+    if (typeElement) {
+      typeElement.textContent = typeValue;
+    }
+
+    const cardInner = this.#card.querySelector(".card-inner");
+    if (cardInner) {
+      const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
+      const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
+      cardInner.style.borderColor = borderColor;
+    }
   }
 
   /**
@@ -168,7 +199,20 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set description(des) {
-    this.#card.querySelector(".description").textContent = des;
+    const el = this.#card.querySelector(".description");
+    if (el) el.textContent = des;
+  }
+
+  /**
+   * Set the rarity displayed on the card.
+   * @param {number|string} value - The rarity value (e.g., 1, 2, 3, 4, 5).
+   * @returns {void}
+   */
+  set rarity(value) {
+    const rarityElement = this.#card.querySelector(".rarity");
+    if (rarityElement) {
+      rarityElement.textContent = `Rarity: ${value}`;
+    }
   }
 }
 
