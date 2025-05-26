@@ -12,6 +12,10 @@
     --play-table-color-2: #604D53;
     --play-table-color-3: #C29979;
 }
+@font-face {
+    font-family: table;
+    src: url("../fonts/Club Penguin Fonts/A.C.M.E. Secret Agent Bold.ttf");
+}
 body {
     min-height: 100vh;
     display: flex;
@@ -188,8 +192,8 @@ body {
 }
 .prof-cards {
     background-color: #fff;
-    width: 22.5vw;
-    height: 5vw;
+    width: 25vw;
+    height: 6vw;
 }
 .student-deck {
     display: flex;
@@ -200,9 +204,15 @@ body {
     text-align: right;
     margin-right: 1vw;
 }
+#prof-name, #student-name {
+    font-family: table;
+    font-size: 1.5vw;
+    color: var(--text-color);
+    font-weight: bold;
+}
 .student-cards {
-    width: 45vw;
-    height: 10vw;
+    width: 50vw;
+    height: 12vw;
     border-collapse: separate;
     border-spacing: 7.5px 2px;
 }
@@ -219,7 +229,9 @@ td {
     border: 2px solid #333;
     text-align: center;
 }
-
+.prof-cards, .student-cards {
+    margin-top:1%;
+}
 /* Buttons and footer */
 #exit-btn {
     position: absolute;
