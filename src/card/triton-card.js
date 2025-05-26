@@ -260,26 +260,29 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   set type(typeValue) {
-    const typeElement = this.#card.querySelector(".type");
-    if (typeElement) {
-      typeElement.textContent = typeValue;
-    }
-
-    const cardInner = this.#card.querySelector(".card-inner");
-    const border = this.#card.querySelector("#img-card-border");
-    if (cardInner) {
-      const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
-      const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
-      cardInner.style.borderColor = borderColor;
-    }
-    if (border) {
-      const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
-      const borderPath =
-        TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
-      border.src = borderPath;
-      console.log("card-borer load sucessfully");
-    }
+  const typeElement = this.#card.querySelector(".type");
+  if (typeElement) {
+    typeElement.textContent = typeValue;
   }
+
+  const cardInner = this.#card.querySelector(".card-inner");
+  const border = this.#card.querySelector("#img-card-border");
+  const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
+
+  if (cardInner) {
+    const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
+    cardInner.style.borderColor = borderColor;
+  }
+  if (border) {
+    const borderPath = TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+    border.src = borderPath;
+    border.onerror = () => {
+      console.error(`Failed to load border image for type: ${normalizedType}. Using default.`);
+      border.src = TritonCard.default_card_border_path;
+    };
+    console.log("Card border loaded successfully");
+  }
+}
 
   /**
    * Set the description displayed on the card.
