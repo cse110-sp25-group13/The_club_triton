@@ -167,7 +167,7 @@ body {
   width: 10vw;
   aspect-ratio: 3/4;
   margin-top: 9vw;
-  overflow:hidden;
+  overflow: hidden;
   justify-content: center;
   align-items: center;
 }
@@ -250,40 +250,40 @@ td {
 }
 /* Card Animations Section*/
 .card {
-    transition: all 0.5s ease;
-    cursor: pointer;
-    position: relative;
-    transform-style: preserve-3d;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
 }
-  
+
 .card.flipped {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-back {
-    background: url("../imgs/card-backs/professor-card-back.png") center/cover;
-    transform: rotateY(180deg);
+  background: url("../imgs/card-backs/professor-card-back.png") center/cover;
+  transform: rotateY(180deg);
 }
 
 .card-front {
-    background: white;
+  background: white;
 }
 
 .moving {
-    position: fixed;
-    z-index: 100;
-    pointer-events: none;
-    transition: all 0.5s ease;
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  transition: all 0.5s ease;
 }
 /* Additonal exit button design */
 #exit-btn {
