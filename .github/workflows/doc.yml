@@ -25,4 +25,4 @@ jobs:
 
           git add docs
           git diff --cached --quiet || git commit -m "Update docs"
-          git push origin develop
+          git push origin organize-configs
