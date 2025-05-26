@@ -5,7 +5,7 @@
     "type": "Structure",
     "ranking": 5,
     "rarity": 5,
-    "front_image_placeholder": "assets/images/geisel_library_front.png",
+    "front_image_placeholder": "assets/images/placeholders/geisel_library_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "UCSD's iconic 'spaceship' library, named after Dr. Seuss. A haven for study, housing millions of volumes and campus legends.",
     "keywords": ["library", "architecture", "study", "Dr. Seuss", "landmark"]
@@ -16,7 +16,7 @@
     "type": "Structure",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/price_center_front.png",
+    "front_image_placeholder": "assets/images/placeholders/price_center_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "The bustling heart of campus life, offering diverse food, student org spaces, a bookstore, and a movie theater.",
     "keywords": ["student center", "food court", "social hub", "activities"]
@@ -27,7 +27,7 @@
     "type": "Structure",
     "ranking": 4,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/liontree_arena_front.png",
+    "front_image_placeholder": "assets/images/placeholders/liontree_arena_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Home of the Tritons! Hosts thrilling athletic competitions, concerts, and major campus events like graduation.",
     "keywords": ["sports", "athletics", "events", "arena", "Tritons"]
@@ -38,7 +38,7 @@
     "type": "Structure",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/mandeville_auditorium_front.png",
+    "front_image_placeholder": "assets/images/placeholders/mandeville_auditorium_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A premier mid-size performance venue on campus, showcasing concerts, theater, dance, and distinguished lectures.",
     "keywords": ["arts", "performance", "music", "theater", "lectures"]
@@ -49,7 +49,7 @@
     "type": "Structure",
     "ranking": 2,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/ssc_front.png",
+    "front_image_placeholder": "assets/images/placeholders/ssc_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Your one-stop shop for admissions, registrar, and financial aid. Patience is a virtue, but help is here!",
     "keywords": ["admin", "enrollment", "financial aid", "support"]
@@ -60,7 +60,7 @@
     "type": "Structure",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/fallen_star_front.png",
+    "front_image_placeholder": "assets/images/placeholders/fallen_star_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Is it a house? Is it art? It's Fallen Star! This tilted cabin atop Jacobs Hall is a must-see Stuart Collection piece.",
     "keywords": [
@@ -76,7 +76,7 @@
     "type": "Structure",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/warren_bear_front.png",
+    "front_image_placeholder": "assets/images/placeholders/warren_bear_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Made of boulders, this massive bear sculpture by Tim Hawkinson is a beloved landmark in Warren College.",
     "keywords": ["sculpture", "Warren College", "Stuart Collection", "landmark"]
@@ -87,7 +87,7 @@
     "type": "Structure",
     "ranking": 5,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/sun_god_statue_front.png",
+    "front_image_placeholder": "assets/images/placeholders/sun_god_statue_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "The vibrant Niki de Saint Phalle sculpture that inspired UCSD's legendary annual music festival. A colorful campus icon!",
     "keywords": [
@@ -104,7 +104,7 @@
     "type": "Structure",
     "ranking": 5,
     "rarity": 5,
-    "front_image_placeholder": "assets/images/king_triton_statue_front.png",
+    "front_image_placeholder": "assets/images/placeholders/king_triton_statue_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "The majestic bronze guardian near Price Center. Rub his trident for good luck on your finals!",
     "keywords": ["mascot", "statue", "tradition", "good luck", "landmark"]
@@ -115,7 +115,7 @@
     "type": "Structure",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/scripps_pier_front.png",
+    "front_image_placeholder": "assets/images/placeholders/scripps_pier_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "An iconic research pier offering stunning ocean views, a symbol of UCSD's world-renowned Scripps Institution of Oceanography.",
     "keywords": ["oceanography", "research", "pier", "coastal", "Scripps"]
@@ -127,7 +127,7 @@
     "type": "Dining",
     "ranking": 4,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/pines_dining_front.png",
+    "front_image_placeholder": "assets/images/placeholders/pines_dining_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Muir College's popular dining hall known for its diverse menu, comfy atmosphere, and especially its pasta and deli sandwiches.",
     "keywords": ["Muir College", "dining hall", "variety", "comfort food"]
@@ -138,7 +138,7 @@
     "type": "Dining",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/canyon_vista_front.png",
+    "front_image_placeholder": "assets/images/placeholders/canyon_vista_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Warren College's go-to spot with a hip vibe, canyon views, grill favorites, and surprisingly good sushi.",
     "keywords": ["Warren College", "dining hall", "grill", "sushi", "views"]
@@ -149,7 +149,7 @@
     "type": "Dining",
     "ranking": 5,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/64_degrees_front.png",
+    "front_image_placeholder": "assets/images/placeholders/64_degrees_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Revelle's beloved dining hall with a modern aesthetic, offering everything from burgers and milkshakes to tacos and New York steak.",
     "keywords": [
@@ -166,7 +166,7 @@
     "type": "Dining",
     "ranking": 4,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/cafe_ventanas_front.png",
+    "front_image_placeholder": "assets/images/placeholders/cafe_ventanas_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Eleanor Roosevelt College's premier dining hall, boasting high vaulted ceilings, a sophisticated ambiance, and diverse international cuisine.",
     "keywords": ["ERC", "dining hall", "international cuisine", "ambiance"]
@@ -177,7 +177,7 @@
     "type": "Dining",
     "ranking": 3,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/panda_express_front.png",
+    "front_image_placeholder": "assets/images/placeholders/panda_express_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A classic go-to in Price Center for quick and familiar American Chinese comfort food. Orange chicken, anyone?",
     "keywords": ["Price Center", "fast food", "Chinese", "orange chicken"]
@@ -188,7 +188,7 @@
     "type": "Dining",
     "ranking": 3,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/roots_front.png",
+    "front_image_placeholder": "assets/images/placeholders/roots_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Located below Pines in Muir, Roots offers a fully plant-based menu with creative and delicious vegan options.",
     "keywords": ["Muir College", "vegan", "plant-based", "healthy"]
@@ -199,7 +199,7 @@
     "type": "Dining",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/bistro_front.png",
+    "front_image_placeholder": "assets/images/placeholders/bistro_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "An iconic (though sometimes temporarily closed) UCSD eatery known for its fresh sushi and Japanese dishes in a unique setting.",
     "keywords": ["sushi", "Japanese", "Galbraith Hall", "iconic"]
@@ -210,7 +210,7 @@
     "type": "Dining",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/audreys_cafe_front.png",
+    "front_image_placeholder": "assets/images/placeholders/audreys_cafe_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Conveniently located in Geisel Library, perfect for a caffeine boost or a quick snack during those long study sessions.",
     "keywords": ["Geisel Library", "coffee", "cafe", "study break"]
@@ -221,7 +221,7 @@
     "type": "Dining",
     "ranking": 2,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/croutons_front.png",
+    "front_image_placeholder": "assets/images/placeholders/croutons_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Found in the Student Services Center, offering fresh salads, soups, and paninis for a healthier quick meal.",
     "keywords": [
@@ -238,7 +238,7 @@
     "type": "Dining",
     "ranking": 3,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/food_coop_front.png",
+    "front_image_placeholder": "assets/images/placeholders/food_coop_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A student-run cooperative offering affordable, often organic or vegetarian/vegan food options near the Che Cafe.",
     "keywords": [
@@ -256,7 +256,7 @@
     "type": "Living",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/village_front.png",
+    "front_image_placeholder": "assets/images/placeholders/village_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Modern apartment-style living for transfer and upper-division students, known for its community and amenities.",
     "keywords": [
@@ -272,7 +272,7 @@
     "type": "Living",
     "ranking": 4,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/rita_atkinson_front.png",
+    "front_image_placeholder": "assets/images/placeholders/rita_atkinson_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Graduate and professional student housing offering contemporary apartments and a quieter, focused living environment.",
     "keywords": ["graduate housing", "apartments", "professional students"]
@@ -283,7 +283,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/seventh_college_front.png",
+    "front_image_placeholder": "assets/images/placeholders/seventh_college_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Home to students of UCSD's newest college, offering modern dorms and apartments fostering a theme of 'A Changing Planet'.",
     "keywords": ["Seventh College", "dorms", "apartments", "new"]
@@ -294,7 +294,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/sixth_college_front.png",
+    "front_image_placeholder": "assets/images/placeholders/sixth_college_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Known for its vibrant community and unique architecture, Sixth College housing encourages interdisciplinary creativity.",
     "keywords": ["Sixth College", "apartments", "creativity", "culture"]
@@ -305,7 +305,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/muir_living_front.png",
+    "front_image_placeholder": "assets/images/placeholders/muir_living_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Offers a mix of traditional dorms and apartments, fostering Muir's spirit of 'Celebrating the Independent Spirit'.",
     "keywords": ["Muir College", "dorms", "apartments", "independent spirit"]
@@ -316,7 +316,7 @@
     "type": "Living",
     "ranking": 2,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/revelle_living_front.png",
+    "front_image_placeholder": "assets/images/placeholders/revelle_living_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Classic dorm living for first-years in UCSD's oldest college, known for its rigorous humanities sequence, 'HUM'.",
     "keywords": ["Revelle College", "dorms", "first-year", "HUM"]
@@ -327,7 +327,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/marshall_living_front.png",
+    "front_image_placeholder": "assets/images/placeholders/marshall_living_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Housing that supports Marshall College's theme of 'Dimensions of Culture,' encouraging social justice and community.",
     "keywords": ["Marshall College", "dorms", "apartments", "social justice"]
@@ -338,7 +338,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 2,
-    "front_image_placeholder": "assets/images/warren_living_front.png",
+    "front_image_placeholder": "assets/images/placeholders/warren_living_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Apartment-style living in Warren College, which emphasizes 'A Life in Balance' with strong engineering and sciences programs.",
     "keywords": ["Warren College", "apartments", "engineering", "balance"]
@@ -349,7 +349,7 @@
     "type": "Living",
     "ranking": 3,
     "rarity": 3,
-    "front_image_placeholder": "assets/images/erc_living_front.png",
+    "front_image_placeholder": "assets/images/placeholders/erc_living_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "Apartments in Eleanor Roosevelt College, focusing on international understanding and the 'Making of the Modern World' sequence.",
     "keywords": ["ERC", "apartments", "international", "MMW"]
@@ -360,7 +360,7 @@
     "type": "Living",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "assets/images/ihouse_front.png",
+    "front_image_placeholder": "assets/images/placeholders/ihouse_front.png",
     "back_image_placeholder": "assets/images/placeholders/card_back_default.png",
     "description": "A vibrant residential community for both international and U.S. students, fostering cross-cultural exchange and global understanding.",
     "keywords": [
