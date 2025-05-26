@@ -108,6 +108,14 @@
                 startTimer(60);
             });
         </script>
+        <script>
+            document.getElementById('exit-btn').addEventListener('click', function() {
+                if(confirm('Are you sure you want to exit to the lobby?')) {
+                    window.location.href = 'home-page.html';
+                }
+                // If "No" is clicked, nothing happens (game continues)
+            });
+        </script>
     </body>
     <footer class="copyright-info"></footer>
 </html>
