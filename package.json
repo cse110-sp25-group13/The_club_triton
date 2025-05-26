@@ -25,7 +25,7 @@
     "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-unit.config.js",
     "test:e2e": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-e2e.config.js",
     "test": "npm run test:unit && npm run test:e2e",
-    "lint": "eslint . --config config/eslint.config.js",
+    "lint": "eslint . --config configs/eslint.config.js",
     "format": "prettier --write ."
   },
   "type": "module",
