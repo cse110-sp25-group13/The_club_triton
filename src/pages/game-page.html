@@ -72,32 +72,32 @@
             <tr>
               <td class="card-1" id="student-card-1">
                 <div class="card">
-                  <div class="card-front">Card 1</div>
-                  <div class="card-back"></div>
+                  <div class="card-face card-front">Card 1</div>
+                  <div class="card-face card-back"></div>
                 </div>
               </td>
               <td class="card-2" id="student-card-2">
                 <div class="card">
-                  <div class="card-front">Card 2</div>
-                  <div class="card-back"></div>
+                  <div class="card-face card-front">Card 2</div>
+                  <div class="card-face card-back"></div>
                 </div>
               </td>
               <td class="card-3" id="student-card-3">
                 <div class="card">
-                  <div class="card-front">Card 3</div>
-                  <div class="card-back"></div>
+                  <div class="card-face card-front">Card 3</div>
+                  <div class="card-face card-back"></div>
                 </div>
               </td>
               <td class="card-4" id="student-card-4">
                 <div class="card">
-                  <div class="card-front">Card 4</div>
-                  <div class="card-back"></div>
+                  <div class="card-face card-front">Card 4</div>
+                  <div class="card-face card-back"></div>
                 </div>
               </td>
               <td class="card-5" id="student-card-5">
                 <div class="card">
-                  <div class="card-front">Card 5</div>
-                  <div class="card-back"></div>
+                  <div class="card-face card-front">Card 5</div>
+                  <div class="card-face card-back"></div>
                 </div>
               </td>
             </tr>
@@ -105,50 +105,7 @@
         </div>
       </div>
     </main>
-    <script>
-      function startTimer(duration) {
-        const timerElement = document.querySelector(".timer");
-        let timeLeft = duration;
-        let timerInterval;
-
-        function updateTimer() {
-          const minutes = Math.floor(timeLeft / 60);
-          const seconds = timeLeft % 60;
-          timerElement.textContent = `${seconds}`;
-
-          // Update the red/green percentage
-          const percentage = 100 - (timeLeft / duration) * 100;
-          timerElement.style.setProperty("--percentage", `${percentage}%`);
-
-          if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timerElement.textContent = "0";
-            // Add any end-of-game logic here
-          }
-          timeLeft--;
-        }
-
-        // Initial call
-        updateTimer();
-        // Set interval for countdown
-        timerInterval = setInterval(updateTimer, 1000);
-      }
-
-      // Start 60-second timer when page loads
-      window.addEventListener("DOMContentLoaded", () => {
-        startTimer(60);
-      });
-    </script>
-    <script>
-      document
-        .getElementById("exit-btn")
-        .addEventListener("click", function () {
-          if (confirm("Are you sure you want to exit to the lobby?")) {
-            window.location.href = "home-page.html";
-          }
-          // If "No" is clicked, nothing happens (game continues)
-        });
-    </script>
+    
   </body>
   <footer class="copyright-info"></footer>
 </html>
