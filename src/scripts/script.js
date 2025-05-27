@@ -5,36 +5,38 @@
  * Dependencies: IndexedDB module in card-system.js
  */
 
-
+import '../card/triton-card.js'; 
 import { initDB, getAllCards } from './card-system.js';
 const CARDBACK_PATH = 'src/card/card-back.png';
 const MAX_CARDS = 5;
-const TIMER_LIMIT = 60000; // 60 seconds
 
 
 let deck = [];
 let playerHand = [];
 let aiHand = [];
-let playerScore = { monument: 0, dining: 0, structure: 0 };
-let aiScore = { monument: 0, dining: 0, structure: 0 };
-let timer = null;
+let playerScore = { Living: 0, Dining: 0, Structure: 0 };
+let aiScore = { Living: 0, Dining: 0, Structure: 0 };
+const MAX_TIME=60;
 
 
 const typeBeats = {
-  monument: 'dining',
+  living: 'dining',
   dining: 'structure',
-  structure: 'monument'
+  structure: 'living'
 };
 
 
 // UI elements
-const playerDeckEl = document.querySelector('.player-hand-cards');
-const aiDeckEl = document.querySelector('.ai-deck .ai-card'); // For if we want to animate ai hand to table
-const playerWonSlots = document.querySelector('.player-won-cards');
-const aiWonSlots = document.querySelector('.ai-won-cards');
-const chosenPlayerSlot = document.querySelector('.chosen-player-card');
-const chosenAiSlot = document.querySelector('.chosen-ai-card');
-const timerEl = document.getElementById('timer');
+const playerDeckEl = document.querySelectorAll('.student-deck .student-cards td');
+const aiDeckEl = document.querySelectorAll('.prof-deck .prof-cards td');
+
+const playerWonSlots = document.querySelector('.student-won-cards');
+const aiWonSlots = document.querySelector('.prof-won-cards');
+
+const chosenPlayerSlot = document.querySelector('.chosen-student-card');
+const chosenAiSlot = document.querySelector('.chosen-prof-card');
+
+const timerEl = document.querySelector('.timer');
 
 
 /**
@@ -43,9 +45,21 @@ const timerEl = document.getElementById('timer');
 async function initGame() {
   await initDB();
   deck = await getAllCards();
-  playerHand = drawCards(MAX_CARDS);
-  aiHand = drawCards(MAX_CARDS);
-  renderHands();
+  
+   // grab 5 student and AI cells once
+  const studentSlots = Array.from(
+    document.querySelectorAll('.student-deck .student-cards td')
+  );
+  const aiSlots = Array.from(
+    document.querySelectorAll('.prof-deck .prof-cards td')
+  );
+
+  // clear out their placeholder text
+  studentSlots.forEach(td => td.textContent = '');
+  aiSlots.forEach(td => td.textContent = '');
+
+  playerHand = drawCards(MAX_CARDS,false);
+  aiHand = drawCards(MAX_CARDS,true);
   resetTimer();
 }
 
@@ -61,42 +75,43 @@ function drawCards(count,ai) {
   const hand = [];
   for (let i = 0; i < count; i++) {
      
-        const randomIndex = Math.floor(Math.random()*deck.length);
-        const cardObj = deck[randomIndex];
-        hand.push(cardObj);
-        //create triton card el
-        const tritonCard = document.createElement('triton-card');
-        tritonCard.cardData = cardObj;
-       
-        if(ai){
-          tritonCard.src = CARDBACK_PATH;
-          aiDeckEl[i].appendChild(tritonCard);
-        }else{
-          tritonCard.src = cardObj.front_image_placeholder;
-          playerDeckEl.appendChild(tritonCard);
-        }
+    const randomIndex = Math.floor(Math.random()*deck.length);
+    const cardObj = deck[randomIndex];
+    hand.push(cardObj);
+    //create triton card el
+    const tritonCard = document.createElement('triton-card');
+    tritonCard.id = `tritonCard-${cardObj.id}`;
+    tritonCard.back_image  = cardObj.back_image_placeholder;
+    tritonCard.name        = cardObj.name;
+    tritonCard.rank        = cardObj.ranking;
+    tritonCard.type        = cardObj.type;
+    tritonCard.description = cardObj.description;
+    tritonCard.rarity      = cardObj.rarity;
+    
+    if(ai){
+      let targetSlot = aiDeckEl[i];
+      if (targetSlot.querySelector('triton-card')) {
+        targetSlot = aiDeckEl.find(slot => !slot.querySelector('triton-card'));
+      }
+      if (targetSlot) targetSlot.appendChild(tritonCard);
+    
+    }else{
+
+      tritonCard.addEventListener('click', () => {playRound(cardObj.id);});
+      let targetSlot = playerDeckEl[i];
+  
+      if (targetSlot.querySelector('triton-card')) {
+        targetSlot = playerDeckEl.find(slot => !slot.querySelector('triton-card'));
+      }
+      if (targetSlot){
+        // uncomment whenever the img path works
+        //tritonCard.front_image = cardObj.front_image_placeholder;
+        targetSlot.appendChild(tritonCard);
+      }
+    }
   }
   return hand;
 }
-
-
-
-
-/**
- * Renders player hand cards to the DOM.
- */
-function renderHands() {
-  playerDeckEl.innerHTML = '';
-  playerHand.forEach((tritonCard) => {
-    const cardEl = createElement('triton-card');
-    cardEl.addEventListener('click', () => playRound(tritonCard.id)); // Use ID
-    playerDeckEl.appendChild(cardEl);
-  });
-}
-
-
-
-
 
 
 /**
@@ -104,37 +119,67 @@ function renderHands() {
  * @param {string} playerCardId - ID of the selected card in playerHand
  */
 async function playRound(playerCardId) {
-  clearTimeout(timer);
-
+  console.log('%c[playRound] start', 'color: blue', { playerCardId, playerHand, aiHand });
 
   // Find and remove card from hand
-  const playerIdx = playerHand.findIndex(tritonCard => tritonCard.id === playerCardId);
+  const playerIdx = playerHand.findIndex(tc => tc.id === playerCardId);
+  console.log('[playRound] playerIdx =', playerIdx);
   const playerCard = playerHand.splice(playerIdx, 1)[0];
+  console.log('[playRound] drew playerCard =', playerCard, 'remaining hand:', playerHand);
 
-
+  // Pick and remove AI card
   const aiIdx = Math.floor(Math.random() * aiHand.length);
+  console.log('[playRound] aiIdx =', aiIdx);
   const aiCard = aiHand.splice(aiIdx, 1)[0];
+  console.log('[playRound] drew aiCard =', aiCard, 'remaining aiHand:', aiHand);
 
-
+  // Animate player card moving
   const playerCardEl = document.getElementById(`tritonCard-${playerCard.id}`);
-  await animateCardMove(playerCardEl, chosenPlayerSlot);
+  console.log('[playRound] animate player from', playerCardEl, 'to', chosenPlayerSlot);
+  try {
+    await animateCardMove(playerCardEl, chosenPlayerSlot);
+    console.log('[playRound] player animation done');
+  } catch (err) {
+    console.error('[playRound] player animation error', err);
+  }
 
+  // Animate AI card moving
+  const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}`);
+  console.log('[playRound] animate AI from', aiCardEl, 'to', chosenAiSlot);
+  try {
+    await animateCardMove(aiCardEl, chosenAiSlot);
+    console.log('[playRound] AI animation done');
+  } catch (err) {
+    console.error('[playRound] AI animation error', err);
+  }
 
-  chosenAiSlot.innerHTML = createCardElement(aiCard).outerHTML;
+  // Reveal AI card front
+  console.log('[playRound] reveal AI front image');
+  //aiCardEl.front_image = aiCard.front_image_placeholder;
 
-
+  // Determine winner
   const winner = determineWinner(playerCard, aiCard);
-  updateScore(winner, playerCard, aiCard);
+  console.log('[playRound] winner is', winner);
 
+  // Update score
+  updateScore(winner, playerCard, aiCard);
+  console.log('[playRound] scores updated', { playerScore, aiScore });
 
   // Draw replacement cards
-  playerHand.push(...drawCards(1, false));
-  aiHand.push(...drawCards(1, true));
+  console.log('[playRound] drawing replacements');
+  const newPlayer = drawCards(1, false);
+  console.log('[playRound] newPlayer cards:', newPlayer);
+  playerHand.push(...newPlayer);
+  const newAi = drawCards(1, true);
+  console.log('[playRound] newAi cards:', newAi);
+  aiHand.push(...newAi);
 
-
-  renderHands();
+  // Reset timer
+  console.log('[playRound] resetting timer');
   resetTimer();
+  console.log('%c[playRound] end', 'color: blue');
 }
+
 
 
 /**
@@ -152,52 +197,80 @@ function determineWinner(playerCard, aiCard) {
   return typeBeats[playerCard.type] === aiCard.type ? 'player' : 'ai';
 }
 
-
-/**
- * Animates a card moving from its current position to a target element.
- * @param {HTMLElement} card - The actual card element in the player's hand.
- * @param {HTMLElement} targetEl - The destination element (e.g., comparison slot).
- * @returns {Promise<void>} Resolves when animation completes.
- */
 function animateCardMove(card, targetEl) {
+  console.log('[animateCardMove] called', { card, targetEl });
+
   return new Promise((res) => {
+    if (!card) {
+      console.error('[animateCardMove] ⚠️ card is null!');
+      return res();
+    }
+    if (!targetEl) {
+      console.error('[animateCardMove] ⚠️ targetEl is null!');
+      return res();
+    }
+
+    // capture start/end positions
     const start = card.getBoundingClientRect();
-    const end = targetEl.getBoundingClientRect();
+    const end   = targetEl.getBoundingClientRect();
+    console.log('[animateCardMove] start/end rects', { start, end });
 
-
+    // clone & style the ghost
     const ghost = card.cloneNode(true);
-    ghost.style.position = 'fixed';
-    ghost.style.top = `${start.top}px`;
-    ghost.style.left = `${start.left}px`;
-    ghost.style.width = `${start.width}px`;
-    ghost.style.height = `${start.height}px`;
-    ghost.style.transition = 'transform 0.4s ease-out';
-    ghost.style.zIndex = '1000';
+    Object.assign(ghost.style, {
+      position: 'fixed',
+      top:      `${start.top}px`,
+      left:     `${start.left}px`,
+      width:    `${start.width}px`,
+      height:   `${start.height}px`,
+      transition: 'transform 0.4s ease-out',
+      zIndex:   '1000',
+    });
     document.body.appendChild(ghost);
+    console.log('[animateCardMove] ghost appended');
 
-
+    // hide original
     card.style.visibility = 'hidden';
 
+    // Force a reflow so the browser "sees" the starting position
+    // before we change transform
+    // (sometimes necessary to kick off the transition)
+    // eslint-disable-next-line no-unused-expressions
+    ghost.getBoundingClientRect();
 
+    // apply the transform on the next frame
     requestAnimationFrame(() => {
       const dx = end.left - start.left;
-      const dy = end.top - start.top;
+      const dy = end.top  - start.top;
+      console.log('[animateCardMove] applying transform', { dx, dy });
       ghost.style.transform = `translate(${dx}px, ${dy}px)`;
     });
 
-
-    ghost.addEventListener('transitionend', () => {
+    // when the transition ends, move the real card into place
+    const cleanup = () => {
+      console.log('[animateCardMove] transitionend → cleaning up');
       targetEl.innerHTML = '';
       targetEl.appendChild(card);
       card.style.visibility = 'visible';
       ghost.remove();
       res();
-    }, { once: true });
+    };
+
+    ghost.addEventListener('transitionend', cleanup, { once: true });
+
+    // fallback in case transitionend never fires
+    setTimeout(() => {
+      if (document.body.contains(ghost)) {
+        console.warn('[animateCardMove] ⚠️ fallback timeout, forcing cleanup');
+        cleanup();
+      }
+    }, 1000);
   });
 }
 
 
-/**
+
+/** 
  * Updates score and UI based on winner.
  * @param {string} winner - "player" or "ai"
  * @param {Object} playerCard
@@ -205,26 +278,14 @@ function animateCardMove(card, targetEl) {
  */
 function updateScore(winner, playerCard, aiCard) {
   const winCard = winner === 'player' ? playerCard : aiCard;
-  const container = winner === 'player' ? playerWonSlots : aiWonSlots;
-
-
   if (winner !== 'tie') {
-    // Update DOM score
-    const slot = container.querySelector(`#${winCard.type}-card`);
-    const countSpan = slot.querySelector('span');
-    const current = parseInt(countSpan.dataset.count || '0', 10);
-    countSpan.dataset.count = current + 1;
-    countSpan.textContent = `${winCard.type}: ${current + 1}`;
-
-
+   
     // Update JS score
     if (winner === 'player') {
       playerScore[winCard.type]++;
     } else {
       aiScore[winCard.type]++;
     }
-
-
     // Check for win condition
     checkWinCondition();
   }
@@ -234,7 +295,7 @@ function updateScore(winner, playerCard, aiCard) {
  * Check if the user has won 3 times with same card type or 3 times each with different card type
  */
 function checkWinCondition() {
-  // Assume playerScore and aiScore are objects like:
+  // playerScore and aiScore are objects like:
   // { monument: <n>, dining: <n>, structure: <n> }
   const playerCounts = Object.values(playerScore);
   const aiCounts = Object.values(aiScore);
@@ -261,41 +322,50 @@ function checkWinCondition() {
  * Alert when winning condition is met
  */
 function endGame(winner) {
-  clearTimeout(timer);
+  clearInterval(countdownInterval);
+  clearTimeout(autoPlayTimeout);
   alert(`${winner === 'player' ? 'You win!' : 'AI wins!'} Game over.`);
- 
-  // Optionally disable further interaction
-  const cards = document.querySelectorAll('.player-card');
-  cards.forEach(card => card.replaceWith(card.cloneNode(true))); // removes event listeners
-
-
-  // Or reload the page to restart:
-  // location.reload();
+  location.reload();
 }
 
 
 /**
  * Starts or resets the round timer.
  */
+let countdownInterval = null;
+let autoPlayTimeout   = null;
 function resetTimer() {
-  clearTimeout(timer);
-  timerEl.textContent = '60';
-  let timeLeft = 60;
+  // 1) clear both previous timers
+  clearInterval(countdownInterval);
+  clearTimeout(autoPlayTimeout);
 
+  // 2) reset the display
+  let timeLeft = MAX_TIME;
+  timerEl.textContent = timeLeft;
 
-  const countdown = setInterval(() => {
+  // 3) start the countdown interval
+  countdownInterval = setInterval(() => {
     timeLeft--;
     timerEl.textContent = timeLeft;
-    if (timeLeft <= 0) clearInterval(countdown);
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+    }
   }, 1000);
 
-
-  timer = setTimeout(() => {
-    const randIdx = Math.floor(Math.random() * playerHand.length);
+  // 4) schedule the auto-play fallback in 60s
+  autoPlayTimeout = setTimeout(() => {
+    clearInterval(countdownInterval);
+    // pick a random card if the player never moved
+    const randIdx    = Math.floor(Math.random() * playerHand.length);
     const randCardId = playerHand[randIdx].id;
     playRound(randCardId);
-  }, TIMER_LIMIT);
+  }, MAX_TIME*1000);
 }
+
+
+
+  
+
 
 
 window.addEventListener('DOMContentLoaded', initGame);
