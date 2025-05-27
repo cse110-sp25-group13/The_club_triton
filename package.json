@@ -5,6 +5,8 @@
     "@eslint/css": "^0.7.0",
     "@eslint/js": "^9.26.0",
     "@eslint/markdown": "^6.4.0",
+    "@html-eslint/eslint-plugin": "^0.41.0",
+    "@html-eslint/parser": "^0.41.0",
     "@lhci/cli": "^x.x.x",
     "babel-jest": "^29.7.0",
     "eslint": "^9.26.0",
