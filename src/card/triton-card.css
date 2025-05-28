@@ -3,7 +3,7 @@
 
 :root {
   /*define the card width*/
-  --card-width: 300px;
+  --card-width: 6rem;
   /* card-height is calculated based on width, 3/ 4 ratio */
   --card-height: calc(var(--card-width) * 4 / 3);
   /* card-image, font size scale with card-width */
