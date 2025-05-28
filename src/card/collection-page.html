@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TritonCard Collection Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="triton-card.js" type="module"></script>
+    <script src="../scripts/card-system.js" defer></script> 
+    <style>
+      body { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px; }
+      #card-collection-container { 
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 15px; 
+        justify-content: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 80%; /* 或者其他合适的宽度 */
+      }
+      :root { /* 确保CSS变量已定义 */
+        --card-wdith: 150px; 
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Card Collection (Demo)</h1>
+    <div id="card-collection-container">
+      <!-- Owned cards will be dynamically added here -->
+    </div>
+
+    <hr>
+    <h2>Test Controls (Add to Collection)</h2>
+    <input type="text" id="card-id-to-add" placeholder="Enter Card ID (e.g., dining_002)">
+    <button id="add-to-collection-btn">Add to Collection</button>
+    <button id="refresh-collection-btn">Refresh Collection View</button>
+
+    <script type="module">
+      // 确保 card-system.js 中的函数 (initDB, getOwnedFullCards, addCardToCollection) 和
+      // triton-card.js 中的 TritonCard 类已加载
+
+      const collectionContainer = document.getElementById('card-collection-container');
+      const cardIdInput = document.getElementById('card-id-to-add');
+      const addButton = document.getElementById('add-to-collection-btn');
+      const refreshButton = document.getElementById('refresh-collection-btn');
+
+      async function displayOwnedCards() {
+        if (!collectionContainer) return;
+        collectionContainer.innerHTML = ''; // 清空现有卡牌，避免重复
+
+        try {
+          const ownedCards = await getOwnedFullCards(); // 调用我们刚测试成功的函数
+          if (ownedCards && ownedCards.length > 0) {
+            ownedCards.forEach(data => {
+              const cardElement = document.createElement('triton-card');
+              
+              // 设置所有必要的属性
+              cardElement.name = data.name;
+              cardElement.type = data.type;
+              cardElement.rank = data.rank;
+              cardElement.rarity = data.rarity;
+              if (data.front_image_placeholder) cardElement.front_image = data.front_image_placeholder;
+              // 确保处理空图片路径，如之前讨论
+              if (data.back_image_placeholder) cardElement.back_image = data.back_image_placeholder; else cardElement.back_image = ""; 
+              cardElement.description = data.description;
+              // 你可能还需要根据Chung的设计，为卡牌组件设置其他属性或调用方法
+              
+              collectionContainer.appendChild(cardElement);
+            });
+          } else {
+            collectionContainer.textContent = 'Your collection is currently empty.';
+          }
+        } catch (error) {
+          console.error("Failed to display owned cards:", error);
+          collectionContainer.textContent = 'Error loading collection.';
+        }
+      }
+
+      // 页面加载后初始化数据库并显示收藏
+      initDB()
+        .then(() => {
+          console.log("DB initialized for collection demo.");
+          displayOwnedCards(); // 首次显示
+        })
+        .catch(err => {
+          console.error("DB init failed for demo:", err);
+          collectionContainer.textContent = 'Failed to initialize card database.';
+        });
+
+      // 添加卡牌到收藏的按钮事件
+      addButton.addEventListener('click', async () => {
+        const cardId = cardIdInput.value.trim();
+        if (cardId) {
+          try {
+            await addCardToCollection(cardId);
+            alert(`Attempted to add card ID: ${cardId} to collection. Refreshing view.`);
+            cardIdInput.value = ''; // 清空输入框
+            await displayOwnedCards(); // 添加后刷新显示
+          } catch (error) {
+            alert(`Error adding card: ${error.message || error}`);
+          }
+        } else {
+          alert("Please enter a card ID.");
+        }
+      });
+
+      // 手动刷新收藏按钮
+      refreshButton.addEventListener('click', displayOwnedCards);
+
+    </script>
+  </body>
+</html>
