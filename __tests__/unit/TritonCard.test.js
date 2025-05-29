@@ -46,13 +46,24 @@ describe("TritonCard", () => {
 
   test("sets front image src", () => {
     card.front_image = "front.jpg";
-    const img = card.shadowRoot.querySelector(".card-front-background img");
-    expect(img.src).toContain("front.jpg");
+    // Modified selector to correctly target the card front image element
+    const img = card.shadowRoot.querySelector("#img-card-front"); 
+    expect(img).not.toBeNull(); // First ensure the element is found
+    if (img) { // If found, then check the src
+      expect(img.src).toContain("front.jpg"); 
+      // Alternative more precise approach: expect(img.getAttribute('src')).toBe("front.jpg");
+      // Because img.src is parsed as a full URL in browser/jsdom, while getAttribute('src') returns the original set value.
+    }
   });
 
   test("sets back image src", () => {
     card.back_image = "back.jpg";
-    const img = card.shadowRoot.querySelector(".card-back-background img");
-    expect(img.src).toContain("back.jpg");
+    // Modified selector to correctly target the card back image element
+    const img = card.shadowRoot.querySelector("#img-card-back"); 
+    expect(img).not.toBeNull();
+    if (img) {
+      expect(img.src).toContain("back.jpg");
+      // Alternative: expect(img.getAttribute('src')).toBe("back.jpg");
+    }
   });
 });
