@@ -14,19 +14,27 @@
         gap: 20px;
         padding: 20px;
       }
-      /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */
-      :root {
-        --card-wdith: 150px; /* You can adjust this value to see card size changes */
-      }
     </style>
+
+    <!-- /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */ -->
+    <link rel="stylesheet" href="triton-card.css" />
   </head>
   <body>
     <h1>TritonCard Component Test</h1>
+    <button id="flip-btn">flip all cards</button>
     <div id="card-container">
       <!-- Cards will be dynamically added here -->
     </div>
 
     <script type="module">
+      // FLIP FUNCTION DEMO
+      const btn = document.getElementById("flip-btn");
+      function flip_all(card_container) {
+        const cards = card_container.querySelectorAll("triton-card");
+        cards.forEach((card) => {
+          card.flip();
+        });
+      }
       // Ensure the TritonCard class and TYPE_COLORS are defined and accessible.
       // If TYPE_COLORS is defined outside triton-card.js, ensure this script can access it.
       // If TYPE_COLORS is a static property within the TritonCard class, no need to redefine it here.
@@ -38,7 +46,8 @@
           type: "Structure",
           rank: 5,
           rarity: 4,
-          front_image_placeholder: "../card/card-front.webp", // Example path, ensure image exists or use a real placeholder
+          front_image_placeholder:
+            "../card-data/assets/images/placeholders/geisel_library_front.png", // Example path, ensure image exists or use a real placeholder
           back_image_placeholder: "../card/card-back.png", // Example path, ensure image exists or use a real placeholder
           description: "Iconic library building.",
         },
@@ -47,8 +56,10 @@
           type: "Dining",
           rank: 4,
           rarity: 3,
-          front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
+          front_image_placeholder:
+            "../card-data/assets/images/placeholders/price_center_front.png", // Using the same placeholder for testing
           back_image_placeholder: "../card/card-back.png",
+
           description: "Hub for food and student orgs.",
         },
         {
@@ -56,7 +67,8 @@
           type: "Mascot",
           rank: 5,
           rarity: 5,
-          front_image_placeholder: "../card/card-front.webp",
+          front_image_placeholder:
+            "../card-data/assets/images/placeholders/king_triton_statue_front.png",
           back_image_placeholder: "../card/card-back.png",
           description: "Our beloved mascot!",
         },
@@ -70,8 +82,8 @@
           description: "A mysterious card.",
         },
       ];
-
       const container = document.getElementById("card-container");
+      btn.addEventListener("click", () => flip_all(container));
 
       cardDataForTest.forEach((data) => {
         const cardElement = document.createElement("triton-card"); // Create an instance of the component
@@ -81,6 +93,7 @@
         cardElement.type = data.type; // <<< This should trigger border color change
         cardElement.rank = data.rank;
         cardElement.rarity = data.rarity; // <<< This should trigger rarity display
+
         if (data.front_image_placeholder)
           cardElement.front_image = data.front_image_placeholder;
         if (data.back_image_placeholder)
