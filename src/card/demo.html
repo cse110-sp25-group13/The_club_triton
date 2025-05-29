@@ -40,8 +40,8 @@
 
           if (allCardsFromDB && allCardsFromDB.length > 0) {
             // Clear any previous test cards (if any)
-            container.innerHTML = ''; 
-            
+            container.innerHTML = "";
+
             // For demo purposes, we only take the first few or specific cards
             const cardsToDisplay = allCardsFromDB.slice(0, 4); // For example, display first 4 cards
 
@@ -52,9 +52,11 @@
               cardElement.rank = data.ranking; // Note: using 'ranking' from cards.json
               cardElement.rarity = data.rarity;
               // Use paths defined in cards.json
-              if (data.front_image_placeholder) cardElement.front_image = data.front_image_placeholder; 
+              if (data.front_image_placeholder)
+                cardElement.front_image = data.front_image_placeholder;
               else cardElement.front_image = "";
-              if (data.back_image_placeholder) cardElement.back_image = data.back_image_placeholder; 
+              if (data.back_image_placeholder)
+                cardElement.back_image = data.back_image_placeholder;
               else cardElement.back_image = "";
               cardElement.description = data.description;
               container.appendChild(cardElement);
