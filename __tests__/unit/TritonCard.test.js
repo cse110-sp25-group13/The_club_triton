@@ -45,25 +45,30 @@ describe("TritonCard", () => {
   });
 
   test("sets front image src", () => {
-    card.front_image = "front.jpg";
-    // Modified selector to correctly target the card front image element
-    const img = card.shadowRoot.querySelector("#img-card-front"); 
-    expect(img).not.toBeNull(); // First ensure the element is found
-    if (img) { // If found, then check the src
-      expect(img.src).toContain("front.jpg"); 
-      // Alternative more precise approach: expect(img.getAttribute('src')).toBe("front.jpg");
-      // Because img.src is parsed as a full URL in browser/jsdom, while getAttribute('src') returns the original set value.
+    const testImageSrc = "test-card-front.png"; // Use a clear test image name
+    card.front_image = testImageSrc; // Call setter
+
+    // Ensure we select the correct img element (based on your triton-card.js, front image ID is #img-card-front)
+    const imgEl = card.shadowRoot.querySelector("#img-card-front");
+    
+    // Assertion 1: Ensure we found the img element
+    expect(imgEl).not.toBeNull(); 
+
+    // Assertion 2: Check if the img element's src attribute is correctly set to the string we passed in
+    // Use getAttribute('src') to get the original set value, not the browser-parsed full URL
+    if (imgEl) { // Only proceed with subsequent assertions if imgEl exists
+      expect(imgEl.getAttribute('src')).toBe(testImageSrc);
     }
   });
 
   test("sets back image src", () => {
-    card.back_image = "back.jpg";
-    // Modified selector to correctly target the card back image element
-    const img = card.shadowRoot.querySelector("#img-card-back"); 
-    expect(img).not.toBeNull();
-    if (img) {
-      expect(img.src).toContain("back.jpg");
-      // Alternative: expect(img.getAttribute('src')).toBe("back.jpg");
+    const testImageSrc = "test-card-back.png";
+    card.back_image = testImageSrc;
+
+    const imgEl = card.shadowRoot.querySelector("#img-card-back");
+    expect(imgEl).not.toBeNull();
+    if (imgEl) {
+      expect(imgEl.getAttribute('src')).toBe(testImageSrc);
     }
   });
 });
