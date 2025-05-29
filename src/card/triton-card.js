@@ -20,11 +20,11 @@ const TYPE_COLORS = {
  * @const {Map<string,string>} TYPE_BORDER
  */
 const TYPE_BORDER = {
-  structure: "./assets/blue-card-base.png",
-  dining: "./assets/yellow-card-base.png",
-  mascot: "./assets/green-card-base.png",
-  living: "./assets/dark-card-base.png",
-  default: "./assets/default-card-base.png",
+  structure: "/src/assets/imgs/card_borders/blue-card-base.png", 
+  dining: "/src/assets/imgs/card_borders/yellow-card-base.png",
+  mascot: "/src/assets/imgs/card_borders/green-card-base.png",
+  living: "/src/assets/imgs/card_borders/dark-card-base.png", 
+  default: "/src/assets/imgs/card_borders/default-card-base.png",
 };
 
 /**

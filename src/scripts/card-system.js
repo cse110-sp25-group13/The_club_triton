@@ -223,7 +223,7 @@ function initDB() {
         await populateDataIfEmpty(
           db,
           STORE_NAME_CARDS,
-          "../card-data/cards.json",
+          "/src/card/cards.json",
         );
         console.log(
           "Database initialization and data population check complete.",
