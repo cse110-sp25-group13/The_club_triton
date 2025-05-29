@@ -1,3 +1,3 @@
 # The_club_triton
 
-Club Penguins card game, UCSD style! 
+Club Penguins card game, UCSD style!
