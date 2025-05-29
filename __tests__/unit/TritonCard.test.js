@@ -56,4 +56,3 @@ describe("TritonCard", () => {
   //   expect(img.src).toContain("back.jpg");
   // });
 });
-
