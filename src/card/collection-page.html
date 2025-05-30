@@ -60,7 +60,7 @@
         collectionContainer.innerHTML = ""; // Clear existing cards to avoid duplicates
 
         try {
-          const ownedCards = await getOwnedFullCards(); 
+          const ownedCards = await getOwnedFullCards();
           if (ownedCards && ownedCards.length > 0) {
             ownedCards.forEach((data) => {
               const cardElement = document.createElement("triton-card");
