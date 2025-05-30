@@ -20,10 +20,10 @@
         justify-content: center;
         padding: 10px;
         border: 1px solid #ccc;
-        width: 80%; /* 或者其他合适的宽度 */
+        width: 80%; /* Or another suitable width */
       }
       :root {
-        /* 确保CSS变量已定义 */
+        /* Make sure CSS variables are defined */
         --card-wdith: 150px;
       }
     </style>
@@ -45,8 +45,8 @@
     <button id="refresh-collection-btn">Refresh Collection View</button>
 
     <script type="module">
-      // 确保 card-system.js 中的函数 (initDB, getOwnedFullCards, addCardToCollection) 和
-      // triton-card.js 中的 TritonCard 类已加载
+      // Make sure functions from card-system.js (initDB, getOwnedFullCards, addCardToCollection) and
+      // the TritonCard class from triton-card.js are loaded
 
       const collectionContainer = document.getElementById(
         "card-collection-container",
@@ -57,27 +57,26 @@
 
       async function displayOwnedCards() {
         if (!collectionContainer) return;
-        collectionContainer.innerHTML = ""; // 清空现有卡牌，避免重复
+        collectionContainer.innerHTML = ""; // Clear existing cards to avoid duplicates
 
         try {
-          const ownedCards = await getOwnedFullCards(); // 调用我们刚测试成功的函数
+          const ownedCards = await getOwnedFullCards(); 
           if (ownedCards && ownedCards.length > 0) {
             ownedCards.forEach((data) => {
               const cardElement = document.createElement("triton-card");
 
-              // 设置所有必要的属性
+              // Set all necessary attributes
               cardElement.name = data.name;
               cardElement.type = data.type;
               cardElement.rank = data.rank;
               cardElement.rarity = data.rarity;
               if (data.front_image_placeholder)
                 cardElement.front_image = data.front_image_placeholder;
-              // 确保处理空图片路径，如之前讨论
+              // Make sure to handle empty image paths
               if (data.back_image_placeholder)
                 cardElement.back_image = data.back_image_placeholder;
               else cardElement.back_image = "";
               cardElement.description = data.description;
-              // 你可能还需要根据Chung的设计，为卡牌组件设置其他属性或调用方法
 
               collectionContainer.appendChild(cardElement);
             });
@@ -91,11 +90,11 @@
         }
       }
 
-      // 页面加载后初始化数据库并显示收藏
+      // Initialize database and display collection after page load
       initDB()
         .then(() => {
           console.log("DB initialized for collection demo.");
-          displayOwnedCards(); // 首次显示
+          displayOwnedCards(); // Initial display
         })
         .catch((err) => {
           console.error("DB init failed for demo:", err);
@@ -103,7 +102,7 @@
             "Failed to initialize card database.";
         });
 
-      // 添加卡牌到收藏的按钮事件
+      // Add card to collection button event
       addButton.addEventListener("click", async () => {
         const cardId = cardIdInput.value.trim();
         if (cardId) {
@@ -112,8 +111,8 @@
             alert(
               `Attempted to add card ID: ${cardId} to collection. Refreshing view.`,
             );
-            cardIdInput.value = ""; // 清空输入框
-            await displayOwnedCards(); // 添加后刷新显示
+            cardIdInput.value = ""; // Clear input
+            await displayOwnedCards(); // Refresh after adding
           } catch (error) {
             alert(`Error adding card: ${error.message || error}`);
           }
@@ -122,7 +121,7 @@
         }
       });
 
-      // 手动刷新收藏按钮
+      // Manual refresh collection button
       refreshButton.addEventListener("click", displayOwnedCards);
     </script>
   </body>
