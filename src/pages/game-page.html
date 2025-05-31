@@ -86,40 +86,44 @@
           <table class="student-cards">
             <div id="student-name">Student</div>
             <tr>
-              <td class="card-1" id="student-card-1">
-                <div class="card">
-                  <div class="card-face card-front">Card 1</div>
-                  <div class="card-face card-back"></div>
-                </div>
-              </td>
-              <td class="card-2" id="student-card-2">
-                <div class="card">
-                  <div class="card-face card-front">Card 2</div>
-                  <div class="card-face card-back"></div>
-                </div>
-              </td>
-              <td class="card-3" id="student-card-3">
-                <div class="card">
-                  <div class="card-face card-front">Card 3</div>
-                  <div class="card-face card-back"></div>
-                </div>
-              </td>
-              <td class="card-4" id="student-card-4">
-                <div class="card">
-                  <div class="card-face card-front">Card 4</div>
-                  <div class="card-face card-back"></div>
-                </div>
-              </td>
-              <td class="card-5" id="student-card-5">
-                <div class="card">
-                  <div class="card-face card-front">Card 5</div>
-                  <div class="card-face card-back"></div>
-                </div>
-              </td>
+              <td class="card-1" id="student-card-1">Card 1</td>
+              <td class="card-2" id="student-card-2">Card 2</td>
+              <td class="card-3" id="student-card-3">Card 3</td>
+              <td class="card-4" id="student-card-4">Card 4</td>
+              <td class="card-5" id="student-card-5">Card 5</td>
             </tr>
           </table>
         </div>
       </div>
+
+      <div class="card-comparison">
+        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
+        <section class="chosen-prof-card"></section>
+        <section class="chosen-student-card"></section>
+      </div>
+
+      <section class="won-cards">
+        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+        <div class="prof-won-cards">
+          <div id="prof-monument-card"></div>
+          <div id="prof-building-card"></div>
+          <div id="prof-dining-hall-card"></div>
+        </div>
+
+        <div class="student-won-cards">
+          <div id="student-monument-card"></div>
+          <div id="student-building-card"></div>
+          <div id="student-dining-hall-card"></div>
+        </div>
+      </section>
+
+      <section id="rules-dropdown"></section>
+
+      <button id="exit-btn">
+        <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
+        <a href="home-page.html" title="return to lobby"></a>
+      </button>
     </main>
   </body>
   <footer class="copyright-info"></footer>
