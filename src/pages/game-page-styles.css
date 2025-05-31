@@ -260,7 +260,7 @@ td {
   transform: rotateY(180deg);
 }
 
-.card-face {
+/* .card-face {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -268,7 +268,7 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .card-back {
   background: url("../imgs/card-backs/professor-card-back.png") center/cover;
