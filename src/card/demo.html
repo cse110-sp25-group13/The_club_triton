@@ -4,9 +4,9 @@
     <title>TritonCard Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Ensure TYPE_COLORS is accessible here or within triton-card.js -->
-    <script src="triton-card.js" type="module"></script>
+    <script src="/src/card/triton-card.js" type="module"></script>
     <!-- If you need to fetch data from IndexedDB, also include card-system.js -->
-    <script src="../scripts/card-system.js" defer></script>
+    <script src="/src/scripts/card-system.js" defer></script>
     <style>
       body {
         display: flex;
@@ -14,81 +14,71 @@
         gap: 20px;
         padding: 20px;
       }
-      /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */
-      :root {
-        --card-wdith: 150px; /* You can adjust this value to see card size changes */
-      }
     </style>
+
+    <!-- /* Define the global --card-width CSS variable, which is used by the CSS in triton-card.js */ -->
+    <link rel="stylesheet" href="/src/card/triton-card.css" />
   </head>
   <body>
     <h1>TritonCard Component Test</h1>
+    <button id="flip-btn">flip all cards</button>
     <div id="card-container">
       <!-- Cards will be dynamically added here -->
     </div>
 
     <script type="module">
-      // Ensure the TritonCard class and TYPE_COLORS are defined and accessible.
-      // If TYPE_COLORS is defined outside triton-card.js, ensure this script can access it.
-      // If TYPE_COLORS is a static property within the TritonCard class, no need to redefine it here.
-
-      // Test data (can be taken from initialCardData or created manually)
-      const cardDataForTest = [
-        {
-          name: "Geisel Library (Test)",
-          type: "Structure",
-          rank: 5,
-          rarity: 4,
-          front_image_placeholder: "../card/card-front.webp", // Example path, ensure image exists or use a real placeholder
-          back_image_placeholder: "../card/card-back.png", // Example path, ensure image exists or use a real placeholder
-          description: "Iconic library building.",
-        },
-        {
-          name: "Price Center (Test)",
-          type: "Dining",
-          rank: 4,
-          rarity: 3,
-          front_image_placeholder: "../card/card-front.webp", // Using the same placeholder for testing
-          back_image_placeholder: "../card/card-back.png",
-          description: "Hub for food and student orgs.",
-        },
-        {
-          name: "King Triton (Test)",
-          type: "Mascot",
-          rank: 5,
-          rarity: 5,
-          front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "../card/card-back.png",
-          description: "Our beloved mascot!",
-        },
-        {
-          name: "Unknown Type Card", // To test the default border color
-          type: "Mystery", // A type not defined in TYPE_COLORS
-          rank: 1,
-          rarity: 1,
-          front_image_placeholder: "../card/card-front.webp",
-          back_image_placeholder: "../card/card-back.png",
-          description: "A mysterious card.",
-        },
-      ];
-
       const container = document.getElementById("card-container");
+      const flipButton = document.getElementById("flip-btn");
 
-      cardDataForTest.forEach((data) => {
-        const cardElement = document.createElement("triton-card"); // Create an instance of the component
+      async function loadAndDisplayCards() {
+        try {
+          // Ensure database is initialized (initDB returns Promise)
+          await initDB(); // initDB should be defined in card-system.js and exported (if needed) or globally available
+          console.log("Database initialized for demo, fetching all cards...");
 
-        // Set properties via setters
-        cardElement.name = data.name;
-        cardElement.type = data.type; // <<< This should trigger border color change
-        cardElement.rank = data.rank;
-        cardElement.rarity = data.rarity; // <<< This should trigger rarity display
-        if (data.front_image_placeholder)
-          cardElement.front_image = data.front_image_placeholder;
-        if (data.back_image_placeholder)
-          cardElement.back_image = data.back_image_placeholder;
-        cardElement.description = data.description;
+          const allCardsFromDB = await getAllCards(); // Get all cards from card-system.js
 
-        container.appendChild(cardElement); // Add the card to the page
+          if (allCardsFromDB && allCardsFromDB.length > 0) {
+            // Clear any previous test cards (if any)
+            container.innerHTML = "";
+
+            // For demo purposes, we only take the first few or specific cards
+            const cardsToDisplay = allCardsFromDB.slice(0, 4); // For example, display first 4 cards
+
+            cardsToDisplay.forEach((data) => {
+              const cardElement = document.createElement("triton-card");
+              cardElement.name = data.name;
+              cardElement.type = data.type;
+              cardElement.rank = data.ranking; // Note: using 'ranking' from cards.json
+              cardElement.rarity = data.rarity;
+              // Use paths defined in cards.json
+              if (data.front_image_placeholder)
+                cardElement.front_image = data.front_image_placeholder;
+              else cardElement.front_image = "";
+              if (data.back_image_placeholder)
+                cardElement.back_image = data.back_image_placeholder;
+              else cardElement.back_image = "";
+              cardElement.description = data.description;
+              container.appendChild(cardElement);
+            });
+          } else {
+            container.textContent = "No cards found in DB to display.";
+          }
+        } catch (error) {
+          console.error("Error loading or displaying cards in demo:", error);
+          container.textContent = "Error loading cards.";
+        }
+      }
+
+      flipButton.addEventListener("click", () => {
+        const cards = container.querySelectorAll("triton-card");
+        cards.forEach((card) => {
+          card.flip();
+        });
       });
+
+      // Execute when page loads
+      loadAndDisplayCards();
     </script>
   </body>
 </html>
