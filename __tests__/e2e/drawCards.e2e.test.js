@@ -14,7 +14,9 @@ describe("Draw Cards E2E", () => {
   }, 30000);
 
   afterAll(async () => {
-    await browser.close();
+    if (browser) {
+      await browser.close(); // ✅ Always guard with a check
+    }
   });
 
   test("deals 5 player cards immediately", async () => {
@@ -23,11 +25,11 @@ describe("Draw Cards E2E", () => {
     await page.waitForFunction(
       () =>
         document.querySelectorAll("#student-cards triton-card").length === 5,
-      { timeout: 10000 }
+      { timeout: 10000 },
     );
     const count = await page.$$eval(
       "#player-hand-cards triton-card",
-      (els) => els.length
+      (els) => els.length,
     );
     expect(count).toBe(5);
   });
@@ -41,7 +43,7 @@ describe("Draw Cards E2E", () => {
 
     // collect src attrs of those cards
     const aiSrcs = await page.$$eval(".ai-deck .ai-card triton-card", (els) =>
-      els.map((el) => el.getAttribute("src"))
+      els.map((el) => el.getAttribute("src")),
     );
     // all should be the back-of-card image
     aiSrcs.forEach((src) => {
