@@ -274,7 +274,7 @@ class TritonCard extends HTMLElement {
       border.src = borderPath;
       border.onerror = () => {
         console.error(
-          `Failed to load border image for type: ${normalizedType}. Using default.`
+          `Failed to load border image for type: ${normalizedType}. Using default.`,
         );
         border.src = TritonCard.default_card_border_path;
       };
