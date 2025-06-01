@@ -301,3 +301,7 @@ td {
   font-size: 0.8em;
   text-align: center;
 }
+
+triton-card {
+  --card-width: 8vw;
+}

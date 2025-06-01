@@ -79,7 +79,7 @@ class TritonCard extends HTMLElement {
     // Style
     style.textContent = `
       @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-
+      
       .card {
         font-family: "Source Sans 3", sans-serif;
         font-optical-sizing: auto;
@@ -97,7 +97,7 @@ class TritonCard extends HTMLElement {
       .card-inner {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: auto;
         border: 3px solid cyan; /* change the style of border when needed */
         text-align: center;
         transition: transform 0.8s;
@@ -279,7 +279,7 @@ class TritonCard extends HTMLElement {
       border.src = borderPath;
       border.onerror = () => {
         console.error(
-          `Failed to load border image for type: ${normalizedType}. Using default.`,
+          `Failed to load border image for type: ${normalizedType}. Using default.`
         );
         border.src = TritonCard.default_card_border_path;
       };
