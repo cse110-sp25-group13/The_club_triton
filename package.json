@@ -22,11 +22,12 @@
     "puppeteer": "^24.9.0"
   },
   "scripts": {
-    "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-unit.config.js",
-    "test:e2e": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-e2e.config.js",
+    "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest --config=jest-unit.config.js",
+    "test:e2e": "node --experimental-vm-modules ./node_modules/.bin/jest --config=jest-e2e.config.js",
     "test": "npm run test:unit && npm run test:e2e",
-    "lint": "eslint . --config configs/eslint.config.js",
-    "format": "prettier --write ."
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "start": "serve . --listen 3000"
   },
   "type": "module",
   "jest": {

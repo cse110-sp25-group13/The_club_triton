@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Play Now! | Club Triton</title>
     <link rel="stylesheet" href="game-page-styles.css" media="screen" />
-    <link rel="script" href="game-page-script.js" media="screen" />
     <meta
       name="keywords"
       content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
@@ -95,38 +94,8 @@
           </table>
         </div>
       </div>
-
-      <div class="card-comparison">
-        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-        <section class="chosen-prof-card"></section>
-        <section class="chosen-student-card"></section>
-      </div>
-
-      <section class="won-cards">
-        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-        <div class="prof-won-cards">
-          <div id="prof-monument-card"></div>
-          <div id="prof-building-card"></div>
-          <div id="prof-dining-hall-card"></div>
-        </div>
-
-        <div class="student-won-cards">
-          <div id="student-monument-card"></div>
-          <div id="student-building-card"></div>
-          <div id="student-dining-hall-card"></div>
-        </div>
-      </section>
-
-      <section id="rules-dropdown"></section>
-
-      <button id="exit-btn">
-        <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-        <a href="home-page.html" title="return to lobby"></a>
-      </button>
     </main>
     <script type="module" src = '../scripts/script.js'> </script>
+    <footer class="copyright-info"></footer>
   </body>
-  <footer class="copyright-info"></footer>
-
 </html>

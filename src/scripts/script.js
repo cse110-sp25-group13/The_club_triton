@@ -5,6 +5,7 @@
  * Dependencies: IndexedDB module in card-system.js
  */
 
+let roundInProgress = false;
 import '../card/triton-card.js'; 
 import { initDB, getAllCards } from './card-system.js';
 const CARDBACK_PATH = 'src/card/card-back.png';
@@ -14,21 +15,21 @@ const MAX_CARDS = 5;
 let deck = [];
 let playerHand = [];
 let aiHand = [];
-let playerScore = { Living: 0, Dining: 0, Structure: 0 };
-let aiScore = { Living: 0, Dining: 0, Structure: 0 };
+let playerScore = { Structure: 0, Living: 0, Dining: 0 };
+let aiScore = { Structure: 0, Living: 0, Dining: 0 };
 const MAX_TIME=60;
 
 
 const typeBeats = {
-  living: 'dining',
-  dining: 'structure',
-  structure: 'living'
+  Living: 'Dining',
+  Dining: 'Structure',
+  Structure: 'Living'
 };
 
 
 // UI elements
-const playerDeckEl = document.querySelectorAll('.student-deck .student-cards td');
-const aiDeckEl = document.querySelectorAll('.prof-deck .prof-cards td');
+const playerDeckEl = Array.from(document.querySelectorAll('.student-deck .student-cards td'));
+const aiDeckEl = Array.from(document.querySelectorAll('.prof-deck .prof-cards td'));
 
 const playerWonSlots = document.querySelector('.student-won-cards');
 const aiWonSlots = document.querySelector('.prof-won-cards');
@@ -119,6 +120,9 @@ function drawCards(count,ai) {
  * @param {string} playerCardId - ID of the selected card in playerHand
  */
 async function playRound(playerCardId) {
+  console.log('[playRound] called with', playerCardId, 'roundInProgress=', roundInProgress);
+  if (roundInProgress) return;
+  roundInProgress = true;
   console.log('%c[playRound] start', 'color: blue', { playerCardId, playerHand, aiHand });
 
   // Find and remove card from hand
@@ -142,6 +146,8 @@ async function playRound(playerCardId) {
   } catch (err) {
     console.error('[playRound] player animation error', err);
   }
+  // Removes the player card from hand to replenish
+  removeCardFromSlot(playerCard.id, playerDeckEl);
 
   // Animate AI card moving
   const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}`);
@@ -152,6 +158,8 @@ async function playRound(playerCardId) {
   } catch (err) {
     console.error('[playRound] AI animation error', err);
   }
+  // Removes the ai card from hand to replenish
+  removeCardFromSlot(aiCard.id, aiDeckEl);
 
   // Reveal AI card front
   console.log('[playRound] reveal AI front image');
@@ -178,9 +186,20 @@ async function playRound(playerCardId) {
   console.log('[playRound] resetting timer');
   resetTimer();
   console.log('%c[playRound] end', 'color: blue');
+  roundInProgress = false;
 }
 
-
+/**
+ * Actually removes the card from the hand
+ * @param {*} cardId 
+ * @param {*} deckEl 
+ */
+function removeCardFromSlot(cardId, deckEl) {
+  deckEl.forEach(slot => {
+    const card = slot.querySelector(`#tritonCard-${cardId}`);
+    if (card) card.remove();
+  });
+}
 
 /**
  * Determines the winner between two cards.
@@ -286,8 +305,44 @@ function updateScore(winner, playerCard, aiCard) {
     } else {
       aiScore[winCard.type]++;
     }
+
+    // Update DOM
+    updateScoreDisplay();
+
     // Check for win condition
     checkWinCondition();
+  }
+}
+
+/**
+ * Updates DOM for game page score display
+ */
+function updateScoreDisplay() {
+  const typeToId = {
+    Structure: {
+      player: 'student-monument-card',
+      ai: 'prof-monument-card'
+    },
+    Living: {
+      player: 'student-building-card',
+      ai: 'prof-building-card'
+    },
+    Dining: {
+      player: 'student-dining-hall-card',
+      ai: 'prof-dining-hall-card'
+    }
+  };
+
+  for (const type in typeToId) {
+    const playerEl = document.getElementById(typeToId[type].player);
+    const aiEl = document.getElementById(typeToId[type].ai);
+
+    if (playerEl) {
+      playerEl.textContent = playerScore[type];
+    }
+    if (aiEl) {
+      aiEl.textContent = aiScore[type];
+    }
   }
 }
 
@@ -335,6 +390,7 @@ function endGame(winner) {
 let countdownInterval = null;
 let autoPlayTimeout   = null;
 function resetTimer() {
+  console.log('[resetTimer] scheduling autoPlay in', MAX_TIME, 'sec');
   // 1) clear both previous timers
   clearInterval(countdownInterval);
   clearTimeout(autoPlayTimeout);
