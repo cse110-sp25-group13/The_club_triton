@@ -26,10 +26,10 @@ const typeBeats = {
 
 // UI elements
 const playerDeckEl = Array.from(
-  document.querySelectorAll(".student-deck .student-cards td")
+  document.querySelectorAll(".student-deck .student-cards td"),
 );
 const aiDeckEl = Array.from(
-  document.querySelectorAll(".prof-deck .prof-cards td")
+  document.querySelectorAll(".prof-deck .prof-cards td"),
 );
 
 const playerWonSlots = document.querySelector(".student-won-cards");
@@ -49,10 +49,10 @@ async function initGame() {
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
-    document.querySelectorAll(".student-deck .student-cards td")
+    document.querySelectorAll(".student-deck .student-cards td"),
   );
   const aiSlots = Array.from(
-    document.querySelectorAll(".prof-deck .prof-cards td")
+    document.querySelectorAll(".prof-deck .prof-cards td"),
   );
 
   // clear out their placeholder text
@@ -91,7 +91,7 @@ function drawCards(count, ai) {
       let targetSlot = aiDeckEl[i];
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = aiDeckEl.find(
-          (slot) => !slot.querySelector("triton-card")
+          (slot) => !slot.querySelector("triton-card"),
         );
       }
       if (targetSlot) targetSlot.appendChild(tritonCard);
@@ -103,7 +103,7 @@ function drawCards(count, ai) {
 
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = playerDeckEl.find(
-          (slot) => !slot.querySelector("triton-card")
+          (slot) => !slot.querySelector("triton-card"),
         );
       }
       if (targetSlot) {
@@ -125,7 +125,7 @@ async function playRound(playerCardId) {
     "[playRound] called with",
     playerCardId,
     "roundInProgress=",
-    roundInProgress
+    roundInProgress,
   );
   if (roundInProgress) return;
   roundInProgress = true;
@@ -143,7 +143,7 @@ async function playRound(playerCardId) {
     "[playRound] drew playerCard =",
     playerCard,
     "remaining hand:",
-    playerHand
+    playerHand,
   );
 
   // Pick and remove AI card
@@ -158,7 +158,7 @@ async function playRound(playerCardId) {
     "[playRound] animate player from",
     playerCardEl,
     "to",
-    chosenPlayerSlot
+    chosenPlayerSlot,
   );
   try {
     await animateCardMove(playerCardEl, chosenPlayerSlot);
@@ -365,6 +365,7 @@ function updateScoreDisplay() {
 
 /**
  * Check if the user has won 3 times with same card type or 3 times each with different card type
+ * @returns {"player" | "ai" | undefined}
  */
 function checkWinCondition() {
   // playerScore and aiScore are objects like:
@@ -391,6 +392,7 @@ function checkWinCondition() {
 
 /**
  * Alert when winning condition is met
+ * @param {string} winner - "player" or "ai"
  */
 function endGame(winner) {
   clearInterval(countdownInterval);
