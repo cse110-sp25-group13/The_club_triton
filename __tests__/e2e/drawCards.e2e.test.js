@@ -7,7 +7,11 @@ describe("Draw Cards E2E", () => {
   let browser, page;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
     page = await browser.newPage();
     // point to your actual page
     await page.goto("http://localhost:8080/src/pages/game-page.html");
@@ -15,7 +19,7 @@ describe("Draw Cards E2E", () => {
 
   afterAll(async () => {
     if (browser) {
-      await browser.close(); // ✅ Always guard with a check
+      await browser.close();
     }
   });
 
@@ -23,12 +27,11 @@ describe("Draw Cards E2E", () => {
     // wait for 5 <triton-card> in the player hand container
     // wait until the predicate returns true, or time out after 10s
     await page.waitForFunction(
-      () =>
-        document.querySelectorAll("#student-cards triton-card").length === 5,
+      () => document.querySelectorAll("[id^='student-card-']").length === 5,
       { timeout: 10000 },
     );
     const count = await page.$$eval(
-      "#player-hand-cards triton-card",
+      "[id^='student-card-']",
       (els) => els.length,
     );
     expect(count).toBe(5);
