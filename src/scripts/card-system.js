@@ -687,4 +687,3 @@ initDB()
   .catch((error) => {
     console.error("DB initialization failed, cannot run read tests:", error);
   });
-

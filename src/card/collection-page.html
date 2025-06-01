@@ -49,7 +49,7 @@
       // the TritonCard class from triton-card.js are loaded
 
       const collectionContainer = document.getElementById(
-        "card-collection-container"
+        "card-collection-container",
       );
       const cardIdInput = document.getElementById("card-id-to-add");
       const addButton = document.getElementById("add-to-collection-btn");
@@ -109,7 +109,7 @@
           try {
             await addCardToCollection(cardId);
             alert(
-              `Attempted to add card ID: ${cardId} to collection. Refreshing view.`
+              `Attempted to add card ID: ${cardId} to collection. Refreshing view.`,
             );
             cardIdInput.value = ""; // Clear input
             await displayOwnedCards(); // Refresh after adding
