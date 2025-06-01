@@ -108,7 +108,7 @@ function drawCards(count, ai) {
       }
       if (targetSlot) {
         // uncomment whenever the img path works
-        //tritonCard.front_image = cardObj.front_image_placeholder;
+        tritonCard.front_image = cardObj.front_image_placeholder;
         targetSlot.appendChild(tritonCard);
       }
     }
