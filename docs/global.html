@@ -104,166 +104,6 @@
     
 
     
-    <h4 class="name" id="addCardToCollection"><span class="type-signature"></span>addCardToCollection<span class="signature">(cardId)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Add the specified card ID to the player's collection (playerOwnedCards object store).
-Each record will be in the form { cardId: "the_actual_id" }.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cardId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The ID of the card to add to the collection.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line412">line 412</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A Promise that resolves when addition is successful, rejects on failure.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="fetchCardDataFromJson"><span class="type-signature">(async) </span>fetchCardDataFromJson<span class="signature">(jsonFilePath)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;Object>>}</span></h4>
     
 
@@ -365,7 +205,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line53">line 53</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line52">line 52</a>
     </li></ul></dd>
     
 
@@ -475,7 +315,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line298">line 298</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line268">line 268</a>
     </li></ul></dd>
     
 
@@ -634,7 +474,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line352">line 352</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line322">line 322</a>
     </li></ul></dd>
     
 
@@ -675,227 +515,6 @@ Each record will be in the form { cardId: "the_actual_id" }.
     <dd>
         
 <span class="param-type">Promise.&lt;(Object|undefined)></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getOwnedCardIds"><span class="type-signature"></span>getOwnedCardIds<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;string>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Get all card IDs in the player's collection.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line546">line 546</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A Promise that resolves to an array of all owned card ID strings.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;string>></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getOwnedFullCards"><span class="type-signature">(async) </span>getOwnedFullCards<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;Object>>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Get full card object data for all cards in the player's collection.
-It first gets all owned card IDs, then retrieves the complete card object from the main card database for each ID.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line597">line 597</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A Promise that resolves to an array containing all owned cards' complete objects.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;Array.&lt;Object>></span>
 
 
     </dd>
@@ -967,7 +586,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line202">line 202</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -1021,7 +640,7 @@ If the database or object store does not exist, create them and populate with in
     
 
     
-    <h4 class="name" id="populateDataIfEmpty"><span class="type-signature"></span>populateDataIfEmpty<span class="signature">(databaseInstance, storeName, jsonFilePath)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="populateDataIfEmpty"><span class="type-signature"></span>populateDataIfEmpty<span class="signature">(databaseInstance)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
     
 
     
@@ -1029,7 +648,7 @@ If the database or object store does not exist, create them and populate with in
 
 
 <div class="description">
-    Check if the specified object store is empty, and if so, load and populate data from JSON file.
+    Check if the 'cards' object store is empty, and if so, load and populate data from JSON file.
 </div>
 
 
@@ -1085,52 +704,6 @@ If the database or object store does not exist, create them and populate with in
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>storeName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of the object store to check and populate.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>jsonFilePath</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The path to the JSON file to load data from.</td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1168,7 +741,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line83">line 83</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line80">line 80</a>
     </li></ul></dd>
     
 
@@ -1196,165 +769,6 @@ If the database or object store does not exist, create them and populate with in
 <h5>Returns:</h5>
 
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="removeCardFromCollection"><span class="type-signature"></span>removeCardFromCollection<span class="signature">(cardId)</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Remove the specified card ID from the player's collection (playerOwnedCards object store).
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>cardId</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The ID of the card to remove from the collection.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line482">line 482</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    A Promise that resolves when removal is successful, rejects on failure.
-</div>
-
 
 
 <dl>
@@ -1391,7 +805,7 @@ If the database or object store does not exist, create them and populate with in
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li></ul>
 </nav>
 
 <br class="clear">
