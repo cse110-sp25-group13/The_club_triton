@@ -134,10 +134,10 @@ class TritonCard extends HTMLElement {
           height: var(--card-height);   
       }
       /* Style the front side (also fallback if image is missing) */
-        #img-card-front{
-          width: var(--card-image-width);
-          height: var(--card-image-height); 
-        }
+        // #img-card-front{
+        //   width: var(--card-image-width);
+        //   height: var(--card-image-height); 
+        // }
 
         #img-card-border{
           position: absolute;

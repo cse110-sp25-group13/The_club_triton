@@ -77,10 +77,12 @@ function drawCards(count, ai) {
     const randomIndex = Math.floor(Math.random() * deck.length);
     const cardObj = deck[randomIndex];
     hand.push(cardObj);
+    //remove index from deck so can't be drawn again
+    deck.splice(randomIndex, 1);
     //create triton card el
     const tritonCard = document.createElement("triton-card");
     tritonCard.id = `tritonCard-${cardObj.id}`;
-    tritonCard.back_image = cardObj.back_image_placeholder;
+    //tritonCard.back_image = cardObj.back_image_placeholder;
     tritonCard.name = cardObj.name;
     tritonCard.rank = cardObj.ranking;
     tritonCard.type = cardObj.type;
@@ -94,7 +96,11 @@ function drawCards(count, ai) {
           (slot) => !slot.querySelector("triton-card")
         );
       }
-      if (targetSlot) targetSlot.appendChild(tritonCard);
+      if (targetSlot){
+        //can you make it not show any info on the cards? supposed to be unknown to player?
+        tritonCard.front_image = cardObj.front_image_placeholder;
+        targetSlot.appendChild(tritonCard);
+      } 
     } else {
       tritonCard.addEventListener("click", () => {
         playRound(cardObj.id);
@@ -167,7 +173,7 @@ async function playRound(playerCardId) {
     console.error("[playRound] player animation error", err);
   }
   // Removes the player card from hand to replenish
-  removeCardFromSlot(playerCard.id, playerDeckEl);
+  //removeCardFromSlot(playerCard.id, playerDeckEl);
 
   // Animate AI card moving
   const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}`);
@@ -179,7 +185,7 @@ async function playRound(playerCardId) {
     console.error("[playRound] AI animation error", err);
   }
   // Removes the ai card from hand to replenish
-  removeCardFromSlot(aiCard.id, aiDeckEl);
+  //removeCardFromSlot(aiCard.id, aiDeckEl);
 
   // Reveal AI card front
   console.log("[playRound] reveal AI front image");
@@ -236,6 +242,7 @@ function determineWinner(playerCard, aiCard) {
   return typeBeats[playerCard.type] === aiCard.type ? "player" : "ai";
 }
 
+//* sliding animation 
 function animateCardMove(card, targetEl) {
   console.log("[animateCardMove] called", { card, targetEl });
 
@@ -287,8 +294,15 @@ function animateCardMove(card, targetEl) {
 
     // when the transition ends, move the real card into place
     const cleanup = () => {
+      if (card.dataset.front) {
+      // This line invokes the triton-card’s own setter, which lives in Shadow DOM
+      card.front_image = card.dataset.front;
+      }
       console.log("[animateCardMove] transitionend → cleaning up");
-      targetEl.innerHTML = "";
+      const existingCard = targetEl.querySelector("triton-card");
+      //make sure the card is non empty as well as not the card we are trying to animat
+      // then remove old card
+      if( existingCard && existingCard !==card) existingCard.remove();
       targetEl.appendChild(card);
       card.style.visibility = "visible";
       ghost.remove();
@@ -306,6 +320,7 @@ function animateCardMove(card, targetEl) {
     }, 1000);
   });
 }
+  //*/
 
 /**
  * Updates score and UI based on winner.
