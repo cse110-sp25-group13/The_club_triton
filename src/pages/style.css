@@ -81,7 +81,7 @@ body {
 }
 /* Modal background overlay (Not sure if needed) */
 .modal {
-  posistion: fixed;
+  position: fixed;
   z-index: 1000;
   left: 0;
   top: 0;
@@ -95,7 +95,7 @@ body {
 /* Modal Content Box*/
 .modal-content{
   background-color: #f09d4a;
-  border: 0.5 rem solid #2b2118; 
+  border: 0.5rem solid #2b2118; 
   border-radius: 20px;
   padding: 30px;
   text-align: center;
