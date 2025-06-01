@@ -96,8 +96,8 @@ class TritonCard extends HTMLElement {
       /* This container is needed to position the front and back side */
       .card-inner {
         position: relative;
-        width: 100%;
-        height: auto;
+        width: var(--card-width);
+        height: var(--card-height); 
         border: 3px solid cyan; /* change the style of border when needed */
         text-align: center;
         transition: transform 0.8s;
@@ -115,9 +115,9 @@ class TritonCard extends HTMLElement {
       /* Position the front and back side */
       .card-front,
       .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
+        position: relative;
+        width: var(--card-width);
+        height: var(--card-height);
         -webkit-backface-visibility: hidden; /* Safari */
         backface-visibility: hidden;
       }
@@ -126,16 +126,14 @@ class TritonCard extends HTMLElement {
       .card-back-background {
         position: absolute;
         top: 0;
-        img {
+      }
+
+      img {
           aspect-ratio: auto 3/4;
           width: var(--card-width);
-          height: var(--card-height);
-        }
+          height: var(--card-height);   
       }
       /* Style the front side (also fallback if image is missing) */
-      .card-front {
-        color: black;
-
         #img-card-front{
           width: var(--card-image-width);
           height: var(--card-image-height); 
@@ -170,7 +168,7 @@ class TritonCard extends HTMLElement {
           width: calc(var(--card-width) /4);
           height:  calc(var(--card-width) * 1/15);
           top: 1.5%;
-          left: 12.5%;;
+          left: 12.5%;
         }
 
         .rank {
@@ -178,19 +176,16 @@ class TritonCard extends HTMLElement {
           height:  calc(var(--card-width) * 1/6);
           bottom: 23%;
           left: 5%;
-          font-size: 3.5em;
+          font-size: calc(2 * var(--card-font-size));
         }
 
         .description {
-
           width: calc(var(--card-width) * 260/300);
           height:  calc(var(--card-width) * 120/300) ;
           line-height: 1.2;
           left: 5%;
-          bottom: 0;          
-
+          bottom: 0;       
         }
-      }
 
 
       /* Style the back side (same fall back)*/
