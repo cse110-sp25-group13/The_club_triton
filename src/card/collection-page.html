@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <title>TritonCard Collection Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="triton-card.js" type="module"></script>
+    <script src="../scripts/card-system.js" defer></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+      }
+      #card-collection-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 80%; /* Or another suitable width */
+      }
+      :root {
+        /* Make sure CSS variables are defined */
+        --card-wdith: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Card Collection (Demo)</h1>
+    <div id="card-collection-container">
+      <!-- Owned cards will be dynamically added here -->
+    </div>
+
+    <hr />
+    <h2>Test Controls (Add to Collection)</h2>
+    <input
+      type="text"
+      id="card-id-to-add"
+      placeholder="Enter Card ID (e.g., dining_002)"
+    />
+    <button id="add-to-collection-btn">Add to Collection</button>
+    <button id="refresh-collection-btn">Refresh Collection View</button>
+
+    <script type="module">
+      // Make sure functions from card-system.js (initDB, getOwnedFullCards, addCardToCollection) and
+      // the TritonCard class from triton-card.js are loaded
+
+      const collectionContainer = document.getElementById(
+        "card-collection-container",
+      );
+      const cardIdInput = document.getElementById("card-id-to-add");
+      const addButton = document.getElementById("add-to-collection-btn");
+      const refreshButton = document.getElementById("refresh-collection-btn");
+
+      async function displayOwnedCards() {
+        if (!collectionContainer) return;
+        collectionContainer.innerHTML = ""; // Clear existing cards to avoid duplicates
+
+        try {
+          const ownedCards = await getOwnedFullCards();
+          if (ownedCards && ownedCards.length > 0) {
+            ownedCards.forEach((data) => {
+              const cardElement = document.createElement("triton-card");
+
+              // Set all necessary attributes
+              cardElement.name = data.name;
+              cardElement.type = data.type;
+              cardElement.rank = data.rank;
+              cardElement.rarity = data.rarity;
+              if (data.front_image_placeholder)
+                cardElement.front_image = data.front_image_placeholder;
+              // Make sure to handle empty image paths
+              if (data.back_image_placeholder)
+                cardElement.back_image = data.back_image_placeholder;
+              else cardElement.back_image = "";
+              cardElement.description = data.description;
+
+              collectionContainer.appendChild(cardElement);
+            });
+          } else {
+            collectionContainer.textContent =
+              "Your collection is currently empty.";
+          }
+        } catch (error) {
+          console.error("Failed to display owned cards:", error);
+          collectionContainer.textContent = "Error loading collection.";
+        }
+      }
+
+      // Initialize database and display collection after page load
+      initDB()
+        .then(() => {
+          console.log("DB initialized for collection demo.");
+          displayOwnedCards(); // Initial display
+        })
+        .catch((err) => {
+          console.error("DB init failed for demo:", err);
+          collectionContainer.textContent =
+            "Failed to initialize card database.";
+        });
+
+      // Add card to collection button event
+      addButton.addEventListener("click", async () => {
+        const cardId = cardIdInput.value.trim();
+        if (cardId) {
+          try {
+            await addCardToCollection(cardId);
+            alert(
+              `Attempted to add card ID: ${cardId} to collection. Refreshing view.`,
+            );
+            cardIdInput.value = ""; // Clear input
+            await displayOwnedCards(); // Refresh after adding
+          } catch (error) {
+            alert(`Error adding card: ${error.message || error}`);
+          }
+        } else {
+          alert("Please enter a card ID.");
+        }
+      });
+
+      // Manual refresh collection button
+      refreshButton.addEventListener("click", displayOwnedCards);
+    </script>
+  </body>
+</html>
