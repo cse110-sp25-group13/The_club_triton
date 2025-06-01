@@ -1,219 +1,230 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play Now! | Club Triton</title>
+    <link rel="stylesheet" href="game-page-styles.css" media="screen" />
+    <link rel="script" href="game-page-script.js" media="screen" />
+    <meta
+      name="keywords"
+      content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
+    />
+    <style>
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Play Now! | Club Triton</title>
-  <link rel="stylesheet" href="game-page-styles.css" media="screen" />
-  <link rel="script" href="game-page-script.js" media="screen" />
-  <meta name="keywords"
-    content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game" />
-  <style>
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
+      .modal.show {
+        display: flex;
+      }
 
-    .modal.show {
-      display: flex;
-    }
+      .modal-content {
+        background-color: #f09d4a;
+        border: 0.5rem solid #2b2118;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        box-shadow:
+          0 0 20px rgba(0, 0, 0, 0.6),
+          inset 0 0 10px rgba(0, 0, 0, 0.4);
+        max-width: 400px;
+        margin: auto;
+        width: 80%;
+      }
 
-    .modal-content {
-      background-color: #f09d4a;
-      border: 0.5rem solid #2b2118;
-      border-radius: 20px;
-      padding: 30px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 0, 0, 0.4);
-      max-width: 400px;
-      margin: auto;
-      width: 80%;
-    }
+      .close-button {
+        margin-top: 20px;
+        padding: 6px 14px;
+        background-color: #a13c35;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        box-shadow: 0 2px #2b2118;
+      }
 
-    .close-button {
-      margin-top: 20px;
-      padding: 6px 14px;
-      background-color: #a13c35;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 2px #2b2118;
-    }
+      .modal-content button:not(.close-button) {
+        margin: 10px;
+        padding: 16px 36px;
+        font-size: 20px;
+        background-color: #2b2118;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px #111;
+        transition: background-color 0.2s;
+      }
 
-    .modal-content button:not(.close-button) {
-      margin: 10px;
-      padding: 16px 36px;
-      font-size: 20px;
-      background-color: #2b2118;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 4px #111;
-      transition: background-color 0.2s;
-    }
-
-    .modal-content button:not(.close-button):hover {
-      background-color: #3a2a20;
-    }
-  </style>
-</head>
-<!-- Modal HTML -->
-<div id="gameModal" class="modal">
-  <div class="modal-content">
-    <h2 id="modalTitle">You Win!</h2>
-    <button onclick="location.reload()">Play Again</button>
-    <button onclick="window.location.href='home-page.html'">Back to Home</button>
-    <br />
-    <button id="closeModal" class="close-button">Close</button>
+      .modal-content button:not(.close-button):hover {
+        background-color: #3a2a20;
+      }
+    </style>
+  </head>
+  <!-- Modal HTML -->
+  <div id="gameModal" class="modal">
+    <div class="modal-content">
+      <h2 id="modalTitle">You Win!</h2>
+      <button onclick="location.reload()">Play Again</button>
+      <button onclick="window.location.href='home-page.html'">
+        Back to Home
+      </button>
+      <br />
+      <button id="closeModal" class="close-button">Close</button>
+    </div>
   </div>
-</div>
 
-<body>
-  <main class="game-container">
-    <div class="game-board">
+  <body>
+    <main class="game-container">
+      <div class="game-board">
+        <button id="exit-btn">
+          <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
+          <a href="home-page.html" title="return to lobby"></a>
+        </button>
+        <section id="rules-dropdown"></section>
+        <div class="prof-won-cards">
+          <div id="prof-monument-card">0</div>
+          <div id="prof-building-card">0</div>
+          <div id="prof-dining-hall-card">0</div>
+        </div>
+        <section class="won-cards">
+          <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+          <div class="student-won-cards">
+            <div id="student-monument-card">0</div>
+            <div id="student-building-card">0</div>
+            <div id="student-dining-hall-card">0</div>
+          </div>
+          <div class="card-comparison">
+            <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+                            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
+            <section class="chosen-prof-card"></section>
+            <section class="chosen-student-card"></section>
+          </div>
+        </section>
+        <div class="game-characters">
+          <div class="professor-character">
+            <img
+              src="../imgs/character/cropped-side-view-professor.png"
+              alt="Professor Character"
+            />
+          </div>
+          <div class="student-character">
+            <img
+              src="../imgs/character/cropped-side-view-student.png"
+              alt="Student Character"
+            />
+          </div>
+        </div>
+      </div>
+      <time class="timer" alt="game countdown">60</time>
+      <div class="play-table">
+        <div class="prof-deck">
+          <table class="prof-cards">
+            <div id="prof-name">Professor</div>
+            <tr>
+              <td class="card-5" id="prof-card-5">
+                <div class="card-face card-front">Card 5</div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-4" id="prof-card-4">
+                <div class="card-face card-front">Card 4</div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-3" id="prof-card-3">
+                <div class="card-face card-front">Card 3</div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-2" id="prof-card-2">
+                <div class="card-face card-front">Card 2</div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-1" id="prof-card-1">
+                <div class="card-face card-front">Card 1</div>
+                <div class="card-face card-back"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="student-deck">
+          <table class="student-cards">
+            <div id="student-name">Student</div>
+            <tr>
+              <td class="card-1" id="student-card-1">Card 1</td>
+              <td class="card-2" id="student-card-2">Card 2</td>
+              <td class="card-3" id="student-card-3">Card 3</td>
+              <td class="card-4" id="student-card-4">Card 4</td>
+              <td class="card-5" id="student-card-5">Card 5</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card-comparison">
+        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
+        <section class="chosen-prof-card"></section>
+        <section class="chosen-student-card"></section>
+      </div>
+
+      <section class="won-cards">
+        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+        <div class="prof-won-cards">
+          <div id="prof-monument-card"></div>
+          <div id="prof-building-card"></div>
+          <div id="prof-dining-hall-card"></div>
+        </div>
+
+        <div class="student-won-cards">
+          <div id="student-monument-card"></div>
+          <div id="student-building-card"></div>
+          <div id="student-dining-hall-card"></div>
+        </div>
+      </section>
+
+      <section id="rules-dropdown"></section>
+
       <button id="exit-btn">
         <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
         <a href="home-page.html" title="return to lobby"></a>
       </button>
-      <section id="rules-dropdown"></section>
-      <div class="prof-won-cards">
-        <div id="prof-monument-card">0</div>
-        <div id="prof-building-card">0</div>
-        <div id="prof-dining-hall-card">0</div>
-      </div>
-      <section class="won-cards">
-        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-        <div class="student-won-cards">
-          <div id="student-monument-card">0</div>
-          <div id="student-building-card">0</div>
-          <div id="student-dining-hall-card">0</div>
-        </div>
-        <div class="card-comparison">
-          <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-                            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-          <section class="chosen-prof-card"></section>
-          <section class="chosen-student-card"></section>
-        </div>
-      </section>
-      <div class="game-characters">
-        <div class="professor-character">
-          <img src="../imgs/character/cropped-side-view-professor.png" alt="Professor Character" />
-        </div>
-        <div class="student-character">
-          <img src="../imgs/character/cropped-side-view-student.png" alt="Student Character" />
-        </div>
-      </div>
-    </div>
-    <time class="timer" alt="game countdown">60</time>
-    <div class="play-table">
-      <div class="prof-deck">
-        <table class="prof-cards">
-          <div id="prof-name">Professor</div>
-          <tr>
-            <td class="card-5" id="prof-card-5">
-              <div class="card-face card-front">Card 5</div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-4" id="prof-card-4">
-              <div class="card-face card-front">Card 4</div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-3" id="prof-card-3">
-              <div class="card-face card-front">Card 3</div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-2" id="prof-card-2">
-              <div class="card-face card-front">Card 2</div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-1" id="prof-card-1">
-              <div class="card-face card-front">Card 1</div>
-              <div class="card-face card-back"></div>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="student-deck">
-        <table class="student-cards">
-          <div id="student-name">Student</div>
-          <tr>
-            <td class="card-1" id="student-card-1">Card 1</td>
-            <td class="card-2" id="student-card-2">Card 2</td>
-            <td class="card-3" id="student-card-3">Card 3</td>
-            <td class="card-4" id="student-card-4">Card 4</td>
-            <td class="card-5" id="student-card-5">Card 5</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+    </main>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script defer>
+      document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("gameModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const closeBtn = document.getElementById("closeModal");
 
-    <div class="card-comparison">
-      <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-      <section class="chosen-prof-card"></section>
-      <section class="chosen-student-card"></section>
-    </div>
+        closeBtn.addEventListener("click", () =>
+          modal.classList.remove("show"),
+        );
 
-    <section class="won-cards">
-      <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-      <div class="prof-won-cards">
-        <div id="prof-monument-card"></div>
-        <div id="prof-building-card"></div>
-        <div id="prof-dining-hall-card"></div>
-      </div>
+        //Need to fix this part to match game logic
+        window.showGameResult = function (result) {
+          modal.classList.add("show");
 
-      <div class="student-won-cards">
-        <div id="student-monument-card"></div>
-        <div id="student-building-card"></div>
-        <div id="student-dining-hall-card"></div>
-      </div>
-    </section>
-
-    <section id="rules-dropdown"></section>
-
-    <button id="exit-btn">
-      <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-      <a href="home-page.html" title="return to lobby"></a>
-    </button>
-  </main>
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
-      const modal = document.getElementById('gameModal');
-      const modalTitle = document.getElementById('modalTitle');
-      const closeBtn = document.getElementById('closeModal');
-
-      closeBtn.addEventListener('click', () => modal.classList.remove('show'));
-
-      //Need to fix this part to match game logic 
-      window.showGameResult = function (result) {
-        modal.classList.add('show');
-
-        if (result === 'win') {
-          modalTitle.textContent = '🎉 You Win!';
-          confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-        } else {
-          modalTitle.textContent = '😞 You Lose Bozo!';
-        }
-      }
-    });
-  </script>
-
-</body>
-<footer class="copyright-info"></footer>
-
+          if (result === "win") {
+            modalTitle.textContent = "🎉 You Win!";
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+          } else {
+            modalTitle.textContent = "😞 You Lose Bozo!";
+          }
+        };
+      });
+    </script>
+  </body>
+  <footer class="copyright-info"></footer>
 </html>
