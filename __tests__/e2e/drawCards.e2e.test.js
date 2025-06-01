@@ -10,7 +10,7 @@ describe("Draw Cards E2E", () => {
     browser = await puppeteer.launch({ headless: true });
     page = await browser.newPage();
     // point to your actual page
-    await page.goto("http://localhost:3000/src/pages/game-page.html");
+    await page.goto("http://localhost:8080/src/pages/game-page.html");
   }, 30000);
 
   afterAll(async () => {
@@ -22,13 +22,12 @@ describe("Draw Cards E2E", () => {
     // wait until the predicate returns true, or time out after 10s
     await page.waitForFunction(
       () =>
-        document.querySelectorAll("#player-hand-cards triton-card").length ===
-        5,
-      { timeout: 10000 },
+        document.querySelectorAll("#student-cards triton-card").length === 5,
+      { timeout: 10000 }
     );
     const count = await page.$$eval(
       "#player-hand-cards triton-card",
-      (els) => els.length,
+      (els) => els.length
     );
     expect(count).toBe(5);
   });
@@ -42,7 +41,7 @@ describe("Draw Cards E2E", () => {
 
     // collect src attrs of those cards
     const aiSrcs = await page.$$eval(".ai-deck .ai-card triton-card", (els) =>
-      els.map((el) => el.getAttribute("src")),
+      els.map((el) => el.getAttribute("src"))
     );
     // all should be the back-of-card image
     aiSrcs.forEach((src) => {
