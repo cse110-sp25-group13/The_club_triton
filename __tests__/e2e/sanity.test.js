@@ -1,6 +1,6 @@
 describe("Game Lobby sanity check", () => {
   beforeAll(async () => {
-    await page.goto("http://localhost:8080/game-lobby.html");
+    await page.goto("http://localhost:8080/src/pages/game-lobby.html");
   });
 
   it("loads with correct title", async () => {

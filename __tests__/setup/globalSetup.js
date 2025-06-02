@@ -5,7 +5,7 @@ import setupPuppeteer from "jest-environment-puppeteer/setup";
 
 export default async function globalSetup(globalConfig) {
   const port = 8080;
-  const server = spawn("npx", ["http-server", "./src/pages", "-p", port], {
+  const server = spawn("npx", ["http-server", ".", "-p", port], {
     detached: true,
     stdio: "ignore",
     shell: true,
@@ -15,7 +15,7 @@ export default async function globalSetup(globalConfig) {
 
   console.log(`\nHTTP server running on port:${port}, PID:${server.pid}`);
 
-  await waitOn({ resources: ["http://localhost:8080/game-lobby.html"] });
+  await waitOn({ resources: ["http://localhost:8080/src/pages/game-lobby.html"] });
 
   await setupPuppeteer(globalConfig);
 }
