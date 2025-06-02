@@ -18,7 +18,7 @@
 /* Custom fonts section */
 @font-face {
   font-family: table;
-  src: url("../fonts/Club Penguin Fonts/A.C.M.E. Secret Agent Bold.ttf");
+  src: url("../fonts/club-triton-fonts/A.C.M.E. Secret Agent Bold.ttf") format("truetype");
 }
 /* Basic body design */
 body {
@@ -267,7 +267,7 @@ body {
 /* Altering both the professors and student name fonts */
 #prof-name,
 #student-name {
-  font-family: table;
+  font-family: table, sans-serif;
   font-size: 1.5vw;
   color: var(--text-color);
   font-weight: bold;
@@ -311,11 +311,6 @@ td {
   justify-content: center;
   align-items: center;
 } */
-
-.card-back {
-  background: url("../imgs/card-backs/professor-card-back.png") center/cover;
-  transform: rotateY(180deg);
-}
 
 .card-front {
   background: white;
