@@ -324,3 +324,9 @@ td {
   font-size: 0.8em;
   text-align: center;
 }
+
+triton-card {
+  --card-width: 8vw;
+  --card-height: 18vh;
+  --card-font-size: 0.6rem;
+}

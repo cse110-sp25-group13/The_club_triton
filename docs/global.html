@@ -94,6 +94,72 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="countdownInterval"><span class="type-signature"></span>countdownInterval<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Starts or resets the round timer.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line422">line 422</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -206,7 +272,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line412">line 412</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line414">line 414</a>
     </li></ul></dd>
     
 
@@ -253,6 +319,621 @@ Each record will be in the form { cardId: "the_actual_id" }.
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkWinCondition"><span class="type-signature"></span>checkWinCondition<span class="signature">()</span><span class="type-signature"> &rarr; {"player"|"ai"|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Check if the user has won 3 times with same card type or 3 times each with different card type
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line385">line 385</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">"player"</span>
+|
+
+<span class="param-type">"ai"</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="determineWinner"><span class="type-signature"></span>determineWinner<span class="signature">(playerCard, aiCard)</span><span class="type-signature"> &rarr; {"player"|"ai"|"tie"}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines the winner between two cards.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerCard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aiCard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">"player"</span>
+|
+
+<span class="param-type">"ai"</span>
+|
+
+<span class="param-type">"tie"</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="drawCards"><span class="type-signature"></span>drawCards<span class="signature">(count, ai)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Draw a number of random cards from the deck. Give a new card from library to the ai and player, if the ai =true, change card img to a back of card img to hide the AI card
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Number of cards to draw</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ai</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">are we trying to draw card for ai</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line74">line 74</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Array of card objects
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="endGame"><span class="type-signature"></span>endGame<span class="signature">(winner)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Alert when winning condition is met
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>winner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"player" or "ai"</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line412">line 412</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -365,7 +1046,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line53">line 53</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -475,7 +1156,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line298">line 298</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line300">line 300</a>
     </li></ul></dd>
     
 
@@ -634,7 +1315,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line352">line 352</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line354">line 354</a>
     </li></ul></dd>
     
 
@@ -744,7 +1425,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line546">line 546</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line548">line 548</a>
     </li></ul></dd>
     
 
@@ -855,7 +1536,7 @@ It first gets all owned card IDs, then retrieves the complete card object from t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line597">line 597</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line599">line 599</a>
     </li></ul></dd>
     
 
@@ -967,7 +1648,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line202">line 202</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line204">line 204</a>
     </li></ul></dd>
     
 
@@ -1010,6 +1691,231 @@ If the database or object store does not exist, create them and populate with in
 </dl>
 
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="initGame"><span class="type-signature">(async) </span>initGame<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Initializes the game, loads cards, deals initial hands.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line46">line 46</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="playRound"><span class="type-signature">(async) </span>playRound<span class="signature">(playerCardId)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Handles card selection by player and executes round logic.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>playerCardId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID of the selected card in playerHand</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1168,7 +2074,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line83">line 83</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line85">line 85</a>
     </li></ul></dd>
     
 
@@ -1323,7 +2229,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line482">line 482</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line484">line 484</a>
     </li></ul></dd>
     
 
@@ -1376,6 +2282,437 @@ If the database or object store does not exist, create them and populate with in
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="removeCardFromSlot"><span class="type-signature"></span>removeCardFromSlot<span class="signature">(cardId, deckEl)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Actually removes the card from the hand
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cardId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>deckEl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line223">line 223</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateScore"><span class="type-signature"></span>updateScore<span class="signature">(winner, playerCard, aiCard)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates score and UI based on winner.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>winner</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">"player" or "ai"</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>playerCard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aiCard</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line331">line 331</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateScoreDisplay"><span class="type-signature"></span>updateScoreDisplay<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates DOM for game page score display
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line352">line 352</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -1391,13 +2728,13 @@ If the database or object store does not exist, create them and populate with in
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Jun 01 2025 04:44:23 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 02 2025 00:54:37 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

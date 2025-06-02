@@ -38,6 +38,8 @@
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
+export { initDB, getAllCards };
+
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
 let initPromise = null; // Singleton pattern to ensure only one initialization happens
 const DB_NAME = "UCSDCardsDB";
