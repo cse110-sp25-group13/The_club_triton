@@ -13,12 +13,12 @@
   </head>
   <body>
     <main class="game-container">
-      <div class="game-board">
+      <section class="game-board">
         <button id="exit-btn">
           <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
           <a href="home-page.html" title="return to lobby"></a>
         </button>
-        <section id="rules-dropdown"></section>
+        <div id="rules-dropdown"></div>
         <div class="prof-won-cards">
           <div id="prof-monument-card">0</div>
           <div id="prof-building-card">0</div>
@@ -52,12 +52,12 @@
             />
           </div>
         </div>
-      </div>
+      </section>
       <time class="timer" alt="game countdown">60</time>
-      <div class="play-table">
+      <section class="play-table">
         <div class="prof-deck">
           <table class="prof-cards">
-            <div id="prof-name">Professor</div>
+            <h2 id="prof-name">Professor</h2>
             <tr>
               <td class="card-5" id="prof-card-5">
                 <div class="card-face card-front">Card 5</div>
@@ -84,7 +84,7 @@
         </div>
         <div class="student-deck">
           <table class="student-cards">
-            <div id="student-name">Student</div>
+            <h2 id="student-name">Student</h2>
             <tr>
               <td class="card-1" id="student-card-1">Card 1</td>
               <td class="card-2" id="student-card-2">Card 2</td>
@@ -94,36 +94,7 @@
             </tr>
           </table>
         </div>
-      </div>
-
-      <div class="card-comparison">
-        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-            AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-        <section class="chosen-prof-card"></section>
-        <section class="chosen-student-card"></section>
-      </div>
-
-      <section class="won-cards">
-        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-        <div class="prof-won-cards">
-          <div id="prof-monument-card"></div>
-          <div id="prof-building-card"></div>
-          <div id="prof-dining-hall-card"></div>
-        </div>
-
-        <div class="student-won-cards">
-          <div id="student-monument-card"></div>
-          <div id="student-building-card"></div>
-          <div id="student-dining-hall-card"></div>
-        </div>
       </section>
-
-      <section id="rules-dropdown"></section>
-
-      <button id="exit-btn">
-        <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-        <a href="home-page.html" title="return to lobby"></a>
-      </button>
     </main>
   </body>
   <footer class="copyright-info"></footer>
