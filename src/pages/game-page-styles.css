@@ -321,12 +321,14 @@ td {
   background: white;
 }
 
-.moving {
+/* .moving {
   position: fixed;
   z-index: 100;
   pointer-events: none;
   transition: all 0.5s ease;
-}
+} */
+
+
 /* Additonal exit button design */
 #exit-btn {
   position: absolute;
