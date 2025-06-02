@@ -96,11 +96,11 @@ function drawCards(count, ai) {
           (slot) => !slot.querySelector("triton-card"),
         );
       }
-      if (targetSlot){
+      if (targetSlot) {
         //can you make it not show any info on the cards? supposed to be unknown to player?
         tritonCard.front_image = cardObj.front_image_placeholder;
         targetSlot.appendChild(tritonCard);
-      } 
+      }
     } else {
       tritonCard.addEventListener("click", () => {
         playRound(cardObj.id);
@@ -242,7 +242,7 @@ function determineWinner(playerCard, aiCard) {
   return typeBeats[playerCard.type] === aiCard.type ? "player" : "ai";
 }
 
-//* sliding animation 
+//* sliding animation
 function animateCardMove(card, targetEl) {
   console.log("[animateCardMove] called", { card, targetEl });
 
@@ -295,14 +295,14 @@ function animateCardMove(card, targetEl) {
     // when the transition ends, move the real card into place
     const cleanup = () => {
       if (card.dataset.front) {
-      // This line invokes the triton-card’s own setter, which lives in Shadow DOM
-      card.front_image = card.dataset.front;
+        // This line invokes the triton-card’s own setter, which lives in Shadow DOM
+        card.front_image = card.dataset.front;
       }
       console.log("[animateCardMove] transitionend → cleaning up");
       const existingCard = targetEl.querySelector("triton-card");
       //make sure the card is non empty as well as not the card we are trying to animat
       // then remove old card
-      if( existingCard && existingCard !==card) existingCard.remove();
+      if (existingCard && existingCard !== card) existingCard.remove();
       targetEl.appendChild(card);
       card.style.visibility = "visible";
       ghost.remove();
@@ -320,7 +320,7 @@ function animateCardMove(card, targetEl) {
     }, 1000);
   });
 }
-  //*/
+//*/
 
 /**
  * Updates score and UI based on winner.
