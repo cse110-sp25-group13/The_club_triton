@@ -3,7 +3,7 @@ import globals from "globals";
 import css from "@eslint/css";
 import jsdoc from "eslint-plugin-jsdoc";
 import html from "@html-eslint/eslint-plugin";
-import htmlParser from "@html-eslint/parser";     
+import htmlParser from "@html-eslint/parser";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
