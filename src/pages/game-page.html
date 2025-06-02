@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Play Now! | Club Triton</title>
     <link rel="stylesheet" href="game-page-styles.css" media="screen" />
-    <link rel="script" href="game-page-script.js" media="screen" />
+    <script src="game-page-script.js" defer></script>
     <meta
       name="keywords"
       content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
     />
   </head>
   <body>
-    <main class="game-container">
+    <main class="game-container"> 
       <section class="game-board">
+        <div id="projector-hitbox"></div>
+        <div class="projector-slot">
+          <div id="projector-screen"></div>
+        </div>        
         <button id="exit-btn">
           <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
           <a href="home-page.html" title="return to lobby"></a>
         </button>
-        <div id="rules-dropdown"></div>
         <div class="prof-won-cards">
           <div id="prof-monument-card">0</div>
           <div id="prof-building-card">0</div>
