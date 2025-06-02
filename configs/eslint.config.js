@@ -45,10 +45,14 @@ export default defineConfig([
     extends: ["css/recommended"],
   },
   {
-    ...html.configs["flat/recommended"],
     files: ["**/*.html"],
+    languageOptions: {
+      parser: htmlParser,
+    },
+    plugins: { html },
+    language: "html/html",
     rules: {
-      "@html-eslint/no-inline-styles": "error",
+      "html/no-inline-styles": "error",
     },
   },
 ]);
