@@ -463,3 +463,10 @@ export {
   aiDeckEl,
   CARDBACK_PATH,
 };
+
+// exit button
+function exitGame() {
+  if (confirm("Return to Home Page?")) {
+    window.location.href = "home-page.html";
+  }
+}
