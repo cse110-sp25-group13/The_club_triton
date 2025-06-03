@@ -438,6 +438,8 @@ function resetTimer() {
     if (timeLeft <= 0) {
       clearInterval(countdownInterval);
     }
+    const percentage = ((60 - timeLeft) / 60) * 100;
+    timerEl.style.setProperty("--percentage", `${percentage}%`);
   }, 1000);
 
   // 4) schedule the auto-play fallback in 60s
