@@ -13,10 +13,6 @@
   <body>
     <main class="game-container">
       <div class="game-board">
-        <button id="exit-btn">
-          <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-          <a href="home-page.html" title="return to lobby"></a>
-        </button>
         <section id="rules-dropdown"></section>
         <div class="prof-won-cards">
           <div id="prof-monument-card">0</div>
@@ -95,7 +91,13 @@
         </div>
       </div>
 
+      
+      <!--Exit button-->
       <button id="exit-btn" onclick="exitGame()">X</button>
+
+      <!--Exit confirmation popup-->
+      <div id = "exit-popup" class = "modal"
+
     </main>
     <script type="module" src="../scripts/script.js"></script>
     <footer class="copyright-info"></footer>

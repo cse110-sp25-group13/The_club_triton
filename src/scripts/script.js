@@ -470,3 +470,4 @@ function exitGame() {
     window.location.href = "home-page.html";
   }
 }
+window.exitGame = exitGame;
