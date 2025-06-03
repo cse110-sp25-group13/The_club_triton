@@ -141,15 +141,27 @@ body {
   height: 4vw;
   background: white;
   border: 0.25vw solid #333;
+  box-shadow:
+    0 0 7px rgba(0, 0, 0, 0.8);
+  border-radius: 0.5vw;
   margin-top: 30%;
+  align-content: center;
+  text-align: center;
+
 }
 .prof-won-cards {
   float: left;
   margin-left: 5%;
   margin-right: 65%;
 }
-#prof-monument-card, #student-monument-card {
-  border: 0.25vw solid #333;
+#prof-structure-card, #student-structure-card {
+  border: 0.25vw solid gray;
+}
+#prof-dining-hall-card, #student-dining-hall-card {
+  border: 0.25vw solid blue;
+}
+#prof-living-card, #student-living-card {
+  border: 0.25vw solid green;
 }
 /* Character Design Section */
 .game-characters {

@@ -430,7 +430,7 @@ function resetTimer() {
   // 2) reset the display
   let timeLeft = MAX_TIME;
   timerEl.textContent = timeLeft;
-
+  timerEl.style.setProperty("--percentage", "0%");
   // 3) start the countdown interval
   countdownInterval = setInterval(() => {
     timeLeft--;
