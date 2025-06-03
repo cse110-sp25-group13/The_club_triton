@@ -352,12 +352,12 @@ function updateScore(winner, playerCard, aiCard) {
 function updateScoreDisplay() {
   const typeToId = {
     Structure: {
-      player: "student-monument-card",
-      ai: "prof-monument-card",
+      player: "student-structure-card",
+      ai: "prof-structure-card",
     },
     Living: {
-      player: "student-building-card",
-      ai: "prof-building-card",
+      player: "student-living-card",
+      ai: "prof-living-card",
     },
     Dining: {
       player: "student-dining-hall-card",
@@ -384,7 +384,7 @@ function updateScoreDisplay() {
  */
 function checkWinCondition() {
   // playerScore and aiScore are objects like:
-  // { monument: <n>, dining: <n>, structure: <n> }
+  // { living: <n>, dining: <n>, structure: <n> }
   const playerCounts = Object.values(playerScore);
   const aiCounts = Object.values(aiScore);
 
@@ -430,7 +430,7 @@ function resetTimer() {
   // 2) reset the display
   let timeLeft = MAX_TIME;
   timerEl.textContent = timeLeft;
-
+  timerEl.style.setProperty("--percentage", "0%");
   // 3) start the countdown interval
   countdownInterval = setInterval(() => {
     timeLeft--;
@@ -438,6 +438,8 @@ function resetTimer() {
     if (timeLeft <= 0) {
       clearInterval(countdownInterval);
     }
+    const percentage = ((60 - timeLeft) / 60) * 100;
+    timerEl.style.setProperty("--percentage", `${percentage}%`);
   }, 1000);
 
   // 4) schedule the auto-play fallback in 60s
