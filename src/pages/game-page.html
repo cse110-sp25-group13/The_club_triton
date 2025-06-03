@@ -11,16 +11,24 @@
     />
   </head>
   <body>
-    <main class="game-container">
-      <div class="game-board">
-        <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-        <button id="exit-btn" onclick="exitGame()">X</button>
-        <section id="rules-dropdown"></section>
-        <div class="prof-won-cards">
-          <div id="prof-monument-card">0</div>
-          <div id="prof-building-card">0</div>
-          <div id="prof-dining-hall-card">0</div>
+    <section class="game-board">
+      <div id="projector-hitbox"></div>
+      <div class="projector-slot">
+        <div id="projector-screen">
+          <h1 id="instructions">Instructions</h1>
+          <ul>
+            <li>
+              Click to choose a card from your deck to play against the
+              professor
+            </li>
+            <li>
+              Each card has a type and a number. The types are Living,
+              structure, and Dining Hall.
+            </li>
+          </ul>
         </div>
+        </div>
+        <button id="exit-btn" onclick="exitGame()">X</button>
         <section class="won-cards">
           <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
           <div class="student-won-cards">
@@ -91,7 +99,7 @@
             </tr>
           </table>
         </div>
-      </div>
+      </section>
     </main>
     <script type="module" src="../scripts/script.js"></script>
     <footer class="copyright-info"></footer>
