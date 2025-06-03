@@ -18,7 +18,8 @@
 /* Custom fonts section */
 @font-face {
   font-family: table;
-  src: url("../fonts/club-triton-fonts/A.C.M.E. Secret Agent Bold.ttf") format("truetype");
+  src: url("../fonts/club-triton-fonts/A.C.M.E. Secret Agent Bold.ttf")
+    format("truetype");
 }
 /* Basic body design */
 body {
@@ -177,9 +178,9 @@ body {
 /*Rules Dropdown Section*/
 #projector-hitbox {
   position: absolute;
-  top: 6%;  /* Adjust based on the projector’s Y position */
+  top: 6%; /* Adjust based on the projector’s Y position */
   left: 48%; /* Adjust based on projector’s X position */
-  width: 8%;  /* Widen hitbox area */
+  width: 8%; /* Widen hitbox area */
   height: 10%;
   z-index: 10;
   cursor: pointer;
@@ -190,12 +191,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 40%;   /* Give it room to hold the screen */
+  height: 40%; /* Give it room to hold the screen */
   overflow: visible;
   z-index: 10;
-  pointer-events: none;  /* Prevent this container from interfering with mouse events */
+  pointer-events: none; /* Prevent this container from interfering with mouse events */
 }
-
 
 #projector-screen {
   position: absolute;
@@ -213,7 +213,6 @@ body {
 #projector-screen.show {
   top: 0;
 }
-
 
 /* Additional play-table design and formatting*/
 .play-table {
@@ -302,7 +301,6 @@ td {
 .card.flipped {
   transform: rotateY(180deg);
 }
-
 
 .card-front {
   background: white;
