@@ -194,8 +194,8 @@ body {
 /*Rules Dropdown Section*/
 #projector-hitbox {
   position: absolute;
-  top: 6%; /* Adjust based on the projector’s Y position */
-  left: 48%; /* Adjust based on projector’s X position */
+  top: 10%; /* Adjust based on the projector’s Y position */
+  left: 46%; /* Adjust based on projector’s X position */
   width: 8%; /* Widen hitbox area */
   height: 10%;
   z-index: 10;
