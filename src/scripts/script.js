@@ -81,7 +81,9 @@ function drawCards(count, ai) {
     deck.splice(randomIndex, 1);
     //create triton card el
     const tritonCard = document.createElement("triton-card");
-    tritonCard.id = `tritonCard-${cardObj.id}`;
+    tritonCard.id = ai
+      ? `tritonCard-${cardObj.id}-ai`
+      : `tritonCard-${cardObj.id}`;
     //tritonCard.back_image = cardObj.back_image_placeholder;
     tritonCard.name = cardObj.name;
     tritonCard.rank = cardObj.ranking;
@@ -176,7 +178,7 @@ async function playRound(playerCardId) {
   //removeCardFromSlot(playerCard.id, playerDeckEl);
 
   // Animate AI card moving
-  const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}`);
+  const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}-ai`);
   console.log("[playRound] animate AI from", aiCardEl, "to", chosenAiSlot);
   try {
     await animateCardMove(aiCardEl, chosenAiSlot);
