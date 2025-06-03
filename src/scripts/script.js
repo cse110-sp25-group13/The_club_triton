@@ -352,12 +352,12 @@ function updateScore(winner, playerCard, aiCard) {
 function updateScoreDisplay() {
   const typeToId = {
     Structure: {
-      player: "student-monument-card",
-      ai: "prof-monument-card",
+      player: "student-structure-card",
+      ai: "prof-structure-card",
     },
     Living: {
-      player: "student-building-card",
-      ai: "prof-building-card",
+      player: "student-living-card",
+      ai: "prof-living-card",
     },
     Dining: {
       player: "student-dining-hall-card",
@@ -384,7 +384,7 @@ function updateScoreDisplay() {
  */
 function checkWinCondition() {
   // playerScore and aiScore are objects like:
-  // { monument: <n>, dining: <n>, structure: <n> }
+  // { living: <n>, dining: <n>, structure: <n> }
   const playerCounts = Object.values(playerScore);
   const aiCounts = Object.values(aiScore);
 

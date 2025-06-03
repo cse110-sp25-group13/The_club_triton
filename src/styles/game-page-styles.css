@@ -148,6 +148,9 @@ body {
   margin-left: 5%;
   margin-right: 65%;
 }
+#prof-monument-card, #student-monument-card {
+  border: 0.25vw solid #333;
+}
 /* Character Design Section */
 .game-characters {
   display: flex;
