@@ -303,6 +303,26 @@ class TritonCard extends HTMLElement {
       rarityElement.textContent = `Rarity: ${value}`;
     }
   }
+
+  connectedCallback() {
+    this.updateCardWidth(); // set initial value
+    window.addEventListener('resize', this.updateCardWidth.bind(this));
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.updateCardWidth.bind(this));
+  }
+
+  updateCardWidth() {
+    const width = window.innerWidth * 0.081;
+    const height = width * 4 / 3
+    this.style.setProperty('--card-width', `${width}px`);
+    this.style.setProperty('--card-height', `${height}px`);
+    this.style.setProperty('--card-image-width', `${width}px`);
+    this.style.setProperty('--card-image-height', `${height}px`);
+    this.style.setProperty('--card-font-size', `${width* 6 / 90}px`);
+    
+  }
 }
 
 customElements.define("triton-card", TritonCard);
