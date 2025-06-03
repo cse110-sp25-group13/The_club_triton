@@ -465,9 +465,18 @@ export {
 };
 
 // exit button
+document.addEventListener('DOMContentLoaded', function() {
+  const exitButton = document.getElementById('exit-btn');
+  if(exitButton) {
+    exitButton.addEventListener('click', exitGame);
+  }
+});
+
 function exitGame() {
   if (confirm("Return to Home Page?")) {
     window.location.href = "home-page.html";
   }
 }
 window.exitGame = exitGame;
+
+
