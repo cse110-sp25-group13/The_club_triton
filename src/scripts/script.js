@@ -465,10 +465,10 @@ export {
 };
 
 // exit button
-document.addEventListener('DOMContentLoaded', function() {
-  const exitButton = document.getElementById('exit-btn');
-  if(exitButton) {
-    exitButton.addEventListener('click', exitGame);
+document.addEventListener("DOMContentLoaded", function () {
+  const exitButton = document.getElementById("exit-btn");
+  if (exitButton) {
+    exitButton.addEventListener("click", exitGame);
   }
 });
 
@@ -478,5 +478,3 @@ function exitGame() {
   }
 }
 window.exitGame = exitGame;
-
-
