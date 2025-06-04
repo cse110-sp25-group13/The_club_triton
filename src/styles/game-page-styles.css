@@ -215,11 +215,11 @@ body {
 
 #projector-screen {
   position: absolute;
-  top: -140%;
+  top: -145%;
   left: 10%;
   width: 80%;
   height: 150%;
-  background-color: #fdfcf5;
+  background-image: url('../imgs/backgrounds/rules-dropdown.png');
   border: 8px solid black;
   z-index: 9;
   transition: top 0.7s ease-in-out;
