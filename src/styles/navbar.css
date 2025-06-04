@@ -5,45 +5,59 @@
     background-color: #ffe375;
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: 10vh;
     position: absolute;
     border-bottom-left-radius: 1vw;
     border-bottom-right-radius: 1vw;
+    transition: 0.3s ease-in-out;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2vw;
+    z-index: 9999;
 }
 
 .navbar ul {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2vw;
+}
+
+.navbar-logo {
+    height: 9vh;
+}
+
+.nav-button-container {
     display: flex;
-    justify-content: space-around;
-    list-style-type: none;
+    width: 100%;
+}
+
+.navbar li {
+    font-size: 2vh;
+    display: inline-block;
 }
 
 .navbar a {
     color: black;
     text-decoration: none;
     font-family: 'Luckiest Guy', cursive;
-    font-size: 1vw;
-}
-.nav-button-container {
-    align-items: left;
-}
-.nav-button:hover {
-    border-width: 20vh 20vw;
-    background-color: transparent;
-    justify-self: center;
-    font-size: 20px;
+    font-size: 1.2vw;
+    padding: 1vh 2vw;
     border-radius: 1vw;
-    position: sticky;
+    display: inline-block;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-
-.navbar li {
-    font-size: 2vh;
-    display: inline;
-    color: white;
+.navbar a:hover {
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.nav-button-container {
-    align-self: left;
-}
 
 /* END OF NAVBAR THINGS */
