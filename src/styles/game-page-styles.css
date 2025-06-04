@@ -4,7 +4,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html {
+  height: 100%;
+  width: 100%;
+}
 /*Color directory */
 :root {
   --primary-color: #1a6bb0;
@@ -159,14 +162,17 @@ body {
 #prof-structure-card,
 #student-structure-card {
   border: 0.25vw solid gray;
+  box-shadow: inset 0 0 2.5px gray;
 }
 #prof-dining-hall-card,
 #student-dining-hall-card {
   border: 0.25vw solid blue;
+  box-shadow: inset 0 0 2.5px blue;
 }
 #prof-living-card,
 #student-living-card {
   border: 0.25vw solid green;
+  box-shadow: inset 0 0 2.5px green;
 }
 /* Character Design Section */
 .game-characters {
@@ -260,48 +266,42 @@ body {
 }
 /* Professors Deck Section*/
 .prof-deck {
-  display: flex;
   flex-direction: column;
-  align-items: stretch;
-  align-self: flex-start;
   margin-left: 1vw;
 }
 #prof-name {
   text-align: left;
 }
 .prof-cards {
-  background-color: #fff;
+  /* background-color: #fff; */
   width: 25vw;
   height: 6vw;
 }
 /* Students Deck Section*/
 .student-deck {
-  display: flex;
   flex-direction: column;
   margin-right: 1vw;
 }
 #student-name {
   text-align: right;
-  margin-right: 1vw;
 }
 .student-cards {
   width: 50vw;
   height: 12vw;
   border-collapse: separate;
-  border-spacing: 7.5px 2px;
+  /* border-spacing: 7.5px 2px; */
 }
 /* Altering both the professors and student name fonts */
 #prof-name,
 #student-name {
   font-family: table, sans-serif;
-  font-size: 1.5vw;
+  font-size: 100%;
   color: var(--text-color);
   font-weight: bold;
 }
+
 /* Card design and formatting */
-td {
-  background-color: #fff;
-}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -309,7 +309,6 @@ table {
 td {
   width: 20%;
   aspect-ratio: 3/4;
-  border: 2px solid #333;
   text-align: center;
 }
 .prof-cards,
