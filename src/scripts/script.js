@@ -464,6 +464,7 @@ export {
   playerDeckEl,
   aiDeckEl,
   CARDBACK_PATH,
+  checkWinCondition
 };
 
 // exit button
