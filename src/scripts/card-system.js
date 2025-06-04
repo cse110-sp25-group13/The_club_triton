@@ -38,7 +38,23 @@
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
-export { initDB, getAllCards };
+export { initDB, getAllCards, basePath };
+
+// Dynamic base path determination for asset loading
+// This solves the GitHub Pages vs local development path issues
+let basePath = "";
+if (window.location.hostname.includes("github.io")) {
+  const pathSegments = window.location.pathname.split("/");
+  // Check if we're in a repository subdirectory (typical for GitHub Pages)
+  if (
+    pathSegments.length > 1 &&
+    pathSegments[1] &&
+    pathSegments[1].toLowerCase() === "the_club_triton"
+  ) {
+    basePath = "/" + pathSegments[1];
+  }
+}
+console.log("Asset Base Path determined:", basePath);
 
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
 let initPromise = null; // Singleton pattern to ensure only one initialization happens
@@ -49,12 +65,15 @@ const STORE_NAME_OWNED = "playerOwnedCards"; // Store player owned card IDs
 
 /**
  * Asynchronously fetch card data from the specified JSON file path.
- * @param {string} jsonFilePath - The path to the JSON file.
+ * @param {string} jsonFilePath - The path to the JSON file (relative to project root).
  * @returns {Promise<Array<Object>>} A Promise that resolves to an array of card objects.
  */
 async function fetchCardDataFromJson(jsonFilePath) {
   try {
-    const response = await fetch(jsonFilePath);
+    // Construct full path using basePath for proper asset loading
+    const fullPath = basePath + jsonFilePath;
+    console.log(`Fetching JSON from: ${fullPath}`);
+    const response = await fetch(fullPath);
     if (!response.ok) {
       // If HTTP status code is not 2xx (e.g., 404 Not Found, 500 Server Error)
       throw new Error(
@@ -62,9 +81,7 @@ async function fetchCardDataFromJson(jsonFilePath) {
       );
     }
     const jsonData = await response.json(); // Parse JSON response body
-    console.log(
-      `Successfully fetched and parsed card data from ${jsonFilePath}`,
-    );
+    console.log(`Successfully fetched and parsed card data from ${fullPath}`);
     return jsonData;
   } catch (error) {
     console.error(
@@ -221,7 +238,7 @@ function initDB() {
 
       try {
         // After database opens successfully, check and populate data if needed
-        // populateDataIfEmpty now only handles STORE_NAME_CARDS and fills it from JSON
+        // Use dynamic basePath for proper JSON loading across environments
         await populateDataIfEmpty(db, STORE_NAME_CARDS, "/src/card/cards.json");
         console.log(
           "Database initialization and data population check complete.",
