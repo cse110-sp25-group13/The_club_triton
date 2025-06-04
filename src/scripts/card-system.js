@@ -38,7 +38,17 @@
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
-export { initDB, getAllCards, basePath, getCardById, addCardToCollection, removeCardFromCollection, getOwnedCardIds, getOwnedFullCards, getInitialHand };
+export {
+  initDB,
+  getAllCards,
+  basePath,
+  getCardById,
+  addCardToCollection,
+  removeCardFromCollection,
+  getOwnedCardIds,
+  getOwnedFullCards,
+  getInitialHand,
+};
 
 // Dynamic base path determination for asset loading
 // This solves the GitHub Pages vs local development path issues
@@ -667,8 +677,11 @@ async function getInitialHand(numberOfCards) {
       console.error("Database not initialized. Call initDB() first.");
       throw new Error("Database not initialized.");
     }
-    if (typeof numberOfCards !== 'number' || numberOfCards <= 0) {
-      console.error("Invalid numberOfCards provided to getInitialHand:", numberOfCards);
+    if (typeof numberOfCards !== "number" || numberOfCards <= 0) {
+      console.error(
+        "Invalid numberOfCards provided to getInitialHand:",
+        numberOfCards,
+      );
       throw new Error("numberOfCards must be a positive number.");
     }
 
@@ -689,12 +702,14 @@ async function getInitialHand(numberOfCards) {
     // 3. Draw specified number of cards from the top of shuffled deck
     const hand = shuffledDeck.slice(0, numberOfCards);
 
-    console.log(`Drew initial hand of ${hand.length} card(s):`, hand.map(c => c.name)); // Print card names for easy viewing
+    console.log(
+      `Drew initial hand of ${hand.length} card(s):`,
+      hand.map((c) => c.name),
+    ); // Print card names for easy viewing
     return hand;
-
   } catch (error) {
     console.error("Error getting initial hand:", error);
-    throw error; 
+    throw error;
   }
 }
 

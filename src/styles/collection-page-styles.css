@@ -31,7 +31,7 @@
 
 /* Basic layout - Matching game style */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   background: var(--primary-color);
@@ -57,7 +57,7 @@ header {
   border-radius: 12px;
   margin: 0 auto 20px auto;
   max-width: 90vw;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
@@ -66,7 +66,7 @@ header h1 {
   margin: 0 0 0.5rem 0;
   font-size: 2.5rem;
   font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 header p {
@@ -110,7 +110,7 @@ header p {
   background: rgba(42, 33, 24, 0.9);
   border-radius: 12px;
   border: 8px solid var(--secondary-color);
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
@@ -157,7 +157,7 @@ header p {
   border-radius: 12px;
   border: 8px solid var(--secondary-color);
   text-align: center;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
@@ -187,7 +187,7 @@ header p {
   min-height: 300px;
   align-items: start;
   justify-items: center;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
@@ -201,8 +201,6 @@ triton-card {
   --card-height: calc(var(--card-width) * 4 / 3);
   --card-font-size: calc(var(--card-width) * 5 / 90);
 }
-
-
 
 /* Card styles when in active deck */
 triton-card.in-active-deck {
@@ -223,7 +221,7 @@ triton-card.in-active-deck::after {
   font-weight: bold;
   padding: 4px 8px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
@@ -237,7 +235,7 @@ triton-card.not-in-deck:hover {
   opacity: 1;
   filter: grayscale(0%);
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Hover effects for cards in active deck */
@@ -286,7 +284,7 @@ footer {
   max-width: 90vw;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
@@ -302,7 +300,7 @@ footer p {
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
   }
-  
+
   triton-card {
     --card-width: 160px;
   }
@@ -312,17 +310,17 @@ footer p {
   header h1 {
     font-size: 2rem;
   }
-  
+
   .cards-grid-container {
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
     padding: 1rem;
   }
-  
+
   triton-card {
     --card-width: 140px;
   }
-  
+
   .enter-game-button {
     padding: 0.8rem 2rem;
     font-size: 1rem;
@@ -334,27 +332,27 @@ footer p {
     margin: 0.5rem;
     padding: 1rem;
   }
-  
+
   header {
     padding: 1rem;
   }
-  
+
   header h1 {
     font-size: 1.5rem;
   }
-  
+
   .cards-grid-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 4px;
     padding: 1rem;
   }
-  
+
   triton-card {
     --card-width: 120px;
   }
-  
+
   .enter-game-button {
     padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
   }
-} 
+}

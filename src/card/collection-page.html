@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Card Collection & Deck Builder - TritonCard</title>
 
     <!-- Link to global CSS variables file that TritonCard component may need -->
-    <link rel="stylesheet" href="triton-card.css">
+    <link rel="stylesheet" href="triton-card.css" />
     <!-- Link to Collection Page specific stylesheet -->
-    <link rel="stylesheet" href="../styles/collection-page-styles.css">
-    
+    <link rel="stylesheet" href="../styles/collection-page-styles.css" />
+
     <!-- Import TritonCard component definition -->
     <script src="triton-card.js" type="module"></script>
     <!-- Import IndexedDB and card data management logic (as module) -->
@@ -32,7 +32,9 @@
         <p>Loading card library...</p>
       </div>
       <div class="game-controls">
-        <button id="enter-game-btn" class="enter-game-button">Enter Game</button>
+        <button id="enter-game-btn" class="enter-game-button">
+          Enter Game
+        </button>
       </div>
     </main>
 
@@ -42,124 +44,141 @@
 
     <script type="module">
       // Import required functions from card-system.js
-      import { initDB, getAllCards, getOwnedCardIds, addCardToCollection, removeCardFromCollection } from '../scripts/card-system.js';
+      import {
+        initDB,
+        getAllCards,
+        getOwnedCardIds,
+        addCardToCollection,
+        removeCardFromCollection,
+      } from "../scripts/card-system.js";
 
-      const collectionContainer = document.getElementById("card-collection-container");
+      const collectionContainer = document.getElementById(
+        "card-collection-container",
+      );
       const deckCountElement = document.getElementById("deck-count");
       const enterGameButton = document.getElementById("enter-game-btn");
 
-              async function displayAllCards() {
-          if (!collectionContainer) return;
-          collectionContainer.innerHTML = ""; // Clear existing cards to avoid duplicates
+      async function displayAllCards() {
+        if (!collectionContainer) return;
+        collectionContainer.innerHTML = ""; // Clear existing cards to avoid duplicates
 
-          try {
-            // Get all cards and active deck card IDs
-            const [allCards, activeDeckIds] = await Promise.all([
-              getAllCards(),
-              getOwnedCardIds()
-            ]);
+        try {
+          // Get all cards and active deck card IDs
+          const [allCards, activeDeckIds] = await Promise.all([
+            getAllCards(),
+            getOwnedCardIds(),
+          ]);
 
-            // Update deck count
-            if (deckCountElement) {
-              deckCountElement.textContent = activeDeckIds.length;
-            }
-
-            if (allCards && allCards.length > 0) {
-              allCards.forEach((data) => {
-                const cardElement = document.createElement("triton-card");
-
-                // Set all necessary attributes
-                cardElement.name = data.name;
-                cardElement.type = data.type;
-                cardElement.rank = data.rank;
-                cardElement.rarity = data.rarity;
-                if (data.front_image_placeholder)
-                  cardElement.front_image = data.front_image_placeholder;
-                // Handle empty image paths
-                if (data.back_image_placeholder)
-                  cardElement.back_image = data.back_image_placeholder;
-                else cardElement.back_image = "";
-                cardElement.description = data.description;
-
-                // Check if this card is in active deck
-                const isInActiveDeck = activeDeckIds.includes(data.id);
-                
-                // Add CSS classes to highlight active deck cards
-                if (isInActiveDeck) {
-                  cardElement.classList.add("in-active-deck");
-                  cardElement.setAttribute("data-in-deck", "true");
-                } else {
-                  cardElement.classList.add("not-in-deck");
-                  cardElement.setAttribute("data-in-deck", "false");
-                }
-
-                // Add click event to toggle card in active deck
-                cardElement.addEventListener("click", () => toggleCardInDeck(data.id));
-
-                collectionContainer.appendChild(cardElement);
-              });
-            } else {
-              collectionContainer.innerHTML = '<p class="empty-message">No cards available.</p>';
-            }
-          } catch (error) {
-            console.error("Failed to display cards:", error);
-            collectionContainer.innerHTML = '<p class="error-message">Error loading cards.</p>';
+          // Update deck count
+          if (deckCountElement) {
+            deckCountElement.textContent = activeDeckIds.length;
           }
+
+          if (allCards && allCards.length > 0) {
+            allCards.forEach((data) => {
+              const cardElement = document.createElement("triton-card");
+
+              // Set all necessary attributes
+              cardElement.name = data.name;
+              cardElement.type = data.type;
+              cardElement.rank = data.rank;
+              cardElement.rarity = data.rarity;
+              if (data.front_image_placeholder)
+                cardElement.front_image = data.front_image_placeholder;
+              // Handle empty image paths
+              if (data.back_image_placeholder)
+                cardElement.back_image = data.back_image_placeholder;
+              else cardElement.back_image = "";
+              cardElement.description = data.description;
+
+              // Check if this card is in active deck
+              const isInActiveDeck = activeDeckIds.includes(data.id);
+
+              // Add CSS classes to highlight active deck cards
+              if (isInActiveDeck) {
+                cardElement.classList.add("in-active-deck");
+                cardElement.setAttribute("data-in-deck", "true");
+              } else {
+                cardElement.classList.add("not-in-deck");
+                cardElement.setAttribute("data-in-deck", "false");
+              }
+
+              // Add click event to toggle card in active deck
+              cardElement.addEventListener("click", () =>
+                toggleCardInDeck(data.id),
+              );
+
+              collectionContainer.appendChild(cardElement);
+            });
+          } else {
+            collectionContainer.innerHTML =
+              '<p class="empty-message">No cards available.</p>';
+          }
+        } catch (error) {
+          console.error("Failed to display cards:", error);
+          collectionContainer.innerHTML =
+            '<p class="error-message">Error loading cards.</p>';
         }
+      }
 
-              // Toggle card in active deck status
-        async function toggleCardInDeck(cardId) {
-          try {
-            const activeDeckIds = await getOwnedCardIds();
-            const isInDeck = activeDeckIds.includes(cardId);
+      // Toggle card in active deck status
+      async function toggleCardInDeck(cardId) {
+        try {
+          const activeDeckIds = await getOwnedCardIds();
+          const isInDeck = activeDeckIds.includes(cardId);
 
-            if (isInDeck) {
-              await removeCardFromCollection(cardId);
-              console.log(`Removed card from deck: ${cardId}`);
-            } else {
-              await addCardToCollection(cardId);
-              console.log(`Added card to deck: ${cardId}`);
-            }
-
-            // Refresh display
-            await displayAllCards();
-          } catch (error) {
-            console.error("Error toggling card status:", error);
-            alert(`Operation failed: ${error.message || error}`);
+          if (isInDeck) {
+            await removeCardFromCollection(cardId);
+            console.log(`Removed card from deck: ${cardId}`);
+          } else {
+            await addCardToCollection(cardId);
+            console.log(`Added card to deck: ${cardId}`);
           }
+
+          // Refresh display
+          await displayAllCards();
+        } catch (error) {
+          console.error("Error toggling card status:", error);
+          alert(`Operation failed: ${error.message || error}`);
         }
+      }
 
-              // Initialize database and display all cards after page load
-        initDB()
-          .then(() => {
-            console.log("DB initialized for collection demo.");
-            displayAllCards(); // Initial display of all cards
-          })
-          .catch((err) => {
-            console.error("DB init failed for demo:", err);
-            collectionContainer.innerHTML = '<p class="error-message">Failed to initialize card database.</p>';
-          });
-
-        // Enter Game button event
-        enterGameButton.addEventListener("click", async () => {
-          try {
-            const activeDeckIds = await getOwnedCardIds();
-            if (activeDeckIds.length === 0) {
-              alert("Please select at least one card for your deck before entering the game!");
-              return;
-            }
-            
-            // Redirect to game page or trigger game start
-            console.log("Entering game with deck:", activeDeckIds);
-            alert(`Entering game with ${activeDeckIds.length} cards in your deck!`);
-            
-            // TODO: Add actual game navigation here
-            // For example: window.location.href = '../pages/game-page.html';
-          } catch (error) {
-            console.error("Error entering game:", error);
-            alert(`Failed to enter game: ${error.message || error}`);
-          }
+      // Initialize database and display all cards after page load
+      initDB()
+        .then(() => {
+          console.log("DB initialized for collection demo.");
+          displayAllCards(); // Initial display of all cards
+        })
+        .catch((err) => {
+          console.error("DB init failed for demo:", err);
+          collectionContainer.innerHTML =
+            '<p class="error-message">Failed to initialize card database.</p>';
         });
+
+      // Enter Game button event
+      enterGameButton.addEventListener("click", async () => {
+        try {
+          const activeDeckIds = await getOwnedCardIds();
+          if (activeDeckIds.length === 0) {
+            alert(
+              "Please select at least one card for your deck before entering the game!",
+            );
+            return;
+          }
+
+          // Redirect to game page or trigger game start
+          console.log("Entering game with deck:", activeDeckIds);
+          alert(
+            `Entering game with ${activeDeckIds.length} cards in your deck!`,
+          );
+
+          // TODO: Add actual game navigation here
+          // For example: window.location.href = '../pages/game-page.html';
+        } catch (error) {
+          console.error("Error entering game:", error);
+          alert(`Failed to enter game: ${error.message || error}`);
+        }
+      });
     </script>
   </body>
 </html>

@@ -251,18 +251,19 @@ function determineWinner(playerCard, aiCard) {
  * @returns {HTMLElement} Ghost element for animation
  */
 function createCardGhost(card, startRect) {
-  const ghost = document.createElement('div');
-  
+  const ghost = document.createElement("div");
+
   // Copy all the card properties from the triton-card shadow DOM
   const shadowRoot = card.shadowRoot;
-  const cardName = shadowRoot?.querySelector('.name')?.textContent || '';
-  const cardRank = shadowRoot?.querySelector('.rank')?.textContent || '';
-  const cardType = shadowRoot?.querySelector('.type')?.textContent || '';
-  const cardDescription = shadowRoot?.querySelector('.description')?.textContent || '';
-  const cardRarity = shadowRoot?.querySelector('.rarity')?.textContent || '';
-  const cardImage = shadowRoot?.querySelector('#img-card-front')?.src || '';
-  const cardBorder = shadowRoot?.querySelector('#img-card-border')?.src || '';
-  
+  const cardName = shadowRoot?.querySelector(".name")?.textContent || "";
+  const cardRank = shadowRoot?.querySelector(".rank")?.textContent || "";
+  const cardType = shadowRoot?.querySelector(".type")?.textContent || "";
+  const cardDescription =
+    shadowRoot?.querySelector(".description")?.textContent || "";
+  const cardRarity = shadowRoot?.querySelector(".rarity")?.textContent || "";
+  const cardImage = shadowRoot?.querySelector("#img-card-front")?.src || "";
+  const cardBorder = shadowRoot?.querySelector("#img-card-border")?.src || "";
+
   // Create the HTML structure that mirrors triton-card exactly
   ghost.innerHTML = `
     <div style="
@@ -274,16 +275,22 @@ function createCardGhost(card, startRect) {
       font-weight: 800;
       font-style: oblique;
     ">
-      ${cardImage ? `<img src="${cardImage}" style="
+      ${
+        cardImage
+          ? `<img src="${cardImage}" style="
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-index: 1;
-      " alt="Card Image">` : ''}
+      " alt="Card Image">`
+          : ""
+      }
       
-      ${cardBorder ? `<img src="${cardBorder}" style="
+      ${
+        cardBorder
+          ? `<img src="${cardBorder}" style="
         position: absolute;
         top: 0;
         left: 0;
@@ -291,7 +298,9 @@ function createCardGhost(card, startRect) {
         height: 100%;
         z-index: 5;
         pointer-events: none;
-      " alt="Card Border">` : ''}
+      " alt="Card Border">`
+          : ""
+      }
       
       <div style="
         position: absolute;
@@ -369,7 +378,7 @@ function createCardGhost(card, startRect) {
       ">${cardRarity}</div>
     </div>
   `;
-  
+
   // Style the ghost container
   Object.assign(ghost.style, {
     position: "fixed",
@@ -381,7 +390,7 @@ function createCardGhost(card, startRect) {
     zIndex: "1000",
     pointerEvents: "none",
   });
-  
+
   return ghost;
 }
 
@@ -411,9 +420,9 @@ function animateCardMove(card, targetEl) {
 
     // hide original and mark parent slot
     card.style.visibility = "hidden";
-    const parentSlot = card.closest('td');
+    const parentSlot = card.closest("td");
     if (parentSlot) {
-      parentSlot.classList.add('card-moving');
+      parentSlot.classList.add("card-moving");
     }
 
     // Force a reflow so the browser "sees" the starting position
@@ -437,13 +446,13 @@ function animateCardMove(card, targetEl) {
         card.front_image = card.dataset.front;
       }
       console.log("[animateCardMove] transitionend → cleaning up");
-      
+
       // Remove card-moving class from original parent
-      const originalParent = card.closest('td');
+      const originalParent = card.closest("td");
       if (originalParent) {
-        originalParent.classList.remove('card-moving');
+        originalParent.classList.remove("card-moving");
       }
-      
+
       const existingCard = targetEl.querySelector("triton-card");
       //make sure the card is non empty as well as not the card we are trying to animat
       // then remove old card
