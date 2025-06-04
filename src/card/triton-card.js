@@ -2,6 +2,22 @@
  * TritonCard is a custom web component representing a card with a front and back.
  * @const {Map<string,string>}
  */
+
+// Dynamic base path determination for consistent asset loading
+const getBasePath = () => {
+  let path = '';
+  if (window.location.hostname.includes('github.io')) {
+    const pathSegments = window.location.pathname.split('/');
+    if (pathSegments.length > 1 && pathSegments[1] && pathSegments[1].toLowerCase() === 'the_club_triton') {
+      path = '/' + pathSegments[1];
+    }
+  }
+  return path;
+};
+
+const TRITON_CARD_BASE_PATH = getBasePath();
+console.log("TritonCard Base Path:", TRITON_CARD_BASE_PATH);
+
 const TYPE_COLORS = {
   structure: "#003A70", // Dark blue
   dining: "#FFCD00", // Yellow
@@ -20,11 +36,11 @@ const TYPE_COLORS = {
  * @const {Map<string,string>} TYPE_BORDER
  */
 const TYPE_BORDER = {
-  structure: "/src/assets/imgs/card_borders/default-card-base.png",
-  dining: "/src/assets/imgs/card_borders/blue-card-base.png",
-  mascot: "/src/assets/imgs/card_borders/dark-card-base.png",
-  living: "/src/assets/imgs/card_borders/green-card-base.png",
-  default: "/src/assets/imgs/card_borders/yellow-card-base.png",
+  structure: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/default-card-base.png`,
+  dining: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/blue-card-base.png`,
+  mascot: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/dark-card-base.png`,
+  living: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/green-card-base.png`,
+  default: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/yellow-card-base.png`,
 };
 
 /**
@@ -32,7 +48,7 @@ const TYPE_BORDER = {
  */
 class TritonCard extends HTMLElement {
   //should never use default anyway
-  static default_card_border_path = "./assets/default-card-base.png"; // Update this element to have a different default border
+  static default_card_border_path = `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/default-card-base.png`; // Update this element to have a different default border
   #card;
 
   /**
@@ -216,7 +232,17 @@ class TritonCard extends HTMLElement {
    */
   set front_image(src) {
     const img = this.#card.querySelector("#img-card-front");
-    if (img) img.src = src;
+    if (img) {
+      if (src) {
+        // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
+        // Otherwise, treat as already properly formatted URL or relative path
+        img.src = src.startsWith('/src/') ? `${TRITON_CARD_BASE_PATH}${src}` : src;
+        img.alt = "Card Front";
+      } else {
+        img.src = "";
+        img.alt = "Card front image placeholder";
+      }
+    }
   }
 
   /**
@@ -226,7 +252,17 @@ class TritonCard extends HTMLElement {
    */
   set back_image(src) {
     const img = this.#card.querySelector("#img-card-back");
-    if (img) img.src = src;
+    if (img) {
+      if (src) {
+        // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
+        // Otherwise, treat as already properly formatted URL or relative path
+        img.src = src.startsWith('/src/') ? `${TRITON_CARD_BASE_PATH}${src}` : src;
+        img.alt = "Card Back";
+      } else {
+        img.src = "";
+        img.alt = "Card back image placeholder";
+      }
+    }
   }
 
   /**
