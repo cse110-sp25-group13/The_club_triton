@@ -152,6 +152,9 @@ body {
   margin-left: 5%;
   margin-right: 65%;
 }
+.student-won-cards{
+  margin-right: 5%;
+}
 #prof-structure-card,
 #student-structure-card {
   border: 0.25vw solid gray;
@@ -168,13 +171,19 @@ body {
 .game-characters {
   display: flex;
   justify-content: space-around;
+  position: absolute
 }
 .professor-character img,
 .student-character img {
-  position: inherit;
   width: 20vw;
-  aspect-ratio: 3/4;
-  margin-top: 9vw;
+  margin-top: 50%;
+
+}
+.professor-character img {
+  margin-left: 40%;
+}
+.student-character img {
+  margin-left: 220%;
 }
 .card-comparison {
   position: absolute;
