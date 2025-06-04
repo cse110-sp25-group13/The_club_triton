@@ -53,9 +53,7 @@ body {
   color: white;
   text-align: center;
 }
-* {
-  outline: 1px solid red;
-}
+
 
 .game-title {
   font-family: 'Luckiest Guy', cursive;
