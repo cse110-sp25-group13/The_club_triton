@@ -17,6 +17,7 @@
     justify-content: flex-start;
     padding-left: 2vw;
     z-index: 9999;
+    box-sizing: border-box;
 }
 
 .navbar ul {
