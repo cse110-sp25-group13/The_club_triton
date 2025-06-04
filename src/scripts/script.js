@@ -7,11 +7,13 @@
 
 let roundInProgress = false;
 import "../card/triton-card.js";
-import { initDB, getAllCards } from "./card-system.js";
+import { initDB, getAllCards, getOwnedFullCards } from "./card-system.js";
 const CARDBACK_PATH = "src/card/card-back.png";
 const MAX_CARDS = 5;
 
 let deck = [];
+let playerDeck = []; // Player's selected deck from collection
+let aiDeck = []; // AI's deck (all available cards)
 let playerHand = [];
 let aiHand = [];
 let playerScore = { Structure: 0, Living: 0, Dining: 0 };
@@ -45,7 +47,24 @@ const timerEl = document.querySelector(".timer");
  */
 async function initGame() {
   await initDB();
-  deck = await getAllCards();
+  
+  // Try to get player's selected deck first, fallback to all cards if no deck is selected
+  const playerSelectedCards = await getOwnedFullCards();
+  if (playerSelectedCards.length === 0) {
+    console.warn("No cards in player deck, using all available cards as fallback");
+    const allCards = await getAllCards();
+    playerDeck = [...allCards]; // Copy all cards for player fallback
+  } else {
+    console.log(`Using player's selected deck with ${playerSelectedCards.length} cards:`, playerSelectedCards.map(c => c.name));
+    playerDeck = [...playerSelectedCards]; // Use player's selected cards
+  }
+  
+  // AI always uses all available cards
+  const allCards = await getAllCards();
+  aiDeck = [...allCards]; // Copy all cards for AI
+  
+  // For backwards compatibility, keep global deck as player's deck
+  deck = [...playerDeck];
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
@@ -59,8 +78,10 @@ async function initGame() {
   studentSlots.forEach((td) => (td.textContent = ""));
   aiSlots.forEach((td) => (td.textContent = ""));
 
-  playerHand = drawCards(MAX_CARDS, false);
-  aiHand = drawCards(MAX_CARDS, true);
+  // Draw cards for player from their deck
+  playerHand = drawCards(MAX_CARDS, false, playerDeck);
+  // Draw cards for AI from all available cards
+  aiHand = drawCards(MAX_CARDS, true, aiDeck);
   resetTimer();
 }
 
@@ -68,17 +89,25 @@ async function initGame() {
  * Draw a number of random cards from the deck. Give a new card from library to the ai and player, if the ai =true, change card img to a back of card img to hide the AI card
  * @param {number} count - Number of cards to draw
  * @param {boolean} ai - are we trying to draw card for ai
+ * @param {Array<Object>} cardPool - Pool of cards to draw from (optional, defaults to global deck)
  * @returns {Array<Object>} Array of card objects
  */
 
-function drawCards(count, ai) {
+function drawCards(count, ai, cardPool = null) {
   const hand = [];
+  const sourcePool = cardPool || deck; // Use provided pool or global deck
+  
   for (let i = 0; i < count; i++) {
-    const randomIndex = Math.floor(Math.random() * deck.length);
-    const cardObj = deck[randomIndex];
+    if (sourcePool.length === 0) {
+      console.warn("No more cards available to draw!");
+      break;
+    }
+    
+    const randomIndex = Math.floor(Math.random() * sourcePool.length);
+    const cardObj = sourcePool[randomIndex];
     hand.push(cardObj);
-    //remove index from deck so can't be drawn again
-    deck.splice(randomIndex, 1);
+    //remove index from pool so can't be drawn again
+    sourcePool.splice(randomIndex, 1);
     //create triton card el
     const tritonCard = document.createElement("triton-card");
     tritonCard.id = ai
@@ -203,10 +232,10 @@ async function playRound(playerCardId) {
 
   // Draw replacement cards
   console.log("[playRound] drawing replacements");
-  const newPlayer = drawCards(1, false);
+  const newPlayer = drawCards(1, false, playerDeck);
   console.log("[playRound] newPlayer cards:", newPlayer);
   playerHand.push(...newPlayer);
-  const newAi = drawCards(1, true);
+  const newAi = drawCards(1, true, aiDeck);
   console.log("[playRound] newAi cards:", newAi);
   aiHand.push(...newAi);
 
@@ -615,6 +644,8 @@ export {
   typeBeats,
   drawCards,
   deck,
+  playerDeck,
+  aiDeck,
   playerDeckEl,
   aiDeckEl,
   CARDBACK_PATH,
