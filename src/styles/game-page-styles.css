@@ -132,7 +132,10 @@ body {
 .prof-won-cards,
 .student-won-cards {
   display: flex;
-  gap: 10px;
+  justify-content: space-around;
+  position: absolute;
+  gap: 10%;
+  /* gap: 10px; */
 }
 
 .prof-won-cards > div,
@@ -148,12 +151,10 @@ body {
   text-align: center;
 }
 .prof-won-cards {
-  float: left;
   margin-left: 5%;
-  margin-right: 65%;
 }
 .student-won-cards {
-  margin-right: 5%;
+  margin-left: 85%;
 }
 #prof-structure-card,
 #student-structure-card {
@@ -176,7 +177,7 @@ body {
 .professor-character img,
 .student-character img {
   width: 20vw;
-  margin-top: 50%;
+  margin-top: 80%;
 }
 .professor-character img {
   margin-left: 40%;
@@ -191,7 +192,7 @@ body {
 }
 .chosen-prof-card,
 .chosen-student-card {
-  position: relative;
+  /* position: relative; */
   width: 10vw;
   aspect-ratio: 3/4;
   margin-top: 9vw;
