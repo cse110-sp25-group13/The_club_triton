@@ -304,6 +304,7 @@ class TritonCard extends HTMLElement {
     }
   }
 
+  
   /**
    * Connect callback
    * @param {void}
@@ -329,7 +330,18 @@ class TritonCard extends HTMLElement {
    * @returns {void}
    */
   updateCardWidth() {
-    const width = window.innerWidth * 0.081;
+    const value = getComputedStyle(document.documentElement)
+      .getPropertyValue('--card-width');
+
+    let width;
+    if(!value.trim()){
+      width = window.outerWidth * 0.081;
+      console.warn(`Card width is using Fall Back Setting`);
+    }
+    else{
+      width = parseFloat(value.trim());
+      console.log(`Card width is using var--card-width ${width}`);
+    }
     const height = (width * 4) / 3;
     this.style.setProperty("--card-width", `${width}px`);
     this.style.setProperty("--card-height", `${height}px`);
