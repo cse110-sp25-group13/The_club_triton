@@ -244,6 +244,147 @@ function determineWinner(playerCard, aiCard) {
   return typeBeats[playerCard.type] === aiCard.type ? "player" : "ai";
 }
 
+/**
+ * Creates a visual ghost element for animation that replicates the triton-card appearance
+ * @param {HTMLElement} card - The original triton-card element
+ * @param {DOMRect} startRect - The starting position rectangle
+ * @returns {HTMLElement} Ghost element for animation
+ */
+function createCardGhost(card, startRect) {
+  const ghost = document.createElement('div');
+  
+  // Copy all the card properties from the triton-card shadow DOM
+  const shadowRoot = card.shadowRoot;
+  const cardName = shadowRoot?.querySelector('.name')?.textContent || '';
+  const cardRank = shadowRoot?.querySelector('.rank')?.textContent || '';
+  const cardType = shadowRoot?.querySelector('.type')?.textContent || '';
+  const cardDescription = shadowRoot?.querySelector('.description')?.textContent || '';
+  const cardRarity = shadowRoot?.querySelector('.rarity')?.textContent || '';
+  const cardImage = shadowRoot?.querySelector('#img-card-front')?.src || '';
+  const cardBorder = shadowRoot?.querySelector('#img-card-border')?.src || '';
+  
+  // Create the HTML structure that mirrors triton-card exactly
+  ghost.innerHTML = `
+    <div style="
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 800;
+      font-style: oblique;
+    ">
+      ${cardImage ? `<img src="${cardImage}" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      " alt="Card Image">` : ''}
+      
+      ${cardBorder ? `<img src="${cardBorder}" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        pointer-events: none;
+      " alt="Card Border">` : ''}
+      
+      <div style="
+        position: absolute;
+        top: 2%;
+        right: 4%;
+        width: 60%;
+        height: 8%;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        text-align: right;
+        z-index: 15;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-wrap: break-word;
+      ">${cardName}</div>
+      
+      <div style="
+        position: absolute;
+        top: 2%;
+        left: 8%;
+        width: 40%;
+        height: 8%;
+        font-size: 0.8em;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        text-transform: capitalize;
+        z-index: 15;
+        overflow: hidden;
+      ">${cardType}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 18%;
+        left: 8%;
+        width: 25%;
+        height: 25%;
+        font-size: 3.5em;
+        font-weight: 900;
+        color: #000;
+        text-shadow: 3px 3px 6px rgba(255,255,255,1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+      ">${cardRank}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 12%;
+        left: 6%;
+        width: 88%;
+        height: 35%;
+        font-size: 0.75em;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        line-height: 1.1;
+        z-index: 15;
+        overflow: hidden;
+        padding: 2px;
+      ">${cardDescription}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 3%;
+        right: 6%;
+        font-size: 0.85em;
+        color: #ff6600;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        z-index: 15;
+      ">${cardRarity}</div>
+    </div>
+  `;
+  
+  // Style the ghost container
+  Object.assign(ghost.style, {
+    position: "fixed",
+    top: `${startRect.top}px`,
+    left: `${startRect.left}px`,
+    width: `${startRect.width}px`,
+    height: `${startRect.height}px`,
+    transition: "transform 0.4s ease-out",
+    zIndex: "1000",
+    pointerEvents: "none",
+  });
+  
+  return ghost;
+}
+
 //* sliding animation
 function animateCardMove(card, targetEl) {
   console.log("[animateCardMove] called", { card, targetEl });
@@ -263,22 +404,17 @@ function animateCardMove(card, targetEl) {
     const end = targetEl.getBoundingClientRect();
     console.log("[animateCardMove] start/end rects", { start, end });
 
-    // clone & style the ghost
-    const ghost = card.cloneNode(true);
-    Object.assign(ghost.style, {
-      position: "fixed",
-      top: `${start.top}px`,
-      left: `${start.left}px`,
-      width: `${start.width}px`,
-      height: `${start.height}px`,
-      transition: "transform 0.4s ease-out",
-      zIndex: "1000",
-    });
+    // Create a visual copy instead of cloning the shadow DOM
+    const ghost = createCardGhost(card, start);
     document.body.appendChild(ghost);
     console.log("[animateCardMove] ghost appended");
 
-    // hide original
+    // hide original and mark parent slot
     card.style.visibility = "hidden";
+    const parentSlot = card.closest('td');
+    if (parentSlot) {
+      parentSlot.classList.add('card-moving');
+    }
 
     // Force a reflow so the browser "sees" the starting position
     // before we change transform
@@ -301,6 +437,13 @@ function animateCardMove(card, targetEl) {
         card.front_image = card.dataset.front;
       }
       console.log("[animateCardMove] transitionend → cleaning up");
+      
+      // Remove card-moving class from original parent
+      const originalParent = card.closest('td');
+      if (originalParent) {
+        originalParent.classList.remove('card-moving');
+      }
+      
       const existingCard = targetEl.querySelector("triton-card");
       //make sure the card is non empty as well as not the card we are trying to animat
       // then remove old card

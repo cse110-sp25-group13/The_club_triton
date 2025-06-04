@@ -1,0 +1,360 @@
+/* Collection Page Styles - Matching Game Interface */
+
+:root {
+  /* Use game-page color scheme */
+  --primary-color: #1a6bb0;
+  --secondary-color: #2b2118;
+  --accent-color: #ff9933;
+  --success-color: #38a169;
+  --danger-color: #e53e3e;
+  --warning-color: #ff9933;
+  --light-bg: #1a6bb0;
+  --border-color: #2b2118;
+  --text-color: white;
+  --text-muted: #cccccc;
+  --play-table-color-1: #f4d1ae;
+  --play-table-color-2: #604d53;
+  --play-table-color-3: #c29979;
+}
+
+/* Accessibility hidden class */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Basic layout - Matching game style */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--primary-color);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../imgs/backgrounds/lecture-hall-1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Header styles - Game container style */
+header {
+  background: rgba(42, 33, 24, 0.9);
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  border: 8px solid var(--secondary-color);
+  border-radius: 12px;
+  margin: 0 auto 20px auto;
+  max-width: 90vw;
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+header p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Navigation styles */
+.page-nav {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.back-button {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 8px;
+  background: rgba(255, 153, 51, 0.1);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.back-button:hover {
+  background: var(--accent-color);
+  color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 153, 51, 0.3);
+}
+
+/* Game control button area - Game style */
+.game-controls {
+  text-align: center;
+  padding: 2rem;
+  margin: 1rem 0;
+  background: rgba(42, 33, 24, 0.9);
+  border-radius: 12px;
+  border: 8px solid var(--secondary-color);
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.enter-game-button {
+  background: linear-gradient(135deg, var(--success-color), #48bb78);
+  color: white;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(56, 161, 105, 0.3);
+}
+
+.enter-game-button:hover {
+  background: linear-gradient(135deg, #2f855a, var(--success-color));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 161, 105, 0.4);
+}
+
+.enter-game-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(56, 161, 105, 0.3);
+}
+
+/* Main content area */
+#collection-main-content {
+  flex: 1;
+  padding: 1rem;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+/* Deck status display - Game style */
+.deck-status {
+  background: rgba(42, 33, 24, 0.9);
+  padding: 1rem 2rem;
+  margin: 0 0 1rem 0;
+  border-radius: 12px;
+  border: 8px solid var(--secondary-color);
+  text-align: center;
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.deck-status h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.deck-status span {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Card container grid layout - Game style */
+.cards-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 1.5rem;
+  background: rgba(42, 33, 24, 0.9);
+  border-radius: 12px;
+  border: 8px solid var(--secondary-color);
+  min-height: 300px;
+  align-items: start;
+  justify-items: center;
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Card status styles */
+triton-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  --card-width: 180px;
+  --card-height: calc(var(--card-width) * 4 / 3);
+  --card-font-size: calc(var(--card-width) * 5 / 90);
+}
+
+
+
+/* Card styles when in active deck */
+triton-card.in-active-deck {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+  border: 3px solid var(--accent-color);
+  border-radius: 12px;
+}
+
+triton-card.in-active-deck::after {
+  content: "✓ Selected";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: var(--success-color);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+/* Card styles when not in active deck */
+triton-card.not-in-deck {
+  opacity: 0.7;
+  filter: grayscale(30%);
+}
+
+triton-card.not-in-deck:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Hover effects for cards in active deck */
+triton-card.in-active-deck:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(66, 153, 225, 0.5);
+}
+
+/* Empty state and error message styles */
+.empty-message,
+.error-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  font-size: 1.2rem;
+  color: white;
+  font-style: italic;
+}
+
+.error-message {
+  color: var(--danger-color);
+  background-color: rgba(254, 215, 215, 0.2);
+  border: 2px solid var(--danger-color);
+  border-radius: 8px;
+  margin: 1rem;
+}
+
+/* Loading state */
+.cards-grid-container p {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  margin: 2rem 0;
+}
+
+/* Footer styles */
+footer {
+  background: rgba(42, 33, 24, 0.9);
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;
+  border: 8px solid var(--secondary-color);
+  border-radius: 12px;
+  max-width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 
+    0 0 15px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+footer p {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .cards-grid-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  triton-card {
+    --card-width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  .cards-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 1rem;
+  }
+  
+  triton-card {
+    --card-width: 140px;
+  }
+  
+  .enter-game-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-controls {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+  
+  header {
+    padding: 1rem;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .cards-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    padding: 1rem;
+  }
+  
+  triton-card {
+    --card-width: 120px;
+  }
+  
+  .enter-game-button {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+} 

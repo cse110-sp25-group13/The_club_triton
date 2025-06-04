@@ -237,7 +237,7 @@ body {
   flex-direction: row; /* row overrides column */
   align-items: stretch;
   justify-content: space-between;
-  gap: 1em;
+  gap: 2em;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -247,38 +247,41 @@ body {
   border-bottom: none;
   box-sizing: border-box;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+  padding: 0 2vw;
 }
 /* Professors Deck Section*/
 .prof-deck {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  align-self: flex-start;
-  margin-left: 1vw;
+  align-items: flex-start;
+  flex: 1;
 }
 #prof-name {
   text-align: left;
 }
 .prof-cards {
-  background-color: #fff;
-  width: 25vw;
-  height: 6vw;
+  width: 35vw;
+  height: 8vw;
+  border-collapse: separate;
+  border-spacing: 7.5px 2px;
+  background-color: transparent;
 }
 /* Students Deck Section*/
 .student-deck {
   display: flex;
   flex-direction: column;
-  margin-right: 1vw;
+  align-items: flex-end;
+  flex: 1;
 }
 #student-name {
   text-align: right;
-  margin-right: 1vw;
 }
 .student-cards {
-  width: 50vw;
-  height: 12vw;
+  width: 35vw;
+  height: 8vw;
   border-collapse: separate;
   border-spacing: 7.5px 2px;
+  background-color: transparent;
 }
 /* Altering both the professors and student name fonts */
 #prof-name,
@@ -290,17 +293,16 @@ body {
 }
 /* Card design and formatting */
 td {
-  background-color: #fff;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-td {
   width: 20%;
   aspect-ratio: 3/4;
   border: 2px solid #333;
   text-align: center;
+  background-color: transparent;
+  position: relative;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 .prof-cards,
 .student-cards {
@@ -320,6 +322,32 @@ td {
 
 .card-front {
   background: white;
+}
+
+/* triton-card specific styles for game */
+triton-card {
+  display: block;
+  transition: all 0.4s ease-out;
+  position: relative;
+  background-color: transparent !important;
+}
+
+triton-card[style*="visibility: hidden"] {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Ensure card slots maintain their shape when empty */
+td:empty {
+  border: 2px dashed rgba(51, 51, 51, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  min-height: 60px;
+}
+
+/* Fix for card animation states - add a specific class for empty states */
+td.card-moving {
+  border: 2px dashed rgba(51, 51, 51, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Additonal exit button design */

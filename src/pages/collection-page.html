@@ -6,18 +6,21 @@
     <title>Card Collection & Deck Builder - TritonCard</title>
 
     <!-- Link to global CSS variables file that TritonCard component may need -->
-    <link rel="stylesheet" href="triton-card.css">
+    <link rel="stylesheet" href="../card/triton-card.css">
     <!-- Link to Collection Page specific stylesheet -->
     <link rel="stylesheet" href="../styles/collection-page-styles.css">
     
     <!-- Import TritonCard component definition -->
-    <script src="triton-card.js" type="module"></script>
+    <script src="../card/triton-card.js" type="module"></script>
     <!-- Import IndexedDB and card data management logic (as module) -->
     <script src="../scripts/card-system.js" type="module"></script>
   </head>
 
   <body>
     <header>
+      <nav class="page-nav">
+        <a href="home-page.html" class="back-button">← Back to Home</a>
+      </nav>
       <h1>Card Collection & Deck Builder</h1>
       <p>Click cards to add or remove from your active deck</p>
     </header>
@@ -149,12 +152,9 @@
               return;
             }
             
-            // Redirect to game page or trigger game start
+            // Redirect to game page
             console.log("Entering game with deck:", activeDeckIds);
-            alert(`Entering game with ${activeDeckIds.length} cards in your deck!`);
-            
-            // TODO: Add actual game navigation here
-            // For example: window.location.href = '../pages/game-page.html';
+            window.location.href = 'game-page.html';
           } catch (error) {
             console.error("Error entering game:", error);
             alert(`Failed to enter game: ${error.message || error}`);
