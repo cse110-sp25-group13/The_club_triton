@@ -152,7 +152,7 @@ body {
   margin-left: 5%;
   margin-right: 65%;
 }
-.student-won-cards{
+.student-won-cards {
   margin-right: 5%;
 }
 #prof-structure-card,
@@ -171,13 +171,12 @@ body {
 .game-characters {
   display: flex;
   justify-content: space-around;
-  position: absolute
+  position: absolute;
 }
 .professor-character img,
 .student-character img {
   width: 20vw;
   margin-top: 50%;
-
 }
 .professor-character img {
   margin-left: 40%;
