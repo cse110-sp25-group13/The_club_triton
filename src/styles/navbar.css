@@ -1,23 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap");
 
 /*navbar thingies begin*/
 .navbar {
-    background-color: #ffe375;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 10vh;
-    position: absolute;
-    border-bottom-left-radius: 1vw;
-    border-bottom-right-radius: 1vw;
-    transition: 0.3s ease-in-out;
+  background-color: #ffe375;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  position: absolute;
+  border-bottom-left-radius: 1vw;
+  border-bottom-right-radius: 1vw;
+  transition: 0.3s ease-in-out;
 
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 2vw;
-    z-index: 9999;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 2vw;
+  z-index: 9999;
+  box-sizing: border-box;
 }
 
 .navbar ul {
@@ -31,34 +31,35 @@
 }
 
 .navbar-logo {
-    height: 9vh;
+  height: 9vh;
 }
 
 .nav-button-container {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .navbar li {
-    font-size: 2vh;
-    display: inline-block;
+  font-size: 2vh;
+  display: inline-block;
 }
 
 .navbar a {
-    color: black;
-    text-decoration: none;
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 1.2vw;
-    padding: 1vh 2vw;
-    border-radius: 1vw;
-    display: inline-block;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+  color: black;
+  text-decoration: none;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.2vw;
+  padding: 1vh 2vw;
+  border-radius: 1vw;
+  display: inline-block;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .navbar a:hover {
-    transform: scale(1.1);
-    background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }
-
 
 /* END OF NAVBAR THINGS */

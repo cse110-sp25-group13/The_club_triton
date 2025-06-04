@@ -1,15 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap");
 
 /*
 animation code stuff area below*/
 @keyframes bounce {
-  0%   { transform: translateY(0); }
-  30%  { transform: translateY(-10px); }
-  50%  { transform: translateY(0); }
-  70%  { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @keyframes slide {
@@ -34,8 +43,6 @@ animation code stuff area below*/
   }
 }
 
-
-
 body {
   background-image: url("../imgs/backgrounds/geisel-base-theme.png");
   background-repeat: no-repeat;
@@ -54,9 +61,8 @@ body {
   text-align: center;
 }
 
-
 .game-title {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: "Luckiest Guy", cursive;
   animation: slide 1s;
   font-weight: 400;
   font-size: 7vw;
@@ -65,11 +71,12 @@ body {
   position: relative;
 }
 
-.instructions-header { 
+.instructions-header {
   text-align: center;
 }
-.game-title-offset { /*highkey shouldnt have as much repetition as the prev for style but whsatever*/
-  font-family: 'Luckiest Guy', cursive;
+.game-title-offset {
+  /*highkey shouldnt have as much repetition as the prev for style but whsatever*/
+  font-family: "Luckiest Guy", cursive;
   animation: offset-slide 1s;
   font-weight: 400;
   font-size: 7vw;
@@ -100,14 +107,13 @@ body {
   z-index: -1;
 }
 
-.instructions { 
-  font-family: 'Coming Soon';
+.instructions {
+  font-family: "Coming Soon";
   color: black;
   text-align: center;
-
 }
 
 .instructions-header {
-  font-family: 'Luckiest Guy', cursive;
+  font-family: "Luckiest Guy", cursive;
   font-size: 200%;
 }

@@ -225,7 +225,11 @@ function initDB() {
           : "";
         // After database opens successfully, check and populate data if needed
         // populateDataIfEmpty now only handles STORE_NAME_CARDS and fills it from JSON
-        await populateDataIfEmpty(db, STORE_NAME_CARDS, `${basePath}/src/card/cards.json`);
+        await populateDataIfEmpty(
+          db,
+          STORE_NAME_CARDS,
+          `${basePath}/src/card/cards.json`,
+        );
         console.log(
           "Database initialization and data population check complete.",
         );
