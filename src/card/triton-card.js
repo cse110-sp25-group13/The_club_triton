@@ -5,11 +5,15 @@
 
 // Dynamic base path determination for consistent asset loading
 const getBasePath = () => {
-  let path = '';
-  if (window.location.hostname.includes('github.io')) {
-    const pathSegments = window.location.pathname.split('/');
-    if (pathSegments.length > 1 && pathSegments[1] && pathSegments[1].toLowerCase() === 'the_club_triton') {
-      path = '/' + pathSegments[1];
+  let path = "";
+  if (window.location.hostname.includes("github.io")) {
+    const pathSegments = window.location.pathname.split("/");
+    if (
+      pathSegments.length > 1 &&
+      pathSegments[1] &&
+      pathSegments[1].toLowerCase() === "the_club_triton"
+    ) {
+      path = "/" + pathSegments[1];
     }
   }
   return path;
@@ -236,7 +240,9 @@ class TritonCard extends HTMLElement {
       if (src) {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
-        img.src = src.startsWith('/src/') ? `${TRITON_CARD_BASE_PATH}${src}` : src;
+        img.src = src.startsWith("/src/")
+          ? `${TRITON_CARD_BASE_PATH}${src}`
+          : src;
         img.alt = "Card Front";
       } else {
         img.src = "";
@@ -256,7 +262,9 @@ class TritonCard extends HTMLElement {
       if (src) {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
-        img.src = src.startsWith('/src/') ? `${TRITON_CARD_BASE_PATH}${src}` : src;
+        img.src = src.startsWith("/src/")
+          ? `${TRITON_CARD_BASE_PATH}${src}`
+          : src;
         img.alt = "Card Back";
       } else {
         img.src = "";

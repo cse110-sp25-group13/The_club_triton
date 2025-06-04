@@ -42,12 +42,16 @@ export { initDB, getAllCards, basePath };
 
 // Dynamic base path determination for asset loading
 // This solves the GitHub Pages vs local development path issues
-let basePath = '';
-if (window.location.hostname.includes('github.io')) {
-  const pathSegments = window.location.pathname.split('/');
+let basePath = "";
+if (window.location.hostname.includes("github.io")) {
+  const pathSegments = window.location.pathname.split("/");
   // Check if we're in a repository subdirectory (typical for GitHub Pages)
-  if (pathSegments.length > 1 && pathSegments[1] && pathSegments[1].toLowerCase() === 'the_club_triton') {
-    basePath = '/' + pathSegments[1];
+  if (
+    pathSegments.length > 1 &&
+    pathSegments[1] &&
+    pathSegments[1].toLowerCase() === "the_club_triton"
+  ) {
+    basePath = "/" + pathSegments[1];
   }
 }
 console.log("Asset Base Path determined:", basePath);
@@ -77,9 +81,7 @@ async function fetchCardDataFromJson(jsonFilePath) {
       );
     }
     const jsonData = await response.json(); // Parse JSON response body
-    console.log(
-      `Successfully fetched and parsed card data from ${fullPath}`,
-    );
+    console.log(`Successfully fetched and parsed card data from ${fullPath}`);
     return jsonData;
   } catch (error) {
     console.error(
