@@ -42,7 +42,7 @@ body {
   margin: 20px auto; /* Fixed side margins by default */
   position: relative; /* For absolute-positioned children */
   display: grid;
-  top: 8vh;
+  top: 12vh; /* Increased from 8vh to 12vh to account for 10vh navbar + spacing */
   gap: 1em; /* Consistent spacing */
 
   font-size: 1.5vw;
