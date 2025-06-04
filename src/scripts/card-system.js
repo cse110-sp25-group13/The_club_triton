@@ -1,99 +1,288 @@
-const initialCardData = [
-  {
-    id: "structure001", // Suggest ID reflects type and uniqueness
-    name: "Geisel Library",
-    type: "Structure", // Ensure consistent type naming
-    ranking: 5,
-    rarity: 4,
-    front_image_placeholder: "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
-    back_image_placeholder: "assets/images/placeholders/geisel_back.png",
-    description: "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
-    border_color_code: "#003A70", // Confirm Structure type color
-  },
-  {
-    id: "dining001",
-    name: "Price Center Food Court",
-    type: "Dining",
-    ranking: 4,
-    rarity: 3,
-    front_image_placeholder: "assets/images/placeholders/pc_food_front.png",
-    back_image_placeholder: "assets/images/placeholders/pc_food_back.png",
-    description: "A place for every craving, and every student.",
-    border_color_code: "#FFCD00", // Confirm Dining type color
-  },
-  {
-    id: "mascot001",
-    name: "King Triton",
-    type: "Mascot",
-    ranking: 5, // Mascot ranking may have a different meaning, or not used for direct comparison
-    rarity: 5,
-    front_image_placeholder: "assets/images/placeholders/triton_front.png",
-    back_image_placeholder: "assets/images/placeholders/triton_back.png",
-    description: "The mighty ruler of the Tritons.",
-    border_color_code: "#006A4E", // Confirm Mascot type color
-  },
-  // Continue to add more cards as required (5 per type, 15 total)...
-];
+// Congratulations, you are retired, buddy.
+// Get a life, don't study CS in your next life.
+// const initialCardData = [
+//   {
+//     id: "structure001", // Suggest ID reflects type and uniqueness
+//     name: "Geisel Library",
+//     type: "Structure", // Ensure consistent type naming
+//     ranking: 5,
+//     rarity: 4,
+//     front_image_placeholder: "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
+//     back_image_placeholder: "assets/images/placeholders/geisel_back.png",
+//     description: "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
+//   },
+//   {
+//     id: "dining001",
+//     name: "Price Center Food Court",
+//     type: "Dining",
+//     ranking: 4,
+//     rarity: 3,
+//     front_image_placeholder: "assets/images/placeholders/pc_food_front.png",
+//     back_image_placeholder: "assets/images/placeholders/pc_food_back.png",
+//     description: "A place for every craving, and every student.",
+//   },
+//   {
+//     id: "mascot001",
+//     name: "King Triton",
+//     type: "Mascot",
+//     ranking: 5, // Mascot ranking may have a different meaning, or not used for direct comparison
+//     rarity: 5,
+//     front_image_placeholder: "assets/images/placeholders/triton_front.png",
+//     back_image_placeholder: "assets/images/placeholders/triton_back.png",
+//     description: "The mighty ruler of the Tritons.",
+//   },
+//   // Continue to add more cards as required (5 per type, 15 total)...
+// ];
 
 // export default initialCardData; // If using ES modules
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
+export { initDB, getAllCards, basePath };
+
+// Dynamic base path determination for asset loading
+// This solves the GitHub Pages vs local development path issues
+let basePath = "";
+if (window.location.hostname.includes("github.io")) {
+  const pathSegments = window.location.pathname.split("/");
+  // Check if we're in a repository subdirectory (typical for GitHub Pages)
+  if (
+    pathSegments.length > 1 &&
+    pathSegments[1] &&
+    pathSegments[1].toLowerCase() === "the_club_triton"
+  ) {
+    basePath = "/" + pathSegments[1];
+  }
+}
+console.log("Asset Base Path determined:", basePath);
+
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
+let initPromise = null; // Singleton pattern to ensure only one initialization happens
 const DB_NAME = "UCSDCardsDB";
-const DB_VERSION = 1; // Database version
-const STORE_NAME = "cards"; // Object store name
+const DB_VERSION = 2; // Database version
+const STORE_NAME_CARDS = "cards"; // Store all card definitions
+const STORE_NAME_OWNED = "playerOwnedCards"; // Store player owned card IDs
+
+/**
+ * Asynchronously fetch card data from the specified JSON file path.
+ * @param {string} jsonFilePath - The path to the JSON file (relative to project root).
+ * @returns {Promise<Array<Object>>} A Promise that resolves to an array of card objects.
+ */
+async function fetchCardDataFromJson(jsonFilePath) {
+  try {
+    // Construct full path using basePath for proper asset loading
+    const fullPath = basePath + jsonFilePath;
+    console.log(`Fetching JSON from: ${fullPath}`);
+    const response = await fetch(fullPath);
+    if (!response.ok) {
+      // If HTTP status code is not 2xx (e.g., 404 Not Found, 500 Server Error)
+      throw new Error(
+        `Network response was not ok: ${response.status} ${response.statusText}`,
+      );
+    }
+    const jsonData = await response.json(); // Parse JSON response body
+    console.log(`Successfully fetched and parsed card data from ${fullPath}`);
+    return jsonData;
+  } catch (error) {
+    console.error(
+      `Failed to fetch or parse card data from ${jsonFilePath}:`,
+      error,
+    );
+    throw error; // Re-throw error for caller to handle
+  }
+}
+
+/**
+ * Check if the specified object store is empty, and if so, load and populate data from JSON file.
+ * @param {IDBDatabase} databaseInstance - The opened database instance.
+ * @param {string} storeName - The name of the object store to check and populate.
+ * @param {string} jsonFilePath - The path to the JSON file to load data from.
+ * @returns {Promise<void>}
+ */
+function populateDataIfEmpty(databaseInstance, storeName, jsonFilePath) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        // 1. Start a readonly transaction to check data count
+        const checkTransaction = databaseInstance.transaction(
+          [storeName],
+          "readonly",
+        );
+        const objectStoreForCheck = checkTransaction.objectStore(storeName);
+        const countRequest = objectStoreForCheck.count();
+
+        // Handle the async nature of countRequest using its callbacks
+        countRequest.onsuccess = async () => {
+          const itemCount = countRequest.result;
+          console.log(
+            `Current item count in store "${storeName}": ${itemCount}`,
+          );
+
+          // Only populate STORE_NAME_CARDS from JSON when empty
+          if (storeName === STORE_NAME_CARDS && itemCount === 0) {
+            console.log(
+              `Store "${storeName}" is empty, attempting to populate from JSON...`,
+            );
+            try {
+              const itemsToLoad = await fetchCardDataFromJson(jsonFilePath);
+
+              if (itemsToLoad && itemsToLoad.length > 0) {
+                // 2. Start a new readwrite transaction to populate data
+                const populateTransaction = databaseInstance.transaction(
+                  [storeName],
+                  "readwrite",
+                );
+                const objectStoreForPopulate =
+                  populateTransaction.objectStore(storeName);
+
+                console.log(
+                  `Populating store "${storeName}" with ${itemsToLoad.length} items from JSON...`,
+                );
+
+                const addPromises = itemsToLoad.map((item) => {
+                  return new Promise((addResolve, addReject) => {
+                    const addRequest = objectStoreForPopulate.add(item);
+                    addRequest.onsuccess = () => {
+                      console.log(
+                        `Item "${item.name || item.id}" added from JSON.`,
+                      );
+                      addResolve();
+                    };
+                    addRequest.onerror = (errEvent) => {
+                      console.error(
+                        `Error adding item "${item.name || item.id}" from JSON:`,
+                        errEvent.target.error,
+                      );
+                      addReject(errEvent.target.error);
+                    };
+                  });
+                });
+
+                await Promise.all(addPromises);
+                console.log(
+                  `All initial items successfully added to store "${storeName}" from JSON.`,
+                );
+
+                populateTransaction.oncomplete = () => {
+                  console.log("Data population transaction completed.");
+                  resolve(); // Main Promise resolve
+                };
+                populateTransaction.onerror = (event) => {
+                  console.error(
+                    "Data population transaction error:",
+                    event.target.error,
+                  );
+                  reject(event.target.error); // Main Promise reject
+                };
+              } else {
+                console.log(
+                  `No data found in JSON file "${jsonFilePath}" or JSON was empty.`,
+                );
+                resolve(); // JSON is empty, still considered complete
+              }
+            } catch (fetchError) {
+              console.error(
+                "Error fetching/populating data in populateDataIfEmpty:",
+                fetchError,
+              );
+              reject(fetchError); // Main Promise reject
+            }
+          } else {
+            if (storeName === STORE_NAME_CARDS) {
+              console.log(
+                `Store "${storeName}" is not empty, no need to populate.`,
+              );
+            }
+            resolve(); // No need to populate, directly complete
+          }
+        };
+
+        countRequest.onerror = (event) => {
+          console.error("Error counting items:", event.target.error);
+          reject(event.target.error); // Main Promise reject
+        };
+      } catch (transactionError) {
+        console.error(
+          "Error starting transaction in populateDataIfEmpty:",
+          transactionError,
+        );
+        reject(transactionError); // Main Promise reject
+      }
+    })(); // Immediately execute this IIFE
+  });
+}
 
 /**
  * Initialize the IndexedDB database.
+ * Uses singleton pattern to ensure only one initialization happens.
  * If the database or object store does not exist, create them and populate with initial data.
  * @returns {Promise<IDBDatabase>}
  */
 function initDB() {
-  return new Promise((resolve, reject) => {
+  if (initPromise) {
+    // If already initializing or completed, return the existing Promise
+    return initPromise;
+  }
+
+  initPromise = new Promise((resolve, reject) => {
     // 1. Open the database
     const request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
     // Triggered when the database is successfully opened
-    request.onsuccess = (event) => {
+    request.onsuccess = async (event) => {
+      // Mark callback as async
       db = event.target.result; // Save the database instance to the global variable
       console.log(
         `Successfully opened database: ${DB_NAME} version ${db.version}`,
       );
-      resolve(db); // Return the database instance
+
+      try {
+        // After database opens successfully, check and populate data if needed
+        // Use dynamic basePath for proper JSON loading across environments
+        await populateDataIfEmpty(db, STORE_NAME_CARDS, "/src/card/cards.json");
+        console.log(
+          "Database initialization and data population check complete.",
+        );
+        resolve(db); // Resolve after all operations complete
+      } catch (populateError) {
+        console.error("Error during populateDataIfEmpty:", populateError);
+        // If populateDataIfEmpty fails, the initDB Promise should also reject
+        reject(populateError);
+      }
     };
 
     // Triggered when a higher version is requested or the database is created for the first time
     request.onupgradeneeded = (event) => {
-      db = event.target.result;
-      console.log(`Upgrade needed or database creation for: ${DB_NAME}`);
+      const currentDb = event.target.result; // Use local variable instead of global
+      console.log(
+        `Upgrade needed or database creation for: ${DB_NAME} to version ${currentDb.version}`,
+      );
 
-      // 2. Create object store if it doesn't exist
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        // Use 'id' property as the primary key (keyPath)
-        const objectStore = db.createObjectStore(STORE_NAME, { keyPath: "id" });
-        console.log(`Object store "${STORE_NAME}" created.`);
-
-        // (Optional) Create indexes for other properties if you need to query by them
-        // objectStore.createIndex('name', 'name', { unique: false });
-        // objectStore.createIndex('type', 'type', { unique: false });
-        // console.log('Indexes created for "name" and "type".');
-
-        // 3. Populate object store with initial data
-        // This should only run when the object store is first created
-        console.log("Populating object store with initial data...");
-        initialCardData.forEach((card) => {
-          // onupgradeneeded event automatically handles the transaction, so we can operate on objectStore directly
-          const addRequest = objectStore.add(card);
-          addRequest.onsuccess = () =>
-            console.log(`Card "${card.name}" added.`);
-          addRequest.onerror = (errEvent) =>
-            console.error(
-              `Error adding card "${card.name}":`,
-              errEvent.target.error,
-            );
-        });
+      // 1. Create 'cards' object store (if it doesn't exist)
+      if (!currentDb.objectStoreNames.contains(STORE_NAME_CARDS)) {
+        // Use 'id' property as the primary key (keyPath) - call directly without assignment
+        currentDb.createObjectStore(STORE_NAME_CARDS, { keyPath: "id" });
+        console.log(`Object store "${STORE_NAME_CARDS}" created.`);
+        // Data population will be handled separately after database opens successfully
       }
+
+      // 2. Create 'playerOwnedCards' object store (if it doesn't exist)
+      if (!currentDb.objectStoreNames.contains(STORE_NAME_OWNED)) {
+        // This object store's each record is a card ID that we own
+        // We use cardId itself as both the property name and primary key
+        currentDb.createObjectStore(STORE_NAME_OWNED, { keyPath: "cardId" });
+        console.log(`Object store "${STORE_NAME_OWNED}" created.`);
+        // Note: This new object store is empty when first created,
+        // We will later add data to it through functions like addCardToCollection, etc.
+        // Sprint 2 plan mentions "User really only needs to store IDs for cards"
+        // So each record here might just be { cardId: "some_id" }
+      }
+
+      // If there are object stores or indexes from older versions that we no longer need,
+      // we can also delete them here
+      // Example: if (event.oldVersion < 2 && currentDb.objectStoreNames.contains('oldStoreName')) {
+      //            currentDb.deleteObjectStore('oldStoreName');
+      //          }
     };
 
     // Triggered when opening the database fails
@@ -102,6 +291,8 @@ function initDB() {
       reject(event.target.errorCode);
     };
   });
+
+  return initPromise;
 }
 
 // Call this function on app startup to initialize the database
@@ -135,10 +326,10 @@ function getAllCards() {
     }
 
     // 1. Start a readonly transaction for the 'cards' object store
-    const transaction = db.transaction([STORE_NAME], "readonly");
+    const transaction = db.transaction([STORE_NAME_CARDS], "readonly");
 
     // 2. Get a reference to the 'cards' object store from the transaction
-    const objectStore = transaction.objectStore(STORE_NAME);
+    const objectStore = transaction.objectStore(STORE_NAME_CARDS);
 
     // 3. Use getAll() to fetch all records from the object store
     const request = objectStore.getAll();
@@ -188,9 +379,9 @@ function getCardById(cardId) {
     }
 
     // 1. Start a readonly transaction
-    const transaction = db.transaction([STORE_NAME], "readonly");
+    const transaction = db.transaction([STORE_NAME_CARDS], "readonly");
     // 2. Get object store reference
-    const objectStore = transaction.objectStore(STORE_NAME);
+    const objectStore = transaction.objectStore(STORE_NAME_CARDS);
 
     // 3. Use get() to fetch a single record by primary key (keyPath, our 'id')
     const request = objectStore.get(cardId);
@@ -231,6 +422,240 @@ function getCardById(cardId) {
   });
 }
 
+/**
+ * Add the specified card ID to the player's collection (playerOwnedCards object store).
+ * Each record will be in the form { cardId: "the_actual_id" }.
+ * @param {string} cardId - The ID of the card to add to the collection.
+ * @returns {Promise<void>} A Promise that resolves when addition is successful, rejects on failure.
+ */
+function addCardToCollection(cardId) {
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      console.error(
+        "Database not initialized. Call initDB() first before adding to collection.",
+      );
+      reject("Database not initialized.");
+      return;
+    }
+    if (!cardId || typeof cardId !== "string") {
+      console.error("Invalid cardId provided to addCardToCollection:", cardId);
+      reject("Invalid cardId: must be a non-empty string.");
+      return;
+    }
+
+    // 1. Start a readwrite transaction to operate on 'playerOwnedCards' object store
+    const transaction = db.transaction([STORE_NAME_OWNED], "readwrite");
+    // 2. Get object store reference
+    const objectStore = transaction.objectStore(STORE_NAME_OWNED);
+
+    // 3. Prepare the data object to add. Since our keyPath is 'cardId',
+    //    the object we add must have a property named 'cardId'.
+    const itemToAdd = { cardId: cardId };
+
+    // 4. Use add() method to add new record.
+    //    add() will throw an error (ConstraintError) if the primary key already exists (i.e., card already collected).
+    //    If you want silent handling or updates for existing entries, you can use put(), but for collections,
+    //    usually we want to know if we're adding duplicates.
+    const request = objectStore.add(itemToAdd);
+
+    request.onsuccess = (event) => {
+      console.log(`Card with ID "${cardId}" successfully added to collection.`);
+      resolve(); // Addition successful
+    };
+
+    request.onerror = (event) => {
+      if (event.target.error.name === "ConstraintError") {
+        console.warn(`Card with ID "${cardId}" is already in the collection.`);
+        resolve(); // For existing cards, we also consider the operation "successfully" completed (no state change, but not a hard error)
+        // Or you could choose reject('Card already in collection'), depending on your business logic
+      } else {
+        console.error(
+          `Error adding card with ID "${cardId}" to collection:`,
+          event.target.error,
+        );
+        reject(event.target.error);
+      }
+    };
+
+    transaction.oncomplete = () => {
+      // console.log(`Transaction "addCardToCollection" for ID "${cardId}" completed.`);
+    };
+    transaction.onerror = (event) => {
+      console.error(
+        `Transaction error in "addCardToCollection" for ID "${cardId}":`,
+        event.target.error,
+      );
+      // Ensure if the transaction itself fails, the Promise is also rejected (if previous request.onerror didn't catch it)
+      if (!request.error || request.error.name !== "ConstraintError") {
+        reject(event.target.error);
+      }
+    };
+  });
+}
+
+/**
+ * Remove the specified card ID from the player's collection (playerOwnedCards object store).
+ * @param {string} cardId - The ID of the card to remove from the collection.
+ * @returns {Promise<void>} A Promise that resolves when removal is successful, rejects on failure.
+ */
+function removeCardFromCollection(cardId) {
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      console.error(
+        "Database not initialized. Call initDB() first before removing from collection.",
+      );
+      reject("Database not initialized.");
+      return;
+    }
+    if (!cardId || typeof cardId !== "string") {
+      console.error(
+        "Invalid cardId provided to removeCardFromCollection:",
+        cardId,
+      );
+      reject("Invalid cardId: must be a non-empty string.");
+      return;
+    }
+
+    // 1. Start a readwrite transaction to operate on 'playerOwnedCards' object store
+    const transaction = db.transaction([STORE_NAME_OWNED], "readwrite");
+    // 2. Get object store reference
+    const objectStore = transaction.objectStore(STORE_NAME_OWNED);
+
+    // 3. Use delete() method to delete record by primary key (cardId).
+    //    If the specified key doesn't exist, delete() operation will still succeed without error.
+    const request = objectStore.delete(cardId);
+
+    request.onsuccess = (event) => {
+      // To confirm whether something was actually deleted, we could check if the record still exists,
+      // but delete()'s onsuccess itself means "the attempt to delete this key has completed".
+      // Usually, if the key doesn't exist, it's still considered "successful" completion of "deleting a non-existent thing".
+      console.log(
+        `Attempt to remove card with ID "${cardId}" from collection completed.`,
+      );
+      resolve(); // Removal operation completed
+    };
+
+    request.onerror = (event) => {
+      console.error(
+        `Error removing card with ID "${cardId}" from collection:`,
+        event.target.error,
+      );
+      reject(event.target.error);
+    };
+
+    transaction.oncomplete = () => {
+      // console.log(`Transaction "removeCardFromCollection" for ID "${cardId}" completed.`);
+    };
+    transaction.onerror = (event) => {
+      console.error(
+        `Transaction error in "removeCardFromCollection" for ID "${cardId}":`,
+        event.target.error,
+      );
+      if (!request.error) {
+        reject(event.target.error);
+      }
+    };
+  });
+}
+
+/**
+ * Get all card IDs in the player's collection.
+ * @returns {Promise<Array<string>>} A Promise that resolves to an array of all owned card ID strings.
+ */
+function getOwnedCardIds() {
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      console.error(
+        "Database not initialized. Call initDB() first before getting owned card IDs.",
+      );
+      reject("Database not initialized.");
+      return;
+    }
+
+    // 1. Start a readonly transaction
+    const transaction = db.transaction([STORE_NAME_OWNED], "readonly");
+    // 2. Get object store reference
+    const objectStore = transaction.objectStore(STORE_NAME_OWNED);
+
+    // 3. Use getAllKeys() method to get all primary keys in the object store.
+    //    This will return a request with an array containing all cardId values.
+    const request = objectStore.getAllKeys();
+
+    request.onsuccess = (event) => {
+      // event.target.result is the array containing all card IDs
+      const ownedIds = event.target.result;
+      console.log("Successfully retrieved all owned card IDs:", ownedIds);
+      resolve(ownedIds);
+    };
+
+    request.onerror = (event) => {
+      console.error("Error retrieving all owned card IDs:", event.target.error);
+      reject(event.target.error);
+    };
+
+    transaction.oncomplete = () => {
+      // console.log('Transaction "getOwnedCardIds" completed.');
+    };
+    transaction.onerror = (event) => {
+      console.error(
+        'Transaction error in "getOwnedCardIds":',
+        event.target.error,
+      );
+      if (!request.error) {
+        reject(event.target.error);
+      }
+    };
+  });
+}
+
+/**
+ * Get full card object data for all cards in the player's collection.
+ * It first gets all owned card IDs, then retrieves the complete card object from the main card database for each ID.
+ * @returns {Promise<Array<Object>>} A Promise that resolves to an array containing all owned cards' complete objects.
+ */
+async function getOwnedFullCards() {
+  // Use async to return Promise and allow internal use of await
+  try {
+    if (!db) {
+      console.error("Database not initialized. Call initDB() first.");
+      throw new Error("Database not initialized."); // Directly throw error to make Promise reject
+    }
+
+    const ownedIds = await getOwnedCardIds(); // 1. Get all collected card IDs
+
+    if (!ownedIds || ownedIds.length === 0) {
+      console.log("Player's collection is empty.");
+      return []; // If collection is empty, directly return empty array
+    }
+
+    console.log(
+      `Fetching full card details for ${ownedIds.length} owned card(s)...`,
+    );
+
+    // 2. Create a Promise for each ID to get the complete card object
+    const cardDetailPromises = ownedIds.map((cardId) => {
+      return getCardById(cardId); // getCardById itself returns Promise<Object|undefined>
+    });
+
+    // 3. Use Promise.all to wait for all card details to be retrieved
+    const ownedCardObjects = await Promise.all(cardDetailPromises);
+
+    // Filter out cards that might not be found for some reason (though theoretically all collected IDs should be found)
+    const validOwnedCards = ownedCardObjects.filter(
+      (card) => card !== undefined,
+    );
+
+    console.log(
+      "Successfully retrieved full details for owned cards:",
+      validOwnedCards,
+    );
+    return validOwnedCards;
+  } catch (error) {
+    console.error("Error getting owned full cards:", error);
+    throw error; // Re-throw error so caller can catch it
+  }
+}
+
 // After ensuring initDB() is complete, try in the console:
 
 // 1. Call initDB and wait for it to finish
@@ -249,9 +674,9 @@ initDB()
       });
 
     // Test getCardById() - assuming you have a card with id 'structure001'
-    getCardById("structure001")
+    getCardById("structure_001")
       .then((card) => {
-        console.log("--- Card by ID (structure001) ---");
+        console.log("--- Card by ID (structure_001) ---");
         if (card) {
           console.log(card);
         } else {

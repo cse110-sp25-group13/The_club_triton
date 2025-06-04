@@ -3,96 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Page</title>
-    <link rel="stylesheet" href="style.css" media="screen" />
-    <script src="src/scripts/card-system.js" defer></script>
+    <script src="../scripts/load-navbar.js" defer></script>
+    <title>Play Now! | Club Triton</title>
+    <link
+      rel="stylesheet"
+      href="../styles/game-page-styles.css"
+      media="screen"
+    />
+    <script src="../scripts/game-page-script.js" defer></script>
+    <meta
+      name="keywords"
+      content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
+    />
   </head>
   <body>
-    <main>
-      <!--Add Cards Here-->
-      <section
-        id="card-library-display"
-        class="cards-container"
-        style="display: none"
-      >
-        <!-- Initially hidden, can be shown via a button or other interaction -->
-        <h2>My Card Collection</h2>
-        <!-- All cards read from IndexedDB will be displayed here using <triton_card> via JS -->
+    <div id="navbar-container"></div>
+    <main class="game-container">
+      <section class="game-board">
+        <div id="projector-hitbox"></div>
+        <div class="projector-slot">
+          <div id="projector-screen">
+            <h1 id="instructions">Instructions</h1>
+            <ul>
+              <li>
+                Click to choose a card from your deck to play against the
+                professor
+              </li>
+              <li>
+                Each card has a type and a number. The types are Living,
+                structure, and Dining Hall.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button
+          id="exit-btn"
+          href="home-page.html"
+          title="return to lobby"
+        ></button>
+        <section class="won-cards">
+          <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+          <div class="prof-won-cards">
+            <div id="prof-structure-card">0</div>
+            <div id="prof-living-card">0</div>
+            <div id="prof-dining-hall-card">0</div>
+          </div>
+          <div class="student-won-cards">
+            <div id="student-dining-hall-card">0</div>
+            <div id="student-living-card">0</div>
+            <div id="student-structure-card">0</div>
+          </div>
+        </section>
+        <div class="card-comparison">
+          <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+                          AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
+          <section class="chosen-prof-card"></section>
+          <section class="chosen-student-card"></section>
+        </div>
+        <section class="game-characters">
+          <div class="professor-character">
+            <img
+              src="../imgs/character/cropped-side-view-professor.png"
+              alt="Professor Character"
+            />
+          </div>
+          <div class="student-character">
+            <img
+              src="../imgs/character/cropped-side-view-student.png"
+              alt="Student Character"
+            />
+          </div>
+        </section>
       </section>
-      <section class="card-comparison">
-        <section id="chosen-ai-card-slot" class="chosen-card-slot">
-          <!-- The <triton_card> chosen by the AI will be placed here by JS -->
-        </section>
-        <section id="chosen-player-card-slot" class="chosen-card-slot">
-          <!-- The <triton_card> chosen by the player will be placed here by JS -->
-        </section>
+      <time class="timer" alt="game countdown">60</time>
+      <section class="play-table">
+        <div class="prof-deck">
+          <table class="prof-cards">
+            <h2 id="prof-name">Professor</h2>
+            <tr>
+              <td class="card-5" id="prof-card-5">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-4" id="prof-card-4">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-3" id="prof-card-3">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-2" id="prof-card-2">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-1" id="prof-card-1">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="student-deck">
+          <table class="student-cards">
+            <h2 id="student-name">Student</h2>
+            <tr>
+              <td class="card card-1" id="student-card-1"></td>
+              <td class="card card-2" id="student-card-2"></td>
+              <td class="card card-3" id="student-card-3"></td>
+              <td class="card card-4" id="student-card-4"></td>
+              <td class="card card-5" id="student-card-5"></td>
+            </tr>
+          </table>
+        </div>
       </section>
     </main>
-    <section class="timer">
-      <div id="timer">
-        <span>Time</span>
-      </div>
-      <!--Functionality: Timer starts when the game starts and counts down from 60 seconds-->
-      <!--Functionality: Can't be clicked. If player chooses a card, timer disappears and resets-->
-    </section>
-    <section class="play-table">
-      <section class="ai-deck">
-        <div id="ai-name">
-          <span>Professor</span>
-        </div>
-        <table>
-          <tr>
-            <td class="ai-card" id="ai-card-1">Card 1</td>
-            <td class="ai-card" id="ai-card-2">Card 2</td>
-            <td class="ai-card" id="ai-card-3">Card 3</td>
-            <td class="ai-card" id="ai-card-4">Card 4</td>
-            <td class="ai-card" id="ai-card-5">Card 5</td>
-          </tr>
-        </table>
-      </section>
-      <section class="player-deck">
-        <div id="player-name">
-          <span>Student</span>
-        </div>
-        <div id="player-hand-cards" class="cards-container">
-          <!-- <triton_card> components will be dynamically added here by JS -->
-          <!-- For example, JS might generate: -->
-          <!-- <triton-card card-id="structure001"></triton-card> -->
-          <!-- <triton-card card-id="dining001"></triton-card> -->
-          <!-- ... (5 cards) -->
-        </div>
-      </section>
-    </section>
-    <section class="card-comparison">
-      <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
-        AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-      <section class="chosen-ai-card"></section>
-      <section class="chosen-player-card"></section>
-    </section>
-    <section class="won-cards">
-      <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-      <section class="ai-won-cards">
-        <div id="water-card"></div>
-        <span>water card slot</span>
-        <div id="fire-card"></div>
-        <span>fire card slot</span>
-        <div id="snow-card"></div>
-        <span>snow card slot</span>
-      </section>
-      <section class="player-won-cards">
-        <div id="water-card"></div>
-        <span>water card slot</span>
-        <div id="fire-card"></div>
-        <span>fire card slot</span>
-        <div id="snow-card"></div>
-        <span>snow card slot</span>
-      </section>
-    </section>
-    <section id="rules-dropdown"></section>
-    <button id="exit-btn">
-      <!--Functionality: on Click of Exit, confirmation prompt appears, if yes return to lobby if no resume game-->
-      <a href="game-lobby.html" title="return to lobby"></a>
-    </button>
+    <script type="module" src="../scripts/script.js"></script>
     <footer class="copyright-info"></footer>
   </body>
 </html>
