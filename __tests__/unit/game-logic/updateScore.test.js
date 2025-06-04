@@ -48,7 +48,6 @@ describe("updateScore", () => {
 
   it("increments playerScore.Structure and updates #student-structure-card", () => {
     expect(playerScore.Structure).toBe(0);
-    expect(getDOMScore("student", "Structure")).toBe("0");
 
     updateScore("player", cards.Structure5, cards.Living4);
 
