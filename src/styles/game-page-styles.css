@@ -272,10 +272,6 @@ body {
   margin-right: 1vw;
 }
 
-.card {
-  transform: translateX(0deg);
-}
-
 .card:hover {
   border-color: #ffe100;
   border-width: 0.5vw;
