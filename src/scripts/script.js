@@ -47,22 +47,27 @@ const timerEl = document.querySelector(".timer");
  */
 async function initGame() {
   await initDB();
-  
+
   // Try to get player's selected deck first, fallback to all cards if no deck is selected
   const playerSelectedCards = await getOwnedFullCards();
   if (playerSelectedCards.length === 0) {
-    console.warn("No cards in player deck, using all available cards as fallback");
+    console.warn(
+      "No cards in player deck, using all available cards as fallback",
+    );
     const allCards = await getAllCards();
     playerDeck = [...allCards]; // Copy all cards for player fallback
   } else {
-    console.log(`Using player's selected deck with ${playerSelectedCards.length} cards:`, playerSelectedCards.map(c => c.name));
+    console.log(
+      `Using player's selected deck with ${playerSelectedCards.length} cards:`,
+      playerSelectedCards.map((c) => c.name),
+    );
     playerDeck = [...playerSelectedCards]; // Use player's selected cards
   }
-  
+
   // AI always uses all available cards
   const allCards = await getAllCards();
   aiDeck = [...allCards]; // Copy all cards for AI
-  
+
   // For backwards compatibility, keep global deck as player's deck
   deck = [...playerDeck];
 
@@ -96,13 +101,13 @@ async function initGame() {
 function drawCards(count, ai, cardPool = null) {
   const hand = [];
   const sourcePool = cardPool || deck; // Use provided pool or global deck
-  
+
   for (let i = 0; i < count; i++) {
     if (sourcePool.length === 0) {
       console.warn("No more cards available to draw!");
       break;
     }
-    
+
     const randomIndex = Math.floor(Math.random() * sourcePool.length);
     const cardObj = sourcePool[randomIndex];
     hand.push(cardObj);
