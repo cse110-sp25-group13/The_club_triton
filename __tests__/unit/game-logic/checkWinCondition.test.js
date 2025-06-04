@@ -71,7 +71,7 @@ describe("checkWinCondition", () => {
     expect(capturedAlertMsg).toBe("AI wins! Game over.");
   });
 
-  it("alerts when ai wins with three of same type then alert", () => {
+  it("alerts when ai wins with three of same type", () => {
     aiScore.Dining = 3;
 
     checkWinCondition();

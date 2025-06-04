@@ -46,7 +46,7 @@ describe("updateScore", () => {
     });
   });
 
-  test("increments playerScore.Structure and updates #student-structure-card", () => {
+  it("increments playerScore.Structure and updates #student-structure-card", () => {
     expect(playerScore.Structure).toBe(0);
     expect(getDOMScore("student", "Structure")).toBe("0");
 
@@ -58,7 +58,7 @@ describe("updateScore", () => {
     expectScoresMatchDOM("prof", aiScore);
   });
 
-  test("increments aiScore.Living and updates #prof-living-card", () => {
+  it("increments aiScore.Living and updates #prof-living-card", () => {
     expect(aiScore.Living).toBe(0);
 
     updateScore("ai", cards.Dining4, cards.Living4);
@@ -69,7 +69,7 @@ describe("updateScore", () => {
     expectScoresMatchDOM("prof", aiScore);
   });
 
-  test("no increments or updates in case of tie", () => {
+  it("does no increments or updates in case of tie", () => {
     let originalPlayerScore = { ...playerScore };
     let originalAiScore = { ...aiScore };
 
