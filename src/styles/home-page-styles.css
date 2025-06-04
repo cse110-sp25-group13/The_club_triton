@@ -10,38 +10,72 @@ animation code stuff area below*/
   100% { transform: translateY(0); }
 }
 
-
-.navbar {
-  background-color: #03629c;
-  top: 0;
-  /*move box to top*/
-  left: 0;
-  /*make box occupy  all horizontal space*/
-  right: 0;
-  padding: 1vmax;
-  position: fixed;
+@keyframes slide-bounce {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(5px);
+  }
+  80% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-.navbar ul {
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  /* Hide bullet points*/
-  align-items: center;
+@keyframes offset-slide {
+  from {
+    transform: translate(-100%, 0.5vw);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0.5vw, 0.5vw);
+    opacity: 1;
+  }
+}
+@keyframes offset-slide-bounce {
+  0% {
+    transform: translate(-100%, 0.5vw);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(0.5vw, 0.5vw);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(0.5vw, -0.5vw);
+  }
+  60% {
+    transform: translate(0.5vw, 0.75vw);
+  }
+  80% {
+    transform: translate(0.5vw, 0.25vw);
+  }
+  100% {
+    transform: translate(0.5vw, 0.5vw);
+  }
 }
 
-.navbar a {
-  color: white;
-  /* Removes default blue or purple color*/
-  text-decoration: none;
-  /* Removes underline*/
-}
-
-.navbar li {
-  font-size: 2vh;
-  display: inline;
-  color: white;
-}
 
 body {
   background-image: url("../imgs/backgrounds/geisel-base-theme.png");
@@ -64,7 +98,7 @@ body {
 
 .game-title {
   font-family: 'Luckiest Guy', cursive;
-  animation: bounce 1s ease-in-out infinite;
+  animation: slide 1s, bounce 1s ease-in-out infinite;
   font-weight: 400;
   font-size: 7vw;
   outline: black;
@@ -74,8 +108,9 @@ body {
   position: relative;
 }
 
-.game-title-offset {
+.game-title-offset { /*highkey shouldnt have as much repetition as the prev for style but whsatever*/
   font-family: 'Luckiest Guy', cursive;
+  animation: offset-slide-bounce 1s;
   font-weight: 400;
   font-size: 7vw;
   color: black;
@@ -83,9 +118,10 @@ body {
   top: 0;
   left: 0;
   z-index: 1;
-  transform: translate(0.5vw, 0.5vw);
 }
-
+.appear {
+  animation: slide 1s;
+}
 .description {
   background-color: #03629c;
   bottom: 1vh;
