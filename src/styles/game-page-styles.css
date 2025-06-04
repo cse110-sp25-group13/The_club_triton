@@ -42,6 +42,7 @@ body {
   margin: 20px auto; /* Fixed side margins by default */
   position: relative; /* For absolute-positioned children */
   display: grid;
+  top: 8vh;
   gap: 1em; /* Consistent spacing */
 
   font-size: 1.5vw;
@@ -272,6 +273,12 @@ body {
   flex-direction: column;
   align-items: flex-end;
   flex: 1;
+}
+
+.card:hover {
+  border-color: #ffe100;
+  border-width: 0.5vw;
+  transform: translateY(-4vh);
 }
 #student-name {
   text-align: right;
