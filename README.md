@@ -2,5 +2,6 @@
 
 Club Penguins card game, UCSD style!
 
-### Releases: 
+### Releases:
+
 #### 1.0: 06/04/2025
