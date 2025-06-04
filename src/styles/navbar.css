@@ -1,28 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap');
+
 /*navbar thingies begin*/
 .navbar {
-  background-color: #03629c;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 1vmax;
-  position: fixed;
+    background-color: #ffe375c9;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
 }
 
 .navbar ul {
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    align-items: left;
 }
 
 .navbar a {
-  color: white;
-  text-decoration: none;
+    color: black;
+    text-decoration: none;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 1vw;
+}
+.nav-button-container {
+    align-items: left;
+}
+.nav-button:hover {
+    border-width: 20vh 20vw;
+    background-color: black;
+    padding: 0.5vw 0.5vw 2vh 2vh;
+    border-radius: 1vw;
+    position: sticky;
 }
 
+
 .navbar li {
-  font-size: 2vh;
-  display: inline;
-  color: white;
+    font-size: 2vh;
+    display: inline;
+    color: white;
 }
+
+.nav-button-container {
+    align-self: left;
+}
+
 /* END OF NAVBAR THINGS */

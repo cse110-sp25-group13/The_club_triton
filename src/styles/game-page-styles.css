@@ -271,6 +271,17 @@ body {
   flex-direction: column;
   margin-right: 1vw;
 }
+
+.card {
+  transform: translateX(0deg);
+}
+
+.card:hover {
+  border-color: #ffe100;
+  border-width: 0.5vw;
+  transform: translateY(-4vh);
+
+}
 #student-name {
   text-align: right;
   margin-right: 1vw;
@@ -291,7 +302,7 @@ body {
 }
 /* Card design and formatting */
 td {
-  background-color: #fff;
+  background-color: transparent;
 }
 table {
   width: 100%;
@@ -322,6 +333,7 @@ td {
 .card-front {
   background: white;
 }
+
 
 /* Additonal exit button design */
 #exit-btn {

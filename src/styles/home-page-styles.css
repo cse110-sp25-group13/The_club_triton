@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap');
+
 
 /*
 animation code stuff area below*/
@@ -101,13 +103,14 @@ body {
   animation: slide 1s, bounce 1s ease-in-out infinite;
   font-weight: 400;
   font-size: 7vw;
-  outline: black;
-  outline-width: 2vw;
   color: white;
   z-index: 2;
   position: relative;
 }
 
+.instructions-header { 
+  text-align: center;
+}
 .game-title-offset { /*highkey shouldnt have as much repetition as the prev for style but whsatever*/
   font-family: 'Luckiest Guy', cursive;
   animation: offset-slide-bounce 1s;
@@ -123,15 +126,26 @@ body {
   animation: slide 1s;
 }
 .description {
-  background-color: #03629c;
-  bottom: 1vh;
+  background-color: white;
+  bottom: 10vh;
   left: 20vw;
   right: 20vw;
-  padding: 1vmax;
+  padding: 10px;
   position: fixed;
-  border-radius: 5vmin;
-  border-width: 1vmin;
-  color: white;
+  border-radius: 40px;
+  border-color: black;
+  border-width: 100px;
+  animation: bounce 2s ease-in-out infinite;
 }
 
+.description-backdrop {
+  position: absolute;
+  z-index: -1;
+}
 
+.instructions { 
+  font-family: 'Coming Soon';
+  color: black;
+  text-align: center;
+
+}
