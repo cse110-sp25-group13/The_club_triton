@@ -601,6 +601,14 @@ function endGame(winner) {
   const modal = document.getElementById("gameModal");
   const modalTitle = document.getElementById("modalTitle");
 
+  if (!modal || !modalTitle) {
+    console.error("Modal or title element not found in DOM.");
+    return;
+  }
+
+  modal.classList.add("show");
+  console.log("Modal show class added");
+
   if (winner === "player") {
     modalTitle.textContent = "🎉 You Win!";
     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
