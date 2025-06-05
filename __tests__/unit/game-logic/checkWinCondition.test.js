@@ -10,30 +10,30 @@ import {
 
 import { TYPES } from "../util.js";
 
-import { jest } from "@jest/globals";
-
 describe("checkWinCondition", () => {
+  let originalAlert;
+
+  beforeAll(() => {
+    originalAlert = window.alert;
+  });
+
+  afterAll(() => {
+    window.alert = originalAlert;
+  });
+
+  let capturedAlertMsg;
+
   beforeEach(() => {
-    document.body.innerHTML = `
-      <div id="gameModal" class="popup">
-        <div class="popup-content">
-          <h2 id="modalTitle">🎉 You Win!</h2>
-          <button onclick="location.reload()">Play Again</button>
-          <button onclick="window.location.href='home-page.html'">
-            Back to Home
-          </button>
-          <br />
-          <button id="closeModal" class="close-button">Close</button>
-        </div>
-      </div>
-    `;
+    window.alert = (msg) => {
+      capturedAlertMsg = msg;
+    };
 
     TYPES.forEach((t) => {
       playerScore[t] = 0;
       aiScore[t] = 0;
     });
 
-    global.confetti = jest.fn();
+    capturedAlertMsg = undefined;
   });
 
   it("does not pop up when no one meets a win condition", () => {
@@ -96,9 +96,9 @@ describe("checkWinCondition", () => {
   });
 
   it("alerts when player wins - player takes precedence when both meet conditions", () => {
-    TYPES.forEach((t) => {
-      playerScore[t] = 1;
-    });
+    playerScore.Living = 1;
+    playerScore.Dining = 1;
+    playerScore.Structure = 1;
 
     aiScore.Living = 3;
 
