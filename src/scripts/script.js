@@ -4,7 +4,7 @@
  * Implements card drawing, comparison, and round resolution.
  * Dependencies: IndexedDB module in card-system.js
  */
-let gameOver = false;
+
 let roundInProgress = false;
 import "../card/triton-card.js";
 import { initDB, getAllCards, getOwnedFullCards } from "./card-system.js";
@@ -593,21 +593,15 @@ function checkWinCondition() {
   }
 }
 
+/**
+ * Alert when winning condition is met
+ * @param {string} winner - "player" or "ai"
+ */
 function endGame(winner) {
-  gameOver = true; // mark game as over
   clearInterval(countdownInterval);
   clearTimeout(autoPlayTimeout);
-
-  const modal = document.getElementById("gameModal");
-  const modalTitle = document.getElementById("modalTitle");
-
-  if (winner === "player") {
-    modalTitle.textContent = "🎉 You Win!";
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-    console.log("Confetti fired!");
-  } else {
-    modalTitle.textContent = "😞 You Lose Bozo!";
-  }
+  alert(`${winner === "player" ? "You win!" : "AI wins!"} Game over.`);
+  location.reload();
 }
 
 /**
@@ -616,7 +610,6 @@ function endGame(winner) {
 let countdownInterval = null;
 let autoPlayTimeout = null;
 function resetTimer() {
-  if (gameOver) return; // don't restart timer if game ended
   console.log("[resetTimer] scheduling autoPlay in", MAX_TIME, "sec");
   // 1) clear both previous timers
   clearInterval(countdownInterval);
@@ -663,14 +656,6 @@ export {
   CARDBACK_PATH,
   checkWinCondition,
 };
-//Pop up
-document.addEventListener("DOMContentLoaded", function () {
-  const closeBtn = document.getElementById("closeModal");
-
-  closeBtn.addEventListener("click", () => {
-    document.getElementById("gameModal").classList.remove("show");
-  });
-});
 
 // exit button
 document.addEventListener("DOMContentLoaded", function () {

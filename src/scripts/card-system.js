@@ -318,7 +318,7 @@ function initDB() {
 
 // Comment out auto-call for now; will call it at the appropriate place
 
-// initDB();
+initDB();
 
 /**
  * Get all card data from the 'cards' object store in IndexedDB.
