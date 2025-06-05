@@ -37,7 +37,7 @@ body {
   /* width: clamp(500px, 95vw, 1050px); */
   height: auto;
   aspect-ratio: 16/10;
-  border: 8px solid #2b2118;
+  border: 1.25vw solid #2b2118;
   border-radius: 12px;
   margin: 20px auto; /* Fixed side margins by default */
   position: relative; /* For absolute-positioned children */
@@ -76,7 +76,7 @@ body {
   position: absolute;
   align-self: center;
   background-color: green;
-  border: 0.5rem solid #2b2118;
+  border: 1.25vw solid #2b2118;
   border-radius: 50%;
   font-size: 1.5em;
   display: flex;
@@ -193,16 +193,16 @@ body {
   align-items: center;
 }
 /*Rules Dropdown Section*/
-#projector-hitbox {
+#projector {
   position: absolute;
-  top: 10%; /* Adjust based on the projector’s Y position */
-  left: 46%; /* Adjust based on projector’s X position */
-  width: 8%; /* Widen hitbox area */
+  top: 10%;
+  left: 46%;
+  width: 8%;
   height: 10%;
   z-index: 10;
   cursor: pointer;
-  /* background-color: rgba(255, 0, 0, 0.2);  <-- Uncomment to debug the zone visually */
 }
+
 .projector-slot {
   position: absolute;
   top: 0;
@@ -216,12 +216,12 @@ body {
 
 #projector-screen {
   position: absolute;
-  top: -140%;
+  top: -145%;
   left: 10%;
   width: 80%;
   height: 150%;
   background-color: #fdfcf5;
-  border: 8px solid black;
+  border: 1.25vw solid black;
   z-index: 9;
   transition: top 0.7s ease-in-out;
   border-radius: 0.5em;
@@ -231,6 +231,90 @@ body {
   top: 0;
 }
 
+/* Projector Screen Styles */
+
+.screen-handle {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10%;
+  height: 10%;
+  background: black;
+  border-radius: 0 0 10px 10px;
+  color: white;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.slide {
+  display: none;
+  padding: 20px;
+  height: calc(100% - 60px);
+}
+
+.slide.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.screen-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.nav-btn {
+  padding: 1% 2%;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #45a049;
+}
+
+.nav-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Makes the screen intercept clicks */
+#projector-screen {
+  pointer-events: auto;
+}
+
+/* Makes sure content doesn't block clicks */
+.screen-content {
+  pointer-events: auto;
+}
+
+/* Projector should only be clickable when screen is hidden */
+#projector {
+  pointer-events: auto;
+}
+#projector-screen.show ~ #projector {
+  pointer-events: none;
+}
 /* Additional play-table design and formatting*/
 .play-table {
   font-size: 1em;
@@ -244,7 +328,7 @@ body {
   width: 100%;
   height: 30%; /* Relative to container */
   background-color: var(--play-table-color-3);
-  border-top: 0.5rem solid #2b2118;
+  border-top: 1.25vw solid #2b2118;
   border-bottom: none;
   box-sizing: border-box;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);

@@ -20,20 +20,38 @@
     <div id="navbar-container"></div>
     <main class="game-container">
       <section class="game-board">
-        <div id="projector-hitbox"></div>
         <div class="projector-slot">
           <div id="projector-screen">
-            <h1 id="instructions">Instructions</h1>
-            <ul>
-              <li>
-                Click to choose a card from your deck to play against the
-                professor
-              </li>
-              <li>
-                Each card has a type and a number. The types are Living,
-                structure, and Dining Hall.
-              </li>
-            </ul>
+            <div class="screen-handle">▼</div>
+            <div class="screen-content">
+              <!-- Slide 1 -->
+              <div class="slide active">
+                <h1 id="instructions">Game Instructions</h1>
+                <ul>
+                  <li>Click to choose a card from your deck</li>
+                  <li>Each card has a type and a number</li>
+                  <li>Higher numbers generally win</li>
+                  <li>Collect cards by winning rounds</li>
+                </ul>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="slide">
+                <h2>Strategy Tips</h2>
+                <ul>
+                  <li>Pay attention to patterns</li>
+                  <li>Structure cards beat Living cards</li>
+                  <li>Dining Hall cards provide bonuses</li>
+                  <li>Save high-value cards</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="screen-controls">
+              <button class="nav-btn prev-btn">Previous</button>
+              <span class="slide-counter"></span>
+              <button class="nav-btn next-btn">Next</button>
+            </div>
           </div>
         </div>
         <button
