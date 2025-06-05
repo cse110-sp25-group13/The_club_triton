@@ -33,7 +33,7 @@ describe("checkWinCondition", () => {
       aiScore[t] = 0;
     });
 
-    global.confetti = jest.fn()
+    global.confetti = jest.fn();
   });
 
   it("does not pop up when no one meets a win condition", () => {
