@@ -473,6 +473,7 @@ export {
   playerDeckEl,
   aiDeckEl,
   CARDBACK_PATH,
+  checkWinCondition,
 };
 //Pop up
 document.addEventListener("DOMContentLoaded", function () {
