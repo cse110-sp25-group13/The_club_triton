@@ -666,7 +666,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function restartGame() {
-  if (confirm("Return to Home Page?")) {
+  if (confirm("Restart game?")) {
     location.reload();
   }
 }
