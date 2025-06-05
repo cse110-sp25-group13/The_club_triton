@@ -380,7 +380,6 @@ triton-card {
   --card-font-size: 0.6rem;
 }
 
-/* End game popup */
 .popup {
   display: none;
   position: fixed;
