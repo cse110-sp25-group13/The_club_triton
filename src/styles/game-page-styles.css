@@ -326,6 +326,35 @@ body {
   text-align: center;
 }
 
+/* Projector content styling */
+.slide.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.slide h1, 
+.slide h2 {
+  margin-bottom: 1em;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.slide ul {
+  display: inline-block;
+  text-align: left;
+  margin: 0 auto;
+  padding-left: 20px;
+  list-style-position: inside;
+}
+
+.slide li {
+  margin-bottom: 0.5em;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
