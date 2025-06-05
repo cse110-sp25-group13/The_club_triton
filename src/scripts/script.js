@@ -657,17 +657,17 @@ export {
   checkWinCondition,
 };
 
-// exit button
+// restart button
 document.addEventListener("DOMContentLoaded", function () {
-  const exitButton = document.getElementById("exit-btn");
-  if (exitButton) {
-    exitButton.addEventListener("click", exitGame);
+  const restartButton = document.getElementById("restart-btn");
+  if (restartButton) {
+    restartButton.addEventListener("click", restartGame);
   }
 });
 
-function exitGame() {
+function restartGame() {
   if (confirm("Return to Home Page?")) {
-    window.location.href = "home-page.html";
+    location.reload();
   }
 }
-window.exitGame = exitGame;
+window.restartGame = restartGame;
