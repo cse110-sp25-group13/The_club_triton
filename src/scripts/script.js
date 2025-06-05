@@ -4,7 +4,7 @@
  * Implements card drawing, comparison, and round resolution.
  * Dependencies: IndexedDB module in card-system.js
  */
-
+let gameOver = false;
 let roundInProgress = false;
 import "../card/triton-card.js";
 import { initDB, getAllCards } from "./card-system.js";
@@ -407,15 +407,30 @@ function checkWinCondition() {
   }
 }
 
-/**
- * Alert when winning condition is met
- * @param {string} winner - "player" or "ai"
- */
 function endGame(winner) {
+  gameOver = true; // mark game as over
+  console.log("endGame called with winner:", winner); // Debug log
   clearInterval(countdownInterval);
   clearTimeout(autoPlayTimeout);
-  alert(`${winner === "player" ? "You win!" : "AI wins!"} Game over.`);
-  location.reload();
+
+  const modal = document.getElementById("gameModal");
+  const modalTitle = document.getElementById("modalTitle");
+
+  if (!modal || !modalTitle) {
+    console.error("Modal or title element not found in DOM.");
+    return;
+  }
+
+  modal.classList.add("show");
+  console.log("Modal show class added");
+
+  if (winner === "player") {
+    modalTitle.textContent = "🎉 You Win!";
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    console.log("Confetti fired!");
+  } else {
+    modalTitle.textContent = "😞 You Lose Bozo!";
+  }
 }
 
 /**
@@ -424,6 +439,7 @@ function endGame(winner) {
 let countdownInterval = null;
 let autoPlayTimeout = null;
 function resetTimer() {
+  if (gameOver) return; // don't restart timer if game ended
   console.log("[resetTimer] scheduling autoPlay in", MAX_TIME, "sec");
   // 1) clear both previous timers
   clearInterval(countdownInterval);
@@ -467,6 +483,14 @@ export {
   aiDeckEl,
   CARDBACK_PATH,
 };
+//Pop up
+document.addEventListener("DOMContentLoaded", function () {
+  const closeBtn = document.getElementById("closeModal");
+
+  closeBtn.addEventListener("click", () => {
+    document.getElementById("gameModal").classList.remove("show");
+  });
+});
 
 // exit button
 document.addEventListener("DOMContentLoaded", function () {
