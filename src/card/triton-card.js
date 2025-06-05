@@ -118,7 +118,7 @@ class TritonCard extends HTMLElement {
         position: relative;
         width: var(--card-width);
         height: var(--card-height); 
-        border: 3px solid cyan; /* change the style of border when needed */
+        border: none; /* Remove cyan border */
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
@@ -172,39 +172,65 @@ class TritonCard extends HTMLElement {
           white-space: normal;
           word-wrap: break-word;
           /* make sure text isn't centered */
-          text-align: left; 
-          
+          text-align: left;
+          /* Improve text readability */
+          color: #000;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+          font-weight: bold;
         }
 
         .name {
-          width: calc(var(--card-width) /2);
-          height:  calc(var(--card-width) * 1/15);
+          width: calc(var(--card-width) * 0.6);
+          height: calc(var(--card-width) * 0.08);
           text-align: right; 
-          top: 0%;
-          right: 5%;
+          top: 2%;
+          right: 4%;
+          font-size: calc(var(--card-font-size) * 0.9);
         }
 
         .type {
-          width: calc(var(--card-width) /4);
-          height:  calc(var(--card-width) * 1/15);
-          top: 1.5%;
-          left: 12.5%;
+          width: calc(var(--card-width) * 0.4);
+          height: calc(var(--card-width) * 0.08);
+          top: 2%;
+          left: 8%;
+          font-size: calc(var(--card-font-size) * 0.8);
+          text-transform: capitalize;
         }
 
         .rank {
-          width: calc(var(--card-width) /6);
-          height:  calc(var(--card-width) * 1/6);
-          bottom: 23%;
-          left: 5%;
-          font-size: calc(2 * var(--card-font-size));
+          width: calc(var(--card-width) * 0.25);
+          height: calc(var(--card-width) * 0.25);
+          bottom: 18%;
+          left: 8%;
+          font-size: calc(var(--card-font-size) * 3.5);
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #000;
+          text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
+          font-weight: 900;
         }
 
         .description {
-          width: calc(var(--card-width) * 260/300);
-          height:  calc(var(--card-width) * 120/300) ;
-          line-height: 1.2;
-          left: 5%;
-          bottom: 0;       
+          width: calc(var(--card-width) * 0.88);
+          height: calc(var(--card-width) * 0.35);
+          line-height: 1.1;
+          left: 6%;
+          bottom: 12%;
+          font-size: calc(var(--card-font-size) * 0.75);
+          padding: 2px;       
+        }
+
+        .rarity {
+          position: absolute;
+          bottom: 3%;
+          right: 6%;
+          font-size: calc(var(--card-font-size) * 0.85);
+          color: #ff6600;
+          font-weight: bold;
+          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+          z-index: 2;
         }
 
 
