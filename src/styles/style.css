@@ -67,7 +67,7 @@ body {
     0 0 15px rgba(0, 0, 0, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.5);
 }
-#exit-btn {
+#restart-btn {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -78,6 +78,6 @@ body {
   cursor: pointer;
   /*image:  url('button image');*/
 }
-#exit-btn:hover {
+#restart-btn:hover {
   background-color: #a857;
 }

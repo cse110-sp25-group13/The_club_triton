@@ -63,7 +63,7 @@ body {
 .card-comparison,
 .won-cards,
 #rules-dropdown,
-#exit-btn {
+#restart-btn {
   width: 100%;
   font-size: 1em; /* Inherits from .game-container */
 }
@@ -120,8 +120,8 @@ body {
   padding: 0 1%; /* a little side-padding */
   box-sizing: border-box;
 }
-/* Exit button formatting*/
-#exit-btn {
+/* restart button formatting*/
+#restart-btn {
   float: right;
   width: 2vw;
   height: 2vw;
@@ -329,8 +329,8 @@ td {
   background: white;
 }
 
-/* Additonal exit button design */
-#exit-btn {
+/* Additonal restart button design */
+#restart-btn {
   position: absolute;
   top: 0.5em;
   right: 0.5em;
