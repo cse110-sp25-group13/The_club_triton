@@ -27,6 +27,7 @@ describe("checkWinCondition", () => {
         </div>
       </div>
     `;
+
     TYPES.forEach((t) => {
       playerScore[t] = 0;
       aiScore[t] = 0;

@@ -142,7 +142,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line424">line 424</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line610">line 610</a>
     </li></ul></dd>
     
 
@@ -272,7 +272,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line431">line 431</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line441">line 441</a>
     </li></ul></dd>
     
 
@@ -382,7 +382,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line387">line 387</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line573">line 573</a>
     </li></ul></dd>
     
 
@@ -425,6 +425,188 @@ Each record will be in the form { cardId: "the_actual_id" }.
 |
 
 <span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createCardGhost"><span class="type-signature"></span>createCardGhost<span class="signature">(card, startRect)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a visual ghost element for animation that replicates the triton-card appearance
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>card</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The original triton-card element</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startRect</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">DOMRect</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The starting position rectangle</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line287">line 287</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Ghost element for animation
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
 
 
     </dd>
@@ -566,7 +748,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line238">line 238</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line272">line 272</a>
     </li></ul></dd>
     
 
@@ -626,7 +808,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
 
     
-    <h4 class="name" id="drawCards"><span class="type-signature"></span>drawCards<span class="signature">(count, ai)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
+    <h4 class="name" id="drawCards"><span class="type-signature"></span>drawCards<span class="signature">(count, ai, cardPool)</span><span class="type-signature"> &rarr; {Array.&lt;Object>}</span></h4>
     
 
     
@@ -660,6 +842,8 @@ Each record will be in the form { cardId: "the_actual_id" }.
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -685,6 +869,10 @@ Each record will be in the form { cardId: "the_actual_id" }.
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">Number of cards to draw</td>
         </tr>
@@ -708,8 +896,41 @@ Each record will be in the form { cardId: "the_actual_id" }.
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last">are we trying to draw card for ai</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cardPool</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">Pool of cards to draw from (optional, defaults to global deck)</td>
         </tr>
 
     
@@ -750,7 +971,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line74">line 74</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -909,7 +1130,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line414">line 414</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line600">line 600</a>
     </li></ul></dd>
     
 
@@ -1046,7 +1267,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line71">line 71</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line81">line 81</a>
     </li></ul></dd>
     
 
@@ -1156,7 +1377,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line317">line 317</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line327">line 327</a>
     </li></ul></dd>
     
 
@@ -1315,7 +1536,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line371">line 371</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line381">line 381</a>
     </li></ul></dd>
     
 
@@ -1356,6 +1577,165 @@ Each record will be in the form { cardId: "the_actual_id" }.
     <dd>
         
 <span class="param-type">Promise.&lt;(Object|undefined)></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getInitialHand"><span class="type-signature">(async) </span>getInitialHand<span class="signature">(numberOfCards)</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;Object>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Randomly draw a specified number of cards from the player's current collection as initial hand.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>numberOfCards</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number of cards to draw.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line674">line 674</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A Promise that resolves to an array containing the hand card objects.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Array.&lt;Object>></span>
 
 
     </dd>
@@ -1425,7 +1805,7 @@ Each record will be in the form { cardId: "the_actual_id" }.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line565">line 565</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line575">line 575</a>
     </li></ul></dd>
     
 
@@ -1536,7 +1916,7 @@ It first gets all owned card IDs, then retrieves the complete card object from t
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line616">line 616</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line626">line 626</a>
     </li></ul></dd>
     
 
@@ -1648,7 +2028,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line221">line 221</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line231">line 231</a>
     </li></ul></dd>
     
 
@@ -1754,7 +2134,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line46">line 46</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line48">line 48</a>
     </li></ul></dd>
     
 
@@ -1891,7 +2271,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line131">line 131</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line165">line 165</a>
     </li></ul></dd>
     
 
@@ -2074,7 +2454,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line102">line 102</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -2229,7 +2609,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line501">line 501</a>
+        <a href="card-system.js.html">card-system.js</a>, <a href="card-system.js.html#line511">line 511</a>
     </li></ul></dd>
     
 
@@ -2411,7 +2791,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line225">line 225</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line259">line 259</a>
     </li></ul></dd>
     
 
@@ -2594,7 +2974,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line333">line 333</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line519">line 519</a>
     </li></ul></dd>
     
 
@@ -2682,7 +3062,7 @@ If the database or object store does not exist, create them and populate with in
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line354">line 354</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line540">line 540</a>
     </li></ul></dd>
     
 
@@ -2728,13 +3108,13 @@ If the database or object store does not exist, create them and populate with in
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#createCardGhost">createCardGhost</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getInitialHand">getInitialHand</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 04 2025 07:58:48 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jun 05 2025 01:21:07 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
