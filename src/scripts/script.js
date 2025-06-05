@@ -7,11 +7,13 @@
 
 let roundInProgress = false;
 import "../card/triton-card.js";
-import { initDB, getAllCards } from "./card-system.js";
+import { initDB, getAllCards, getOwnedFullCards } from "./card-system.js";
 const CARDBACK_PATH = "src/card/card-back.png";
 const MAX_CARDS = 5;
 
 let deck = [];
+let playerDeck = []; // Player's selected deck from collection
+let aiDeck = []; // AI's deck (all available cards)
 let playerHand = [];
 let aiHand = [];
 let playerScore = { Structure: 0, Living: 0, Dining: 0 };
@@ -45,7 +47,29 @@ const timerEl = document.querySelector(".timer");
  */
 async function initGame() {
   await initDB();
-  deck = await getAllCards();
+
+  // Try to get player's selected deck first, fallback to all cards if no deck is selected
+  const playerSelectedCards = await getOwnedFullCards();
+  if (playerSelectedCards.length === 0) {
+    console.warn(
+      "No cards in player deck, using all available cards as fallback",
+    );
+    const allCards = await getAllCards();
+    playerDeck = [...allCards]; // Copy all cards for player fallback
+  } else {
+    console.log(
+      `Using player's selected deck with ${playerSelectedCards.length} cards:`,
+      playerSelectedCards.map((c) => c.name),
+    );
+    playerDeck = [...playerSelectedCards]; // Use player's selected cards
+  }
+
+  // AI always uses all available cards
+  const allCards = await getAllCards();
+  aiDeck = [...allCards]; // Copy all cards for AI
+
+  // For backwards compatibility, keep global deck as player's deck
+  deck = [...playerDeck];
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
@@ -59,8 +83,10 @@ async function initGame() {
   studentSlots.forEach((td) => (td.textContent = ""));
   aiSlots.forEach((td) => (td.textContent = ""));
 
-  playerHand = drawCards(MAX_CARDS, false);
-  aiHand = drawCards(MAX_CARDS, true);
+  // Draw cards for player from their deck
+  playerHand = drawCards(MAX_CARDS, false, playerDeck);
+  // Draw cards for AI from all available cards
+  aiHand = drawCards(MAX_CARDS, true, aiDeck);
   resetTimer();
 }
 
@@ -68,17 +94,25 @@ async function initGame() {
  * Draw a number of random cards from the deck. Give a new card from library to the ai and player, if the ai =true, change card img to a back of card img to hide the AI card
  * @param {number} count - Number of cards to draw
  * @param {boolean} ai - are we trying to draw card for ai
+ * @param {Array<Object>} cardPool - Pool of cards to draw from (optional, defaults to global deck)
  * @returns {Array<Object>} Array of card objects
  */
 
-function drawCards(count, ai) {
+function drawCards(count, ai, cardPool = null) {
   const hand = [];
+  const sourcePool = cardPool || deck; // Use provided pool or global deck
+
   for (let i = 0; i < count; i++) {
-    const randomIndex = Math.floor(Math.random() * deck.length);
-    const cardObj = deck[randomIndex];
+    if (sourcePool.length === 0) {
+      console.warn("No more cards available to draw!");
+      break;
+    }
+
+    const randomIndex = Math.floor(Math.random() * sourcePool.length);
+    const cardObj = sourcePool[randomIndex];
     hand.push(cardObj);
-    //remove index from deck so can't be drawn again
-    deck.splice(randomIndex, 1);
+    //remove index from pool so can't be drawn again
+    sourcePool.splice(randomIndex, 1);
     //create triton card el
     const tritonCard = document.createElement("triton-card");
     tritonCard.id = ai
@@ -203,10 +237,10 @@ async function playRound(playerCardId) {
 
   // Draw replacement cards
   console.log("[playRound] drawing replacements");
-  const newPlayer = drawCards(1, false);
+  const newPlayer = drawCards(1, false, playerDeck);
   console.log("[playRound] newPlayer cards:", newPlayer);
   playerHand.push(...newPlayer);
-  const newAi = drawCards(1, true);
+  const newAi = drawCards(1, true, aiDeck);
   console.log("[playRound] newAi cards:", newAi);
   aiHand.push(...newAi);
 
@@ -244,6 +278,156 @@ function determineWinner(playerCard, aiCard) {
   return typeBeats[playerCard.type] === aiCard.type ? "player" : "ai";
 }
 
+/**
+ * Creates a visual ghost element for animation that replicates the triton-card appearance
+ * @param {HTMLElement} card - The original triton-card element
+ * @param {DOMRect} startRect - The starting position rectangle
+ * @returns {HTMLElement} Ghost element for animation
+ */
+function createCardGhost(card, startRect) {
+  const ghost = document.createElement("div");
+
+  // Copy all the card properties from the triton-card shadow DOM
+  const shadowRoot = card.shadowRoot;
+  const cardName = shadowRoot?.querySelector(".name")?.textContent || "";
+  const cardRank = shadowRoot?.querySelector(".rank")?.textContent || "";
+  const cardType = shadowRoot?.querySelector(".type")?.textContent || "";
+  const cardDescription =
+    shadowRoot?.querySelector(".description")?.textContent || "";
+  const cardRarity = shadowRoot?.querySelector(".rarity")?.textContent || "";
+  const cardImage = shadowRoot?.querySelector("#img-card-front")?.src || "";
+  const cardBorder = shadowRoot?.querySelector("#img-card-border")?.src || "";
+
+  // Create the HTML structure that mirrors triton-card exactly
+  ghost.innerHTML = `
+    <div style="
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 800;
+      font-style: oblique;
+    ">
+      ${
+        cardImage
+          ? `<img src="${cardImage}" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      " alt="Card Image">`
+          : ""
+      }
+      
+      ${
+        cardBorder
+          ? `<img src="${cardBorder}" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        pointer-events: none;
+      " alt="Card Border">`
+          : ""
+      }
+      
+      <div style="
+        position: absolute;
+        top: 2%;
+        right: 4%;
+        width: 60%;
+        height: 8%;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        text-align: right;
+        z-index: 15;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-wrap: break-word;
+      ">${cardName}</div>
+      
+      <div style="
+        position: absolute;
+        top: 2%;
+        left: 8%;
+        width: 40%;
+        height: 8%;
+        font-size: 0.8em;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        text-transform: capitalize;
+        z-index: 15;
+        overflow: hidden;
+      ">${cardType}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 18%;
+        left: 8%;
+        width: 25%;
+        height: 25%;
+        font-size: 3.5em;
+        font-weight: 900;
+        color: #000;
+        text-shadow: 3px 3px 6px rgba(255,255,255,1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+      ">${cardRank}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 12%;
+        left: 6%;
+        width: 88%;
+        height: 35%;
+        font-size: 0.75em;
+        color: #000;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        line-height: 1.1;
+        z-index: 15;
+        overflow: hidden;
+        padding: 2px;
+      ">${cardDescription}</div>
+      
+      <div style="
+        position: absolute;
+        bottom: 3%;
+        right: 6%;
+        font-size: 0.85em;
+        color: #ff6600;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        z-index: 15;
+      ">${cardRarity}</div>
+    </div>
+  `;
+
+  // Style the ghost container
+  Object.assign(ghost.style, {
+    position: "fixed",
+    top: `${startRect.top}px`,
+    left: `${startRect.left}px`,
+    width: `${startRect.width}px`,
+    height: `${startRect.height}px`,
+    transition: "transform 0.4s ease-out",
+    zIndex: "1000",
+    pointerEvents: "none",
+  });
+
+  return ghost;
+}
+
 //* sliding animation
 function animateCardMove(card, targetEl) {
   console.log("[animateCardMove] called", { card, targetEl });
@@ -263,22 +447,17 @@ function animateCardMove(card, targetEl) {
     const end = targetEl.getBoundingClientRect();
     console.log("[animateCardMove] start/end rects", { start, end });
 
-    // clone & style the ghost
-    const ghost = card.cloneNode(true);
-    Object.assign(ghost.style, {
-      position: "fixed",
-      top: `${start.top}px`,
-      left: `${start.left}px`,
-      width: `${start.width}px`,
-      height: `${start.height}px`,
-      transition: "transform 0.4s ease-out",
-      zIndex: "1000",
-    });
+    // Create a visual copy instead of cloning the shadow DOM
+    const ghost = createCardGhost(card, start);
     document.body.appendChild(ghost);
     console.log("[animateCardMove] ghost appended");
 
-    // hide original
+    // hide original and mark parent slot
     card.style.visibility = "hidden";
+    const parentSlot = card.closest("td");
+    if (parentSlot) {
+      parentSlot.classList.add("card-moving");
+    }
 
     // Force a reflow so the browser "sees" the starting position
     // before we change transform
@@ -301,6 +480,13 @@ function animateCardMove(card, targetEl) {
         card.front_image = card.dataset.front;
       }
       console.log("[animateCardMove] transitionend → cleaning up");
+
+      // Remove card-moving class from original parent
+      const originalParent = card.closest("td");
+      if (originalParent) {
+        originalParent.classList.remove("card-moving");
+      }
+
       const existingCard = targetEl.querySelector("triton-card");
       //make sure the card is non empty as well as not the card we are trying to animat
       // then remove old card
@@ -463,6 +649,8 @@ export {
   typeBeats,
   drawCards,
   deck,
+  playerDeck,
+  aiDeck,
   playerDeckEl,
   aiDeckEl,
   CARDBACK_PATH,
