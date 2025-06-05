@@ -36,46 +36,51 @@ describe("checkWinCondition", () => {
     global.confetti = jest.fn();
   });
 
-  it("does not alert when no one meets a win condition", () => {
+  it("does not pop up when no one meets a win condition", () => {
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "🎉 You Win!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(false);
   });
 
-  it("alerts when player wins with one of each type", () => {
+  it("pops up when player wins with one of each type", () => {
     TYPES.forEach((t) => {
       playerScore[t] = 1;
     });
 
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "🎉 You Win!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 
-  it("alerts when player wins with three of same type", () => {
+  it("pops up when player wins with three of same type", () => {
     playerScore.Living = 3;
 
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "🎉 You Win!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 
-  it("alerts when ai wins with one of each type", () => {
+  it("pops up when ai wins with one of each type", () => {
     TYPES.forEach((t) => {
       aiScore[t] = 1;
     });
 
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "😞 You Lose Bozo!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("😞 You Lose Bozo!");
   });
 
   it("alerts when ai wins with three of same type", () => {
@@ -83,9 +88,11 @@ describe("checkWinCondition", () => {
 
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "😞 You Lose Bozo!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("😞 You Lose Bozo!");
   });
 
   it("alerts when player wins - player takes precedence when both meet conditions", () => {
@@ -97,8 +104,10 @@ describe("checkWinCondition", () => {
 
     checkWinCondition();
 
-    expect(document.getElementById("modalTitle").textContent).toBe(
-      "🎉 You Win!",
-    );
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 });
