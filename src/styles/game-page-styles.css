@@ -4,7 +4,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+html {
+  height: 100%;
+  width: 100%;
+}
 /*Color directory */
 :root {
   --primary-color: #1a6bb0;
@@ -33,11 +36,10 @@ body {
 /* Defines the game region */
 .game-container {
   width: 95vw;
-  /* too advance to use */
-  /* width: clamp(500px, 95vw, 1050px); */
+  /* width: 95%; */
   height: auto;
   aspect-ratio: 16/10;
-  border: 8px solid #2b2118;
+  border: 1.25vw solid #2b2118;
   border-radius: 12px;
   margin: 20px auto; /* Fixed side margins by default */
   position: relative; /* For absolute-positioned children */
@@ -53,7 +55,7 @@ body {
 }
 /* Scaling game board */
 .game-board {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -76,7 +78,7 @@ body {
   position: absolute;
   align-self: center;
   background-color: green;
-  border: 0.5rem solid #2b2118;
+  border: 1.25vw solid #2b2118;
   border-radius: 50%;
   font-size: 1.5em;
   display: flex;
@@ -133,7 +135,10 @@ body {
 .prof-won-cards,
 .student-won-cards {
   display: flex;
-  gap: 10px;
+  justify-content: space-around;
+  position: absolute;
+  gap: 10%;
+  /* gap: 10px; */
 }
 
 .prof-won-cards > div,
@@ -149,33 +154,42 @@ body {
   text-align: center;
 }
 .prof-won-cards {
-  float: left;
   margin-left: 5%;
-  margin-right: 65%;
+}
+.student-won-cards {
+  margin-left: 85%;
 }
 #prof-structure-card,
 #student-structure-card {
   border: 0.25vw solid gray;
+  box-shadow: inset 0 0 2.5px gray;
 }
 #prof-dining-hall-card,
 #student-dining-hall-card {
   border: 0.25vw solid blue;
+  box-shadow: inset 0 0 2.5px blue;
 }
 #prof-living-card,
 #student-living-card {
   border: 0.25vw solid green;
+  box-shadow: inset 0 0 2.5px green;
 }
 /* Character Design Section */
 .game-characters {
   display: flex;
   justify-content: space-around;
+  position: absolute;
 }
 .professor-character img,
 .student-character img {
-  position: inherit;
   width: 20vw;
-  aspect-ratio: 3/4;
-  margin-top: 9vw;
+  margin-top: 80%;
+}
+.professor-character img {
+  margin-left: 40%;
+}
+.student-character img {
+  margin-left: 220%;
 }
 .card-comparison {
   position: absolute;
@@ -184,7 +198,7 @@ body {
 }
 .chosen-prof-card,
 .chosen-student-card {
-  position: relative;
+  /* position: relative; */
   width: 10vw;
   aspect-ratio: 3/4;
   margin-top: 9vw;
@@ -193,16 +207,16 @@ body {
   align-items: center;
 }
 /*Rules Dropdown Section*/
-#projector-hitbox {
+#projector {
   position: absolute;
-  top: 10%; /* Adjust based on the projector’s Y position */
-  left: 46%; /* Adjust based on projector’s X position */
-  width: 8%; /* Widen hitbox area */
+  top: 10%;
+  left: 46%;
+  width: 8%;
   height: 10%;
   z-index: 10;
   cursor: pointer;
-  /* background-color: rgba(255, 0, 0, 0.2);  <-- Uncomment to debug the zone visually */
 }
+
 .projector-slot {
   position: absolute;
   top: 0;
@@ -216,12 +230,13 @@ body {
 
 #projector-screen {
   position: absolute;
-  top: -140%;
+  top: -145%;
+  top: -145%;
   left: 10%;
   width: 80%;
   height: 150%;
   background-color: #fdfcf5;
-  border: 8px solid black;
+  border: 1.25vw solid black;
   z-index: 9;
   transition: top 0.7s ease-in-out;
   border-radius: 0.5em;
@@ -231,6 +246,90 @@ body {
   top: 0;
 }
 
+/* Projector Screen Styles */
+
+.screen-handle {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10%;
+  height: 10%;
+  background: black;
+  border-radius: 0 0 10px 10px;
+  color: white;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.slide {
+  display: none;
+  padding: 20px;
+  height: calc(100% - 60px);
+}
+
+.slide.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.screen-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.nav-btn {
+  padding: 1% 2%;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #45a049;
+}
+
+.nav-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Makes the screen intercept clicks */
+#projector-screen {
+  pointer-events: auto;
+}
+
+/* Makes sure content doesn't block clicks */
+.screen-content {
+  pointer-events: auto;
+}
+
+/* Projector should only be clickable when screen is hidden */
+#projector {
+  pointer-events: auto;
+}
+#projector-screen.show ~ #projector {
+  pointer-events: none;
+}
 /* Additional play-table design and formatting*/
 .play-table {
   font-size: 1em;
@@ -244,7 +343,7 @@ body {
   width: 100%;
   height: 30%; /* Relative to container */
   background-color: var(--play-table-color-3);
-  border-top: 0.5rem solid #2b2118;
+  border-top: 1.25vw solid #2b2118;
   border-bottom: none;
   box-sizing: border-box;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
@@ -252,8 +351,8 @@ body {
 }
 /* Professors Deck Section*/
 .prof-deck {
-  display: flex;
   flex-direction: column;
+  margin-left: 1vw;
   align-items: flex-start;
   flex: 1;
 }
@@ -269,7 +368,6 @@ body {
 }
 /* Students Deck Section*/
 .student-deck {
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
   flex: 1;
@@ -294,10 +392,11 @@ body {
 #prof-name,
 #student-name {
   font-family: table, sans-serif;
-  font-size: 1.5vw;
+  font-size: 100%;
   color: var(--text-color);
   font-weight: bold;
 }
+
 /* Card design and formatting */
 td {
   width: 20%;
@@ -378,4 +477,65 @@ triton-card {
   --card-width: 8vw;
   --card-height: 18vh;
   --card-font-size: 0.6rem;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.popup.show {
+  display: flex;
+}
+
+.popup-content {
+  background-color: #f09d4a;
+  border: 0.5rem solid #2b2118;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  box-shadow:
+    0 0 20px rgba(0, 0, 0, 0.6),
+    inset 0 0 10px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+  margin: auto;
+  width: 80%;
+}
+
+.close-button {
+  margin-top: 20px;
+  padding: 6px 14px;
+  background-color: #a13c35;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px #2b2118;
+}
+
+.popup-content button:not(.close-button) {
+  margin: 10px;
+  padding: 16px 36px;
+  font-size: 20px;
+  background-color: #2b2118;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #111;
+  transition: background-color 0.2s;
+}
+
+.popup-content button:not(.close-button):hover {
+  background-color: #3a2a20;
 }
