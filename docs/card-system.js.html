@@ -66,7 +66,17 @@
 // or module.exports = initialCardData; // If using CommonJS (Node.js)
 // For now, just define it in this file.
 
-export { initDB, getAllCards, basePath };
+export {
+  initDB,
+  getAllCards,
+  basePath,
+  getCardById,
+  addCardToCollection,
+  removeCardFromCollection,
+  getOwnedCardIds,
+  getOwnedFullCards,
+  getInitialHand,
+};
 
 // Dynamic base path determination for asset loading
 // This solves the GitHub Pages vs local development path issues
@@ -684,54 +694,101 @@ async function getOwnedFullCards() {
   }
 }
 
+/**
+ * Randomly draw a specified number of cards from the player's current collection as initial hand.
+ * @param {number} numberOfCards - The number of cards to draw.
+ * @returns {Promise&lt;Array&lt;Object>>} A Promise that resolves to an array containing the hand card objects.
+ */
+async function getInitialHand(numberOfCards) {
+  try {
+    if (!db) {
+      console.error("Database not initialized. Call initDB() first.");
+      throw new Error("Database not initialized.");
+    }
+    if (typeof numberOfCards !== "number" || numberOfCards &lt;= 0) {
+      console.error(
+        "Invalid numberOfCards provided to getInitialHand:",
+        numberOfCards,
+      );
+      throw new Error("numberOfCards must be a positive number.");
+    }
+
+    const ownedFullCards = await getOwnedFullCards(); // 1. Get all owned full cards
+
+    if (!ownedFullCards || ownedFullCards.length === 0) {
+      console.log("Player's collection is empty, cannot draw a hand.");
+      return []; // If collection is empty, return empty hand
+    }
+
+    // 2. Shuffle the owned cards using Fisher-Yates shuffle algorithm
+    const shuffledDeck = [...ownedFullCards]; // Create a copy for in-place shuffling
+    for (let i = shuffledDeck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]]; // Swap elements
+    }
+
+    // 3. Draw specified number of cards from the top of shuffled deck
+    const hand = shuffledDeck.slice(0, numberOfCards);
+
+    console.log(
+      `Drew initial hand of ${hand.length} card(s):`,
+      hand.map((c) => c.name),
+    ); // Print card names for easy viewing
+    return hand;
+  } catch (error) {
+    console.error("Error getting initial hand:", error);
+    throw error;
+  }
+}
+
 // After ensuring initDB() is complete, try in the console:
 
 // 1. Call initDB and wait for it to finish
-initDB()
-  .then(() => {
-    console.log("DB is ready for reading tests!");
+// initDB()
+//   .then(() => {
+//     console.log("DB is ready for reading tests!");
 
-    // Test getAllCards()
-    getAllCards()
-      .then((allCards) => {
-        console.log("--- All Cards ---");
-        console.table(allCards); // console.table() displays object arrays nicely
-      })
-      .catch((error) => {
-        console.error("Error in getAllCards test:", error);
-      });
+//     // Test getAllCards()
+//     getAllCards()
+//       .then((allCards) => {
+//         console.log("--- All Cards ---");
+//         console.table(allCards); // console.table() displays object arrays nicely
+//       })
+//       .catch((error) => {
+//         console.error("Error in getAllCards test:", error);
+//       });
 
-    // Test getCardById() - assuming you have a card with id 'structure001'
-    getCardById("structure_001")
-      .then((card) => {
-        console.log("--- Card by ID (structure_001) ---");
-        if (card) {
-          console.log(card);
-        } else {
-          console.log("Card not found!");
-        }
-      })
-      .catch((error) => {
-        console.error("Error in getCardById test (structure001):", error);
-      });
+//     // Test getCardById() - assuming you have a card with id 'structure001'
+//     getCardById("structure_001")
+//       .then((card) => {
+//         console.log("--- Card by ID (structure_001) ---");
+//         if (card) {
+//           console.log(card);
+//         } else {
+//           console.log("Card not found!");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error in getCardById test (structure001):", error);
+//       });
 
-    // Test fetching a non-existent card ID
-    getCardById("nonexistent000")
-      .then((card) => {
-        console.log("--- Card by ID (nonexistent000) ---");
-        if (card) {
-          console.log(card);
-        } else {
-          console.log("Card (nonexistent000) not found, as expected.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error in getCardById test (nonexistent000):", error);
-      });
-  })
-  .catch((error) => {
-    console.error("DB initialization failed, cannot run read tests:", error);
-  });
+//     // Test fetching a non-existent card ID
+//     getCardById("nonexistent000")
+//       .then((card) => {
+//         console.log("--- Card by ID (nonexistent000) ---");
+//         if (card) {
+//           console.log(card);
+//         } else {
+//           console.log("Card (nonexistent000) not found, as expected.");
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error in getCardById test (nonexistent000):", error);
+//       });
+//   })
+//   .catch((error) => {
+//     console.error("DB initialization failed, cannot run read tests:", error);
+//   });
 </code></pre>
         </article>
     </section>
@@ -742,13 +799,13 @@ initDB()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#createCardGhost">createCardGhost</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getInitialHand">getInitialHand</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 04 2025 07:58:48 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu Jun 05 2025 01:08:22 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
