@@ -409,20 +409,11 @@ function checkWinCondition() {
 
 function endGame(winner) {
   gameOver = true; // mark game as over
-  console.log("endGame called with winner:", winner); // Debug log
   clearInterval(countdownInterval);
   clearTimeout(autoPlayTimeout);
 
   const modal = document.getElementById("gameModal");
   const modalTitle = document.getElementById("modalTitle");
-
-  if (!modal || !modalTitle) {
-    console.error("Modal or title element not found in DOM.");
-    return;
-  }
-
-  modal.classList.add("show");
-  console.log("Modal show class added");
 
   if (winner === "player") {
     modalTitle.textContent = "🎉 You Win!";
