@@ -17,6 +17,16 @@
     />
   </head>
   <body>
+    <div id="gameModal" class="popup">
+      <div class="popup-content">
+        <h2 id="modalTitle">🎉 You Win!</h2>
+        <button onclick="location.reload()">Play Again</button>
+        <button onclick="window.location.href='home-page.html'">
+          Back to Home
+        </button>
+        <br />
+      </div>
+    </div>
     <div id="navbar-container"></div>
     <main class="game-container">
       <section class="game-board">
@@ -119,6 +129,7 @@
       </section>
     </main>
     <script type="module" src="../scripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <footer class="copyright-info"></footer>
   </body>
 </html>

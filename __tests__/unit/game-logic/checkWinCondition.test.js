@@ -10,65 +10,77 @@ import {
 
 import { TYPES } from "../util.js";
 
+import { jest } from "@jest/globals";
+
 describe("checkWinCondition", () => {
-  let originalAlert;
-
-  beforeAll(() => {
-    originalAlert = window.alert;
-  });
-
-  afterAll(() => {
-    window.alert = originalAlert;
-  });
-
   let capturedAlertMsg;
 
   beforeEach(() => {
-    window.alert = (msg) => {
-      capturedAlertMsg = msg;
-    };
-
+    document.body.innerHTML = `
+      <div id="gameModal" class="popup">
+        <div class="popup-content">
+          <h2 id="modalTitle">🎉 You Win!</h2>
+          <button onclick="location.reload()">Play Again</button>
+          <button onclick="window.location.href='home-page.html'">
+            Back to Home
+          </button>
+          <br />
+        </div>
+      </div>
+    `;
     TYPES.forEach((t) => {
       playerScore[t] = 0;
       aiScore[t] = 0;
     });
 
-    capturedAlertMsg = undefined;
+    global.confetti = jest.fn();
   });
 
-  it("does not alert when no one meets a win condition", () => {
-    const result = checkWinCondition();
-    expect(result).toBeUndefined();
+  it("does not pop up when no one meets a win condition", () => {
+    checkWinCondition();
 
-    expect(capturedAlertMsg).toBeUndefined();
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(false);
   });
 
-  it("alerts when player wins with one of each type", () => {
+  it("pops up when player wins with one of each type", () => {
     TYPES.forEach((t) => {
       playerScore[t] = 1;
     });
 
     checkWinCondition();
 
-    expect(capturedAlertMsg).toBe("You win! Game over.");
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 
-  it("alerts when player wins with three of same type", () => {
+  it("pops up when player wins with three of same type", () => {
     playerScore.Living = 3;
 
     checkWinCondition();
 
-    expect(capturedAlertMsg).toBe("You win! Game over.");
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 
-  it("alerts when ai wins with one of each type", () => {
-    aiScore.Living = 1;
-    aiScore.Dining = 1;
-    aiScore.Structure = 1;
+  it("pops up when ai wins with one of each type", () => {
+    TYPES.forEach((t) => {
+      aiScore[t] = 1;
+    });
 
     checkWinCondition();
 
-    expect(capturedAlertMsg).toBe("AI wins! Game over.");
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("😞 You Lose Bozo!");
   });
 
   it("alerts when ai wins with three of same type", () => {
@@ -76,7 +88,11 @@ describe("checkWinCondition", () => {
 
     checkWinCondition();
 
-    expect(capturedAlertMsg).toBe("AI wins! Game over.");
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("😞 You Lose Bozo!");
   });
 
   it("alerts when player wins - player takes precedence when both meet conditions", () => {
@@ -88,6 +104,10 @@ describe("checkWinCondition", () => {
 
     checkWinCondition();
 
-    expect(capturedAlertMsg).toBe("You win! Game over.");
+    const modalElement = document.getElementById("gameModal");
+    expect(modalElement.classList.contains("show")).toBe(true);
+
+    const modalTitle = document.getElementById("modalTitle");
+    expect(modalTitle.textContent).toBe("🎉 You Win!");
   });
 });
