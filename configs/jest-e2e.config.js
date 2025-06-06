@@ -6,4 +6,6 @@ export default {
   globalSetup: "<rootDir>/__tests__/setup/globalSetup.js",
   globalTeardown: "<rootDir>/__tests__/setup/globalTeardown.js",
   maxWorkers: 1,
+  collectCoverage: true,
+  collectCoverageFrom: ["src/**/*.js"],
 };
