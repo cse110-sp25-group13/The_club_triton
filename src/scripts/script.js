@@ -5,6 +5,8 @@
  * Dependencies: IndexedDB module in card-system.js
  */
 
+console.log("script.js loaded");
+
 let roundInProgress = false;
 import "../card/triton-card.js";
 import { initDB, getAllCards, getOwnedFullCards } from "./card-system.js";
@@ -674,17 +676,16 @@ export {
   checkWinCondition,
 };
 
-// exit button
+// restart button
 document.addEventListener("DOMContentLoaded", function () {
-  const exitButton = document.getElementById("exit-btn");
-  if (exitButton) {
-    exitButton.addEventListener("click", exitGame);
+  const restartButton = document.getElementById("restart-btn");
+  console.log("Restart button found:", restartButton);
+  if (restartButton) {
+    restartButton.addEventListener("click", function () {
+      console.log("Restart button clicked");
+      if (confirm("Restart game?")) {
+        location.reload();
+      }
+    });
   }
 });
-
-function exitGame() {
-  if (confirm("Return to Home Page?")) {
-    window.location.href = "home-page.html";
-  }
-}
-window.exitGame = exitGame;
