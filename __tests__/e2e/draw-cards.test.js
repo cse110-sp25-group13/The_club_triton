@@ -1,9 +1,14 @@
 describe("Draw Cards E2E", () => {
   beforeAll(async () => {
     await page.goto("http://localhost:8080/src/pages/game-page.html");
+    await page.coverage.startJSCoverage();
   }, 20000);
 
-  test("deals 5 player cards immediately", async () => {
+  afterAll(async () => {
+    await page.coverage.stopJSCoverage();
+  });
+
+  it("deals 5 player cards immediately", async () => {
     const count = await page.$$eval(
       "td[id^='student-card-']",
       (els) => els.length,
@@ -11,7 +16,7 @@ describe("Draw Cards E2E", () => {
     expect(count).toBe(5);
   });
 
-  test("deals 5 prof cards immediately", async () => {
+  it("deals 5 prof cards immediately", async () => {
     const srcList = await page.$$eval(
       "td[id^='prof-card-'] triton-card",
       (cards) =>

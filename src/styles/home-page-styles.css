@@ -52,7 +52,7 @@ body {
 
 .game-title-container {
   position: relative;
-  top: 25vh;
+  top: 30vh; /* Increased from 25vh to 30vh to account for navbar */
   max-width: 60vw;
   margin: 0 auto;
   padding: 1vmax;
