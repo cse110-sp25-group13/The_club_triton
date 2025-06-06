@@ -27,6 +27,7 @@ class OverlayBox extends HTMLElement {
     if (!this.hasAttribute('id')) {
       console.warn('<overlay-box> is missing an id! It must have an id for :target to work.');
     }
+   this._onHashChange();
   }
 
   /** HTML Functions*/

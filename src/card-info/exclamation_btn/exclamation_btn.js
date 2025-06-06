@@ -1,6 +1,9 @@
 import { styles } from "./exclamation-btn-styles.js";
 
 
+/**
+ * Property: 'href', 'card-id', 'size', 'color-bg', 'color-icon'
+ */
 class ExclamationCircleBtn extends HTMLElement {
   static get observedAttributes() {
     return ['href', 'card-id', 'size', 'color-bg', 'color-icon'];
@@ -37,7 +40,10 @@ class ExclamationCircleBtn extends HTMLElement {
     // card-id: no style change needed
   }
 
-  // Update the link inside <a>
+  /**
+  * Update the link inside <a>
+  * 
+  */
   _updateHref() {
     if (this._linkEl) {
       this._linkEl.href = this.getAttribute('href') || '#';
@@ -45,6 +51,11 @@ class ExclamationCircleBtn extends HTMLElement {
     }
   }
 
+  /**
+   * Fire a custome event `card-info-request`, which contains `{detail: cardId}`
+   * @param {Event} e not used
+   *  
+   */
   _onClick(e) {
     const cardId = this.cardId;
     // maybe someone would make a new card when this request is sent
