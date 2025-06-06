@@ -6,8 +6,7 @@ if (typeof structuredClone === "undefined") {
   global.structuredClone = (obj) => JSON.parse(JSON.stringify(obj));
 }
 
-import "fake-indexeddb/auto";      // shim IndexedDB
-
+import "fake-indexeddb/auto"; // shim IndexedDB
 
 import fs from "fs";
 import path from "path";
@@ -15,7 +14,7 @@ import { fileURLToPath } from "url";
 
 // compute __dirname
 const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 // point this at where your cards.json lives
 const JSON_DIR = path.resolve(__dirname, "src", "card");

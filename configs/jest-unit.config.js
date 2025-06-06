@@ -5,7 +5,5 @@ export default {
   collectCoverage: true,
   collectCoverageFrom: ["src/**/*.js"],
   testEnvironment: "jsdom",
-  setupFiles: [
-    "<rootDir>/jest.setup.js"
-  ]
+  setupFiles: ["<rootDir>/jest.setup.js"],
 };
