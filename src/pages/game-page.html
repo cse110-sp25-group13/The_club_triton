@@ -1,120 +1,139 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Object Graph Items for Link Previews (@Reviewer NEED TO DEPLOY TO CHECK THIS)-->
+    <meta property="og:title" content="The Club Triton" />
+    <meta
+      property="og:description"
+      content="A game created by Group 13 for CSE 110 SP25 at UCSD. A Uno-esque game in the style of Club Penguin."
+    />
+    <meta property="og:image" content="../imgs/navbar-logo.png" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--Object Graph Items for Link Previews (@Reviewer NEED TO DEPLOY TO CHECK THIS)-->
-  <meta property="og:title" content="The Club Triton" />
-  <meta property="og:description"
-    content="A game created by Group 13 for CSE 110 SP25 at UCSD. A Uno-esque game in the style of Club Penguin." />
-  <meta property="og:image" content="../imgs/navbar-logo.png" />
+    <script
+      src="https://kit.fontawesome.com/186103375e.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../scripts/load-navbar.js" defer></script>
+    <title>Play Now! | Club Triton</title>
+    <link
+      rel="stylesheet"
+      href="../styles/game-page-styles.css"
+      media="screen"
+    />
 
-  <script src="https://kit.fontawesome.com/186103375e.js" crossorigin="anonymous"></script>
-  <script src="../scripts/load-navbar.js" defer></script>
-  <title>Play Now! | Club Triton</title>
-  <link rel="stylesheet" href="../styles/game-page-styles.css" media="screen" />
+    <link rel="icon" type="image/x-icon" href="../imgs/navbar-logo.png" />
+    <script src="../scripts/game-page-script.js" defer></script>
+    <meta
+      name="keywords"
+      content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
+    />
+  </head>
 
-  <link rel="icon" type="image/x-icon" href="../imgs/navbar-logo.png">
-  <script src="../scripts/game-page-script.js" defer></script>
-  <meta name="keywords"
-    content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game" />
-</head>
-
-<body>
-  <div id="navbar-container"></div>
-  <main class="game-container">
-    <section class="game-board">
-      <div id="projector-hitbox"></div>
-      <div class="projector-slot">
-        <div id="projector-screen">
-          <h1 id="instructions">Instructions</h1>
-          <ul>
-            <li>
-              Click to choose a card from your deck to play against the
-              professor
-            </li>
-            <li>
-              Each card has a type and a number. The types are Living,
-              structure, and Dining Hall.
-            </li>
-          </ul>
+  <body>
+    <div id="navbar-container"></div>
+    <main class="game-container">
+      <section class="game-board">
+        <div id="projector-hitbox"></div>
+        <div class="projector-slot">
+          <div id="projector-screen">
+            <h1 id="instructions">Instructions</h1>
+            <ul>
+              <li>
+                Click to choose a card from your deck to play against the
+                professor
+              </li>
+              <li>
+                Each card has a type and a number. The types are Living,
+                structure, and Dining Hall.
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <button id="exit-btn" href="home-page.html" title="return to lobby"></button>
-      <section class="won-cards">
-        <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
-        <div class="prof-won-cards">
-          <div id="prof-structure-card">0</div>
-          <div id="prof-living-card">0</div>
-          <div id="prof-dining-hall-card">0</div>
-        </div>
-        <div class="student-won-cards">
-          <div id="student-dining-hall-card">0</div>
-          <div id="student-living-card">0</div>
-          <div id="student-structure-card">0</div>
-        </div>
-      </section>
-      <div class="card-comparison">
-        <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
+        <button
+          id="exit-btn"
+          href="home-page.html"
+          title="return to lobby"
+        ></button>
+        <section class="won-cards">
+          <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
+          <div class="prof-won-cards">
+            <div id="prof-structure-card">0</div>
+            <div id="prof-living-card">0</div>
+            <div id="prof-dining-hall-card">0</div>
+          </div>
+          <div class="student-won-cards">
+            <div id="student-dining-hall-card">0</div>
+            <div id="student-living-card">0</div>
+            <div id="student-structure-card">0</div>
+          </div>
+        </section>
+        <div class="card-comparison">
+          <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
                           AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
-        <section class="chosen-prof-card"></section>
-        <section class="chosen-student-card"></section>
-      </div>
-      <section class="game-characters">
-        <div class="professor-character">
-          <img src="../imgs/character/cropped-side-view-professor.png" alt="Professor Character" />
+          <section class="chosen-prof-card"></section>
+          <section class="chosen-student-card"></section>
         </div>
-        <div class="student-character">
-          <img src="../imgs/character/cropped-side-view-student.png" alt="Student Character" />
+        <section class="game-characters">
+          <div class="professor-character">
+            <img
+              src="../imgs/character/cropped-side-view-professor.png"
+              alt="Professor Character"
+            />
+          </div>
+          <div class="student-character">
+            <img
+              src="../imgs/character/cropped-side-view-student.png"
+              alt="Student Character"
+            />
+          </div>
+        </section>
+      </section>
+      <time class="timer" alt="game countdown">60</time>
+      <section class="play-table">
+        <div class="prof-deck">
+          <table class="prof-cards">
+            <h2 id="prof-name">Professor</h2>
+            <tr>
+              <td class="card-5" id="prof-card-5">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-4" id="prof-card-4">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-3" id="prof-card-3">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-2" id="prof-card-2">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+              <td class="card-1" id="prof-card-1">
+                <div class="card-face card-front"></div>
+                <div class="card-face card-back"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="student-deck">
+          <table class="student-cards">
+            <h2 id="student-name">Student</h2>
+            <tr>
+              <td class="card card-1" id="student-card-1"></td>
+              <td class="card card-2" id="student-card-2"></td>
+              <td class="card card-3" id="student-card-3"></td>
+              <td class="card card-4" id="student-card-4"></td>
+              <td class="card card-5" id="student-card-5"></td>
+            </tr>
+          </table>
         </div>
       </section>
-    </section>
-    <time class="timer" alt="game countdown">60</time>
-    <section class="play-table">
-      <div class="prof-deck">
-        <table class="prof-cards">
-          <h2 id="prof-name">Professor</h2>
-          <tr>
-            <td class="card-5" id="prof-card-5">
-              <div class="card-face card-front"></div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-4" id="prof-card-4">
-              <div class="card-face card-front"></div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-3" id="prof-card-3">
-              <div class="card-face card-front"></div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-2" id="prof-card-2">
-              <div class="card-face card-front"></div>
-              <div class="card-face card-back"></div>
-            </td>
-            <td class="card-1" id="prof-card-1">
-              <div class="card-face card-front"></div>
-              <div class="card-face card-back"></div>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="student-deck">
-        <table class="student-cards">
-          <h2 id="student-name">Student</h2>
-          <tr>
-            <td class="card card-1" id="student-card-1"></td>
-            <td class="card card-2" id="student-card-2"></td>
-            <td class="card card-3" id="student-card-3"></td>
-            <td class="card card-4" id="student-card-4"></td>
-            <td class="card card-5" id="student-card-5"></td>
-          </tr>
-        </table>
-      </div>
-    </section>
-  </main>
-  <script type="module" src="../scripts/script.js"></script>
-  <footer class="copyright-info"></footer>
-</body>
-
+    </main>
+    <script type="module" src="../scripts/script.js"></script>
+    <footer class="copyright-info"></footer>
+  </body>
 </html>
