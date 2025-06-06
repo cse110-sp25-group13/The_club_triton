@@ -64,8 +64,7 @@ body {
 .timer,
 .card-comparison,
 .won-cards,
-#rules-dropdown,
-#restart-btn {
+#rules-dropdown {
   width: 100%;
   font-size: 1em; /* Inherits from .game-container */
 }
@@ -124,9 +123,19 @@ body {
 }
 /* restart button formatting*/
 #restart-btn {
+  z-index: 1001; /* ensures restart button is on top and not covered */
+  display: flex; /* allows centering of restart symbol */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  font-size: 2em;
   float: right;
-  width: 2vw;
-  height: 2vw;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  width: 1em;
+  height: 1em;
+  background: #ffe375;
   border: none;
   border-radius: 50%;
 }
@@ -456,17 +465,6 @@ td.card-moving {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Additonal restart button design */
-#restart-btn {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  width: 2em;
-  height: 2em;
-  background: #d8973c;
-  border: none;
-  border-radius: 50%;
-}
 /* Copyright Section */
 .copyright-info {
   font-size: 0.8em;
