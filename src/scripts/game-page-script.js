@@ -1,16 +1,3 @@
-// window.addEventListener("DOMContentLoaded", () => {
-//   const projector = document.getElementById("projector");
-//   const screen = document.getElementById("projector-screen");
-
-//   projector.addEventListener("click", () => {
-//     screen.classList.add("show");
-//   });
-//   const projectorScreen = document.getElementById('projector-screen');
-
-//   projectorScreen.addEventListener('click', () => {
-//     projector.classList.remove('show');
-//   });
-// });
 document.addEventListener("DOMContentLoaded", function () {
   // Get elements
   const screen = document.getElementById("projector-screen");
@@ -40,19 +27,34 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   // Update slide and counter
   function updateSlide() {
-    // Update slides visibility
+    // Update slides
     slides.forEach((slide, index) => {
       slide.classList.toggle("active", index === currentSlide);
     });
 
-    // Update buttons state
-    prevBtn.disabled = currentSlide === 0;
-    nextBtn.disabled = currentSlide === totalSlides - 1;
+    // Update buttons
+    const isFirstSlide = currentSlide === 0;
+    const isLastSlide = currentSlide === totalSlides - 1;
 
-    // Update counter - Add these lines
-    if (slideCounter) {
-      slideCounter.textContent = `${currentSlide + 1}/${totalSlides}`;
-    }
+    // Previous button
+    prevBtn.disabled = isFirstSlide;
+    prevBtn.querySelector("img").src = isFirstSlide
+      ? "../imgs/icons/left-arrow-disabled.png"
+      : "../imgs/icons/left-arrow-enabled.png";
+
+    nextBtn.disabled = isLastSlide;
+    nextBtn.querySelector("img").src = isLastSlide
+      ? "../imgs/icons/right-arrow-disabled.png"
+      : "../imgs/icons/right-arrow-enabled.png";
+
+    // Update counter
+    slideCounter.textContent = `${currentSlide + 1}/${totalSlides}`;
+
+    // Debug log
+    console.log("Next button state:", {
+      disabled: nextBtn.disabled,
+      src: nextBtn.querySelector("img").src,
+    });
   }
   function nextSlide(e) {
     e.stopPropagation();

@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Object Graph Items for Link Previews (@Reviewer NEED TO DEPLOY TO CHECK THIS)-->
+    <meta property="og:title" content="The Club Triton" />
+    <meta
+      property="og:description"
+      content="A game created by Group 13 for CSE 110 SP25 at UCSD. A Uno-esque game in the style of Club Penguin."
+    />
+    <meta property="og:image" content="../imgs/navbar-logo.png" />
+
+    <script
+      src="https://kit.fontawesome.com/186103375e.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="../scripts/load-navbar.js" defer></script>
     <title>Play Now! | Club Triton</title>
     <link
@@ -10,12 +22,15 @@
       href="../styles/game-page-styles.css"
       media="screen"
     />
+
+    <link rel="icon" type="image/x-icon" href="../imgs/navbar-logo.png" />
     <script src="../scripts/game-page-script.js" defer></script>
     <meta
       name="keywords"
       content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
     />
   </head>
+
   <body>
     <div id="gameModal" class="popup">
       <div class="popup-content">
@@ -39,8 +54,9 @@
                 <h1 id="instructions">Game Instructions</h1>
                 <ul>
                   <li>Click to choose a card from your deck</li>
-                  <li>Each card has a type and a number</li>
-                  <li>Higher numbers generally win</li>
+                  <li>AI will choose a card from its deck</li>
+                  <li>Each card has a type and rarity number.</li>
+                  <li>The higher rarity wins</li>
                   <li>Collect cards by winning rounds</li>
                 </ul>
               </div>
@@ -58,9 +74,21 @@
             </div>
 
             <div class="screen-controls">
-              <button class="nav-btn prev-btn">Previous</button>
+              <!-- <img src="../imgs/icons/left-arrow-disabled.png" alt="previous"> -->
+              <button class="nav-btn prev-btn" disabled>
+                <img
+                  src="../imgs/icons/left-arrow-disabled.png"
+                  alt="Previous"
+                  class="arrow-img disabled-arrow"
+                />
+              </button>
               <span class="slide-counter"></span>
-              <button class="nav-btn next-btn">Next</button>
+              <button class="nav-btn next-btn">
+                <img
+                  src="../imgs/icons/right-arrow-enabled.png"
+                  alt="Next Slide"
+                />
+              </button>
             </div>
           </div>
         </div>
