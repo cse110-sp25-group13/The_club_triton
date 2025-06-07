@@ -32,18 +32,18 @@
   </head>
 
   <body>
-    <div id="gameModal" class="popup">
-      <div class="popup-content">
-        <h2 id="modalTitle">🎉 You Win!</h2>
-        <button onclick="location.reload()">Play Again</button>
-        <button onclick="window.location.href='home-page.html'">
-          Back to Home
-        </button>
-        <br />
-      </div>
-    </div>
     <div id="navbar-container"></div>
     <main class="game-container">
+      <div id="gameModal" class="popup">
+        <div class="popup-content">
+          <h2 id="modalTitle">🎉 You Win!</h2>
+          <button id="play" onclick="location.reload()">Play Again</button>
+          <button id="home" onclick="window.location.href='home-page.html'">
+            Back to Home
+          </button>
+          <br />
+        </div>
+      </div>
       <section class="game-board">
         <div class="projector-slot">
           <div id="projector-screen">
@@ -51,25 +51,47 @@
             <div class="screen-content">
               <!-- Slide 1 -->
               <div class="slide active">
-                <h1 id="instructions">Game Instructions</h1>
+                <h1 id="instructions">Game Guide</h1>
                 <ul>
-                  <li>Click to choose a card from your deck</li>
-                  <li>AI will choose a card from its deck</li>
-                  <li>Each card has a type and rarity number.</li>
-                  <li>The higher rarity wins</li>
-                  <li>Collect cards by winning rounds</li>
+                  <li>
+                    Each turn, both the student and professor choose a card to
+                    play.
+                  </li>
+                  <li>The green living card beats the blue dining card</li>
+                  <li>The blue dining card beats the gray structure card</li>
+                  <li>The gray structure card beats the green living card</li>
+                  <li>
+                    When the cards are of the same type, the higher rarity beats
+                    them
+                  </li>
                 </ul>
               </div>
 
               <!-- Slide 2 -->
               <div class="slide">
-                <h2>Strategy Tips</h2>
+                <h2>How to win</h2>
                 <ul>
-                  <li>Pay attention to patterns</li>
-                  <li>Structure cards beat Living cards</li>
-                  <li>Dining Hall cards provide bonuses</li>
-                  <li>Save high-value cards</li>
+                  <li>There are 2 paths to achieve victory in this game</li>
+                  <li>
+                    The first path is to collect 3 types of the same card i.e. 3
+                    blue dining cards
+                  </li>
+                  <li>
+                    The second is to collect 3 unique card types i.e. at least 1
+                    dining, 1 living, and 1 strcuture card
+                  </li>
+                  <li>
+                    The first to either path wins, good luck young triton!
+                  </li>
+                  <li>
+                    The card hierarchy is displayed on the next slide for visual
+                    reference
+                  </li>
                 </ul>
+              </div>
+              <!-- Slide 3 -->
+              <div class="slide last">
+                <img src="../imgs/backgrounds/rules-dropdown.png" alt="" />
               </div>
             </div>
 
