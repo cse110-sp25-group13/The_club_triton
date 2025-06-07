@@ -8,6 +8,7 @@
     "@html-eslint/eslint-plugin": "^0.41.0",
     "@html-eslint/parser": "^0.41.0",
     "@lhci/cli": "^x.x.x",
+    "@playwright/test": "^1.52.0",
     "babel-jest": "^29.7.0",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
@@ -21,13 +22,15 @@
     "jest-puppeteer": "^11.0.0",
     "jsdoc": "^x.x.x",
     "kill-port": "^2.0.1",
+    "playwright": "^1.52.0",
     "prettier": "^3.5.3",
     "puppeteer": "^24.9.0"
   },
   "scripts": {
     "test:unit": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-unit.config.js",
     "test:e2e": "node --experimental-vm-modules ./node_modules/.bin/jest --config=configs/jest-e2e.config.js",
-    "test": "npm run test:unit && npm run test:e2e",
+    "test:browser": "npx playwright test --config=configs/playwright.config.js",
+    "test": "npm run test:unit; npm run test:e2e; npm run test:browser",
     "lint": "eslint . --config configs/eslint.config.js",
     "format": "prettier --write ."
   },

@@ -30,10 +30,10 @@ const typeBeats = {
 
 // UI elements
 const playerDeckEl = Array.from(
-  document.querySelectorAll(".student-deck .student-cards td"),
+  document.querySelectorAll(".student-deck .student-cards div"),
 );
 const aiDeckEl = Array.from(
-  document.querySelectorAll(".prof-deck .prof-cards td"),
+  document.querySelectorAll(".prof-deck .prof-cards div"),
 );
 
 const playerWonSlots = document.querySelector(".student-won-cards");
@@ -75,14 +75,14 @@ async function initGame() {
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
-    document.querySelectorAll(".student-deck .student-cards td"),
+    document.querySelectorAll(".student-deck .student-cards div"),
   );
   const aiSlots = Array.from(
-    document.querySelectorAll(".prof-deck .prof-cards td"),
+    document.querySelectorAll(".prof-deck .prof-cards div"),
   );
 
   // clear out their placeholder text
-  studentSlots.forEach((td) => (td.textContent = ""));
+  studentSlots.forEach((div) => (div.textContent = ""));
   aiSlots.forEach((td) => (td.textContent = ""));
 
   // Draw cards for player from their deck

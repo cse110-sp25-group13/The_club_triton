@@ -1,0 +1,23 @@
+name: Playwright Browser Tests
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types:
+      - completed
+
+jobs:
+  playwright:
+    if: >
+      github.event_name == 'workflow_dispatch'
+      || (github.event_name == 'workflow_run'
+          && github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dependencies
+        run: npm ci
+      - name: Install Browsers
+        run: npx playwright install --with-deps
+      - name: Run all browser tests
+        run: npm run test:browser
