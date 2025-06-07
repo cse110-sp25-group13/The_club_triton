@@ -6,7 +6,7 @@ describe("Site Navigation E2E", () => {
   beforeEach(async () => {
     await page.goto("http://localhost:8080/src/pages/home-page.html");
     await page.waitForSelector("#navbar-container nav.navbar");
-  })
+  });
 
   afterAll(async () => {
     await page.coverage.stopJSCoverage();
