@@ -235,6 +235,14 @@ async function playRound(playerCardId) {
 
   // Update score
   updateScore(winner, playerCard, aiCard);
+  // ← skip drawing cards & resetting timer
+  const modal = document.getElementById("gameModal");
+  if (modal && modal.classList.contains("show")) {
+    roundInProgress = false;
+    console.log("[playRound] round ended, modal is already shown");
+    return;
+  }
+
   console.log("[playRound] scores updated", { playerScore, aiScore });
 
   // Draw replacement cards
