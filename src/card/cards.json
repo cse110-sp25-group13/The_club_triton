@@ -16,7 +16,7 @@
     "type": "Structure",
     "ranking": 4,
     "rarity": 4,
-    "front_image_placeholder": "/src/assets/imgs/card_faces_compressed/price_center_front.png",
+    "front_image_placeholder": "/src/assets/imgs/card_faces_compressed/price_center_front.jpg",
     "back_image_placeholder": "/src/assets/imgs/card_faces_compressed/card_back_default.png",
     "description": "The bustling heart of campus life, offering diverse food, student org spaces, a bookstore, and a movie theater.",
     "keywords": ["student center", "food court", "social hub", "activities"]
