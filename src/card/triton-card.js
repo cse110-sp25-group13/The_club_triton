@@ -85,8 +85,10 @@ class TritonCard extends HTMLElement {
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
+        <div class="stars-container"></div>
         <span class="rarity"></span> 
         <p class="description">description</p>
+        
       </div>
       <div class="card-back">
         <div class="card-back-background">
@@ -99,35 +101,22 @@ class TritonCard extends HTMLElement {
     // Style
     style.textContent = `
       @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-      :host {
-          overflow: visible;
-          display: block;
-          position: relative;
-          z-index: 1;
-        }
-
-        :host(:hover) {
-          z-index: 1000;
-        }
+      
       .card {
         font-family: "Source Sans 3", sans-serif;
         font-optical-sizing: auto;
         font-weight: 800;
         font-style: oblique;
-        overflow: visible;
+
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-width);
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
-        position: relative;
-        z-index: 1;
-        overflow: visible;
       }
 
       /* This container is needed to position the front and back side */
       .card-inner {
-      overflow: visible;
         position: relative;
         width: var(--card-width);
         height: var(--card-height); 
@@ -137,17 +126,10 @@ class TritonCard extends HTMLElement {
         transform-style: preserve-3d;
       }
 
-      .card-inner:hover {
-        overflow: visible;
-        transform: scale(1.7);
-        position: relative; /* needed for z-index to take effect */
-        z-index: 10;
-      }
-
       /* Do an horizontal flip when the card is flipped*/
       .card.card-flipped .card-inner {
         transform: rotateY(180deg);
-        .rarity, .name, .rank, .type, .description{
+        .rarity, .name, .rank, .type, .description,. stars-container {
           display: none;
         }
       }
@@ -174,16 +156,16 @@ class TritonCard extends HTMLElement {
           height: var(--card-height);   
       }
       /* Style the front side (also fallback if image is missing) */
-        #img-card-front{
-          width: var(--card-image-width);
-          height: var(--card-image-height); 
-        }
+        // #img-card-front{
+        //   width: var(--card-image-width);
+        //   height: var(--card-image-height); 
+        // }
 
         #img-card-border{
           position: absolute;
         }
 
-        .name, .rank, .type, .description {
+        .name, .type, .description, .stars-container {
           position: absolute;
           z-index: 1;
           /* make sure the overflow text is hidden */
@@ -195,23 +177,21 @@ class TritonCard extends HTMLElement {
           text-align: left;
           /* Improve text readability */
           color: #000;
-          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
           font-weight: bold;
         }
 
         .name {
-          width: calc(var(--card-width) * 0.6);
-          height: calc(var(--card-width) * 0.08);
-          text-align: right; 
-          top: 2%;
-          right: 4%;
+          width: calc(var(--card-width) * 1);
+          height: calc(var(--card-width) * 0.12);
+          text-align: center; 
+          bottom:38%;
           font-size: calc(var(--card-font-size) * 0.9);
         }
 
         .type {
           width: calc(var(--card-width) * 0.4);
           height: calc(var(--card-width) * 0.08);
-          top: 2%;
+          top: 0%;
           left: 8%;
           font-size: calc(var(--card-font-size) * 0.8);
           text-transform: capitalize;
@@ -227,20 +207,35 @@ class TritonCard extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #000;
-          text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
+          color: transparent;
+          // text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
           font-weight: 900;
         }
-
+        .stars-container {
+          position: absolute;
+          bottom: 22%;
+          left: 6%;
+          display: flex;
+          justify-content: center;
+          width: 88%;
+          z-index: 2;
+        }
+        .stars-container img.star-ranking {
+          width: calc(var(--card-width) * 0.6);
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
         .description {
           width: calc(var(--card-width) * 0.88);
           height: calc(var(--card-width) * 0.35);
           line-height: 1.1;
           left: 6%;
-          bottom: 12%;
+          bottom: -2%;
           font-size: calc(var(--card-font-size) * 0.75);
           padding: 2px;       
         }
+
 
         .rarity {
           position: absolute;
@@ -337,6 +332,16 @@ class TritonCard extends HTMLElement {
   set rank(rank) {
     const el = this.#card.querySelector(".rank");
     if (el) el.textContent = rank;
+    const starsContainer = this.shadowRoot.querySelector(".stars-container");
+    if (starsContainer) {
+      starsContainer.innerHTML = "";
+      const safeRank = Math.min(Math.max(+rank, 0), 5);
+      const img = document.createElement("img");
+      img.classList.add("star-ranking");
+      img.src = `../assets/imgs/star_rankings/${safeRank}:5-stars.png`;
+      img.alt = `${safeRank} of 5 stars`;
+      starsContainer.appendChild(img);
+    }
   }
 
   /**
@@ -384,7 +389,7 @@ class TritonCard extends HTMLElement {
 
   /**
    * Set the rarity displayed on the card.
-   * @param {number|string} value - The rarity value (e.g., 1, 2, 3, 4, 5).
+   * @param {number|string} value - The rDarity value (e.g., 1, 2, 3, 4, 5).
    * @returns {void}
    */
   set rarity(value) {

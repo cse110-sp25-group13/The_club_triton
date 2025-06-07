@@ -126,6 +126,7 @@ function drawCards(count, ai, cardPool = null) {
     tritonCard.type = cardObj.type;
     tritonCard.description = cardObj.description;
     tritonCard.rarity = cardObj.rarity;
+    tritonCard.stars_container = cardObj.stars_container;
 
     if (ai) {
       let targetSlot = aiDeckEl[i];
