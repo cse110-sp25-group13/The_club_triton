@@ -99,22 +99,35 @@ class TritonCard extends HTMLElement {
     // Style
     style.textContent = `
       @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
-      
+      :host {
+          overflow: visible;
+          display: block;
+          position: relative;
+          z-index: 1;
+        }
+
+        :host(:hover) {
+          z-index: 1000;
+        }
       .card {
         font-family: "Source Sans 3", sans-serif;
         font-optical-sizing: auto;
         font-weight: 800;
         font-style: oblique;
-
+        overflow: visible;
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-width);
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
+        position: relative;
+        z-index: 1;
+        overflow: visible;
       }
 
       /* This container is needed to position the front and back side */
       .card-inner {
+      overflow: visible;
         position: relative;
         width: var(--card-width);
         height: var(--card-height); 
@@ -122,6 +135,13 @@ class TritonCard extends HTMLElement {
         text-align: center;
         transition: transform 0.8s;
         transform-style: preserve-3d;
+      }
+
+      .card-inner:hover {
+        overflow: visible;
+        transform: scale(1.7);
+        position: relative; /* needed for z-index to take effect */
+        z-index: 10;
       }
 
       /* Do an horizontal flip when the card is flipped*/
@@ -154,10 +174,10 @@ class TritonCard extends HTMLElement {
           height: var(--card-height);   
       }
       /* Style the front side (also fallback if image is missing) */
-        // #img-card-front{
-        //   width: var(--card-image-width);
-        //   height: var(--card-image-height); 
-        // }
+        #img-card-front{
+          width: var(--card-image-width);
+          height: var(--card-image-height); 
+        }
 
         #img-card-border{
           position: absolute;
