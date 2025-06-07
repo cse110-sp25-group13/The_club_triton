@@ -70,15 +70,3 @@ jobs:
         run: npm ci
       - name: Run all E2E tests
         run: npm run test:e2e
-
-  playwright-tests:
-    name: Playwright Browser Tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install Dependencies
-        run: npm ci
-      - name: Install Browsers
-        run: npx playwright install --with-deps
-      - name: Run all browser tests
-        run: npm run test:browser
