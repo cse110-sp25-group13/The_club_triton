@@ -423,7 +423,7 @@ function createCardGhost(card, startRect) {
     width: `${startRect.width}px`,
     height: `${startRect.height}px`,
     transition: "transform 0.4s ease-out",
-    zIndex: "1000",
+    zIndex: "8",
     pointerEvents: "none",
   });
 
