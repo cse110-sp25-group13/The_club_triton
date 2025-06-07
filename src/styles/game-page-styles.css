@@ -211,7 +211,6 @@ body {
   width: 10vw;
   aspect-ratio: 3/4;
   margin-top: 9vw;
-  overflow: hidden;
   justify-content: center;
   align-items: center;
 }
@@ -419,6 +418,7 @@ body {
   text-align: left;
 }
 .prof-cards {
+  display: flex;
   width: 35vw;
   height: 8vw;
   border-collapse: separate;
@@ -441,11 +441,15 @@ body {
   text-align: right;
 }
 .student-cards {
+  display: flex;
   width: 35vw;
   height: 8vw;
   border-collapse: separate;
   border-spacing: 7.5px 2px;
   background-color: transparent;
+  position: relative;
+  overflow: visible;
+  z-index: 0;
 }
 /* Altering both the professors and student name fonts */
 #prof-name,
@@ -522,9 +526,19 @@ td.card-moving {
 }
 
 triton-card {
+  position: relative;
   --card-width: 8vw;
   --card-height: 18vh;
   --card-font-size: 0.6rem;
+}
+triton-card:hover {
+  z-index: 10;
+}
+
+.prof-cards triton-card {
+  --card-width: 1vw;
+  --card-height: 3vh;
+  --card-font-size: 0.5rem;
 }
 
 .popup {

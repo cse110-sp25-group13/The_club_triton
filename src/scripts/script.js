@@ -30,10 +30,10 @@ const typeBeats = {
 
 // UI elements
 const playerDeckEl = Array.from(
-  document.querySelectorAll(".student-deck .student-cards td"),
+  document.querySelectorAll(".student-deck .student-cards div")
 );
 const aiDeckEl = Array.from(
-  document.querySelectorAll(".prof-deck .prof-cards td"),
+  document.querySelectorAll(".prof-deck .prof-cards div")
 );
 
 const playerWonSlots = document.querySelector(".student-won-cards");
@@ -54,14 +54,14 @@ async function initGame() {
   const playerSelectedCards = await getOwnedFullCards();
   if (playerSelectedCards.length === 0) {
     console.warn(
-      "No cards in player deck, using all available cards as fallback",
+      "No cards in player deck, using all available cards as fallback"
     );
     const allCards = await getAllCards();
     playerDeck = [...allCards]; // Copy all cards for player fallback
   } else {
     console.log(
       `Using player's selected deck with ${playerSelectedCards.length} cards:`,
-      playerSelectedCards.map((c) => c.name),
+      playerSelectedCards.map((c) => c.name)
     );
     playerDeck = [...playerSelectedCards]; // Use player's selected cards
   }
@@ -75,14 +75,14 @@ async function initGame() {
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
-    document.querySelectorAll(".student-deck .student-cards td"),
+    document.querySelectorAll(".student-deck .student-cards div")
   );
   const aiSlots = Array.from(
-    document.querySelectorAll(".prof-deck .prof-cards td"),
+    document.querySelectorAll(".prof-deck .prof-cards div")
   );
 
   // clear out their placeholder text
-  studentSlots.forEach((td) => (td.textContent = ""));
+  studentSlots.forEach((div) => (div.textContent = ""));
   aiSlots.forEach((td) => (td.textContent = ""));
 
   // Draw cards for player from their deck
@@ -131,7 +131,7 @@ function drawCards(count, ai, cardPool = null) {
       let targetSlot = aiDeckEl[i];
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = aiDeckEl.find(
-          (slot) => !slot.querySelector("triton-card"),
+          (slot) => !slot.querySelector("triton-card")
         );
       }
       if (targetSlot) {
@@ -147,7 +147,7 @@ function drawCards(count, ai, cardPool = null) {
 
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = playerDeckEl.find(
-          (slot) => !slot.querySelector("triton-card"),
+          (slot) => !slot.querySelector("triton-card")
         );
       }
       if (targetSlot) {
@@ -169,7 +169,7 @@ async function playRound(playerCardId) {
     "[playRound] called with",
     playerCardId,
     "roundInProgress=",
-    roundInProgress,
+    roundInProgress
   );
   if (roundInProgress) return;
   roundInProgress = true;
@@ -187,7 +187,7 @@ async function playRound(playerCardId) {
     "[playRound] drew playerCard =",
     playerCard,
     "remaining hand:",
-    playerHand,
+    playerHand
   );
 
   // Pick and remove AI card
@@ -202,7 +202,7 @@ async function playRound(playerCardId) {
     "[playRound] animate player from",
     playerCardEl,
     "to",
-    chosenPlayerSlot,
+    chosenPlayerSlot
   );
   try {
     await animateCardMove(playerCardEl, chosenPlayerSlot);

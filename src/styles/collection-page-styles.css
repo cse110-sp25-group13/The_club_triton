@@ -206,11 +206,8 @@ triton-card {
 }
 
 /* Card styles when in active deck */
-triton-card.in-active-deck {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
-  border: 3px solid var(--accent-color);
-  border-radius: 12px;
+triton-card:hover {
+  z-index: 10;
 }
 
 triton-card.in-active-deck::after {

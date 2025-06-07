@@ -130,46 +130,26 @@
       </section>
       <time class="timer" alt="game countdown">60</time>
       <section class="play-table">
-        <div class="prof-deck">
+        <section class="prof-deck">
           <h2 id="prof-name">Professor</h2>
-          <table class="prof-cards">
-            <tr>
-              <td class="card-5" id="prof-card-5">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-4" id="prof-card-4">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-3" id="prof-card-3">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-2" id="prof-card-2">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-1" id="prof-card-1">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="student-deck">
+          <section class="prof-cards">
+            <div class="card-slot card-5" id="prof-card-5"></div>
+            <div class="card-slot card-4" id="prof-card-4"></div>
+            <div class="card-slot card-3" id="prof-card-3"></div>
+            <div class="card-slot card-2" id="prof-card-2"></div>
+            <div class="card-slot card-1" id="prof-card-1"></div>
+          </section>
+        </section>
+        <section class="student-deck">
           <h2 id="student-name">Student</h2>
-          <table class="student-cards">
-            <tr>
-              <td class="card card-1" id="student-card-1"></td>
-              <td class="card card-2" id="student-card-2"></td>
-              <td class="card card-3" id="student-card-3"></td>
-              <td class="card card-4" id="student-card-4"></td>
-              <td class="card card-5" id="student-card-5"></td>
-            </tr>
-          </table>
-        </div>
-      </section>
+          <section class="student-cards">
+            <div class="card-face" id="student-card-1"></div>
+            <div class="card-face" id="student-card-2"></div>
+            <div class="card-face" id="student-card-3"></div>
+            <div class="card-face" id="student-card-4"></div>
+            <div class="card-face" id="student-card-5"></div>
+          </section>
+        </section>
     </main>
     <script type="module" src="../scripts/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
