@@ -53,7 +53,7 @@ describe("Rules projector functionality", () => {
     const prev = document.querySelector(".prev-btn");
     const next = document.querySelector(".next-btn");
     const counter = document.querySelector(".slide-counter");
-    
+
     expect(prev.disabled).toBe(true);
     expect(next.disabled).toBe(false);
 
