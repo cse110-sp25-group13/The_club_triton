@@ -31,6 +31,7 @@ describe("Site Navigation E2E", () => {
       "http://localhost:8080/src/pages/collection-page.html",
     );
 
+    await page.waitForSelector("#navbar-container nav.navbar");
     await page.click('a[href="../pages/game-page.html"]');
 
     await page.waitForSelector("#instructions");
@@ -38,6 +39,7 @@ describe("Site Navigation E2E", () => {
     currentUrl = page.url();
     expect(currentUrl).toBe("http://localhost:8080/src/pages/game-page.html");
 
+    await page.waitForSelector("#navbar-container nav.navbar");
     await page.click('a[href="../pages/home-page.html"]');
 
     await page.waitForSelector(".game-title-container");

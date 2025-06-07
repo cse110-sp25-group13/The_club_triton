@@ -10,7 +10,7 @@ describe("Draw Cards E2E", () => {
 
   it("deals 5 player cards immediately", async () => {
     const count = await page.$$eval(
-      "td[id^='student-card-']",
+      "div[id^='student-card-']",
       (els) => els.length,
     );
     expect(count).toBe(5);
@@ -18,7 +18,7 @@ describe("Draw Cards E2E", () => {
 
   it("deals 5 prof cards immediately", async () => {
     const srcList = await page.$$eval(
-      "td[id^='prof-card-'] triton-card",
+      "div[id^='prof-card-'] triton-card",
       (cards) =>
         cards.map((card) => {
           const img = card.shadowRoot.querySelector("#img-card-border");
