@@ -529,16 +529,10 @@ triton-card {
   position: relative;
   --card-width: 8vw;
   --card-height: 18vh;
-  --card-font-size: 0.6rem;
+  --card-font-size: 1rem;
 }
 triton-card:hover {
   z-index: 10;
-}
-
-.prof-cards triton-card {
-  --card-width: 1vw;
-  --card-height: 3vh;
-  --card-font-size: 0.5rem;
 }
 
 .popup {
