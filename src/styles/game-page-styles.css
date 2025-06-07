@@ -481,10 +481,6 @@ table {
   transform-style: preserve-3d;
 }
 
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
 .card-front {
   background: white;
 }
