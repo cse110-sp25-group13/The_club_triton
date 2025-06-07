@@ -102,11 +102,6 @@ body {
   animation: bounce 2s ease-in-out infinite;
 }
 
-.description-backdrop {
-  position: absolute;
-  z-index: -1;
-}
-
 .instructions {
   font-family: "Coming Soon";
   color: black;
