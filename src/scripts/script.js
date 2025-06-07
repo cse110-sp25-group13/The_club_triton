@@ -30,10 +30,10 @@ const typeBeats = {
 
 // UI elements
 const playerDeckEl = Array.from(
-  document.querySelectorAll(".student-deck .student-cards div"),
+  document.querySelectorAll(".student-deck .student-cards div")
 );
 const aiDeckEl = Array.from(
-  document.querySelectorAll(".prof-deck .prof-cards div"),
+  document.querySelectorAll(".prof-deck .prof-cards div")
 );
 
 const playerWonSlots = document.querySelector(".student-won-cards");
@@ -54,14 +54,14 @@ async function initGame() {
   const playerSelectedCards = await getOwnedFullCards();
   if (playerSelectedCards.length === 0) {
     console.warn(
-      "No cards in player deck, using all available cards as fallback",
+      "No cards in player deck, using all available cards as fallback"
     );
     const allCards = await getAllCards();
     playerDeck = [...allCards]; // Copy all cards for player fallback
   } else {
     console.log(
       `Using player's selected deck with ${playerSelectedCards.length} cards:`,
-      playerSelectedCards.map((c) => c.name),
+      playerSelectedCards.map((c) => c.name)
     );
     playerDeck = [...playerSelectedCards]; // Use player's selected cards
   }
@@ -75,10 +75,10 @@ async function initGame() {
 
   // grab 5 student and AI cells once
   const studentSlots = Array.from(
-    document.querySelectorAll(".student-deck .student-cards div"),
+    document.querySelectorAll(".student-deck .student-cards div")
   );
   const aiSlots = Array.from(
-    document.querySelectorAll(".prof-deck .prof-cards div"),
+    document.querySelectorAll(".prof-deck .prof-cards div")
   );
 
   // clear out their placeholder text
@@ -128,10 +128,25 @@ function drawCards(count, ai, cardPool = null) {
     tritonCard.rarity = cardObj.rarity;
 
     if (ai) {
+      const shadow = tritonCard.shadowRoot;
+      if (shadow) {
+        //overwrite style
+        const style = document.createElement("style");
+        style.setAttribute("ai-static", "true");
+        style.textContent = `
+        .card-inner:hover {
+          overflow: initial !important;
+          transform: none !important;
+          position: static !important;
+          z-index: auto !important;
+        }
+      `;
+        shadow.appendChild(style);
+      }
       let targetSlot = aiDeckEl[i];
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = aiDeckEl.find(
-          (slot) => !slot.querySelector("triton-card"),
+          (slot) => !slot.querySelector("triton-card")
         );
       }
       if (targetSlot) {
@@ -147,7 +162,7 @@ function drawCards(count, ai, cardPool = null) {
 
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = playerDeckEl.find(
-          (slot) => !slot.querySelector("triton-card"),
+          (slot) => !slot.querySelector("triton-card")
         );
       }
       if (targetSlot) {
@@ -169,7 +184,7 @@ async function playRound(playerCardId) {
     "[playRound] called with",
     playerCardId,
     "roundInProgress=",
-    roundInProgress,
+    roundInProgress
   );
   if (roundInProgress) return;
   roundInProgress = true;
@@ -187,7 +202,7 @@ async function playRound(playerCardId) {
     "[playRound] drew playerCard =",
     playerCard,
     "remaining hand:",
-    playerHand,
+    playerHand
   );
 
   // Pick and remove AI card
@@ -202,7 +217,7 @@ async function playRound(playerCardId) {
     "[playRound] animate player from",
     playerCardEl,
     "to",
-    chosenPlayerSlot,
+    chosenPlayerSlot
   );
   try {
     await animateCardMove(playerCardEl, chosenPlayerSlot);
@@ -218,7 +233,10 @@ async function playRound(playerCardId) {
   console.log("[playRound] animate AI from", aiCardEl, "to", chosenAiSlot);
   try {
     await animateCardMove(aiCardEl, chosenAiSlot);
-    console.log("[playRound] AI animation done");
+    let shadow = aiCardEl.shadowRoot;
+    let ai_static_style = shadow.querySelector('style[ai-static="true"]');
+    if (ai_static_style) ai_static_style.remove();
+    aiCardEl.console.log("[playRound] AI animation done");
   } catch (err) {
     console.error("[playRound] AI animation error", err);
   }
@@ -235,14 +253,6 @@ async function playRound(playerCardId) {
 
   // Update score
   updateScore(winner, playerCard, aiCard);
-  // ← skip drawing cards & resetting timer
-  const modal = document.getElementById("gameModal");
-  if (modal && modal.classList.contains("show")) {
-    roundInProgress = false;
-    console.log("[playRound] round ended, modal is already shown");
-    return;
-  }
-
   console.log("[playRound] scores updated", { playerScore, aiScore });
 
   // Draw replacement cards
@@ -431,7 +441,7 @@ function createCardGhost(card, startRect) {
     width: `${startRect.width}px`,
     height: `${startRect.height}px`,
     transition: "transform 0.4s ease-out",
-    zIndex: "8",
+    zIndex: "1000",
     pointerEvents: "none",
   });
 
