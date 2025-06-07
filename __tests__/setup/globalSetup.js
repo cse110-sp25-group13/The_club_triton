@@ -16,7 +16,7 @@ export default async function globalSetup(globalConfig) {
   console.log(`\nHTTP server running on port:${port}, PID:${server.pid}`);
 
   await waitOn({
-    resources: ["http://localhost:8080/src/pages/game-lobby.html"],
+    resources: ["http://localhost:8080/src/pages/home-page.html"],
   });
 
   await setupPuppeteer(globalConfig);
