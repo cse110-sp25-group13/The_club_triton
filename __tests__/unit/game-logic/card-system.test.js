@@ -44,9 +44,9 @@ describe("Collection management", () => {
       ranking: 5,
       rarity: 5,
       front_image_placeholder:
-        "/src/assets/imgs/card_faces/geisel_library_front.png",
+        "/src/assets/imgs/card_faces_compressed/geisel_library_front.jpg",
       back_image_placeholder:
-        "/src/assets/imgs/card_faces/card_back_default.png",
+        "/src/assets/imgs/card_faces_compressed/card_back_default.png",
       description:
         "UCSD's iconic 'spaceship' library, named after Dr. Seuss. A haven for study, housing millions of volumes and campus legends.",
       keywords: ["library", "architecture", "study", "Dr. Seuss", "landmark"],
