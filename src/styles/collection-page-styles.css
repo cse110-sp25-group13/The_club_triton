@@ -79,12 +79,6 @@ header p {
   font-weight: 300;
 }
 
-/* Navigation styles */
-.page-nav {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
 .back-button {
   color: var(--accent-color);
   text-decoration: none;
