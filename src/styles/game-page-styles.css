@@ -21,7 +21,17 @@ html {
 /* Custom fonts section */
 @font-face {
   font-family: table;
-  src: url("../fonts/club-triton-fonts/A.C.M.E. Secret Agent Bold.ttf")
+  src: url("../fonts/club-triton-fonts/ACME-Secret-Agent-Bold.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: 'header-font';
+  src: url("../fonts/club-triton-fonts/Action-Man-Bold-Italic.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: 'body-font';
+  src: url("../fonts/club-triton-fonts/Action-Man-Italic.ttf")
     format("truetype");
 }
 /* Basic body design */
@@ -198,7 +208,6 @@ body {
 }
 .chosen-prof-card,
 .chosen-student-card {
-  /* position: relative; */
   width: 10vw;
   aspect-ratio: 3/4;
   margin-top: 9vw;
@@ -207,25 +216,16 @@ body {
   align-items: center;
 }
 /*Rules Dropdown Section*/
-#projector {
-  position: absolute;
-  top: 10%;
-  left: 46%;
-  width: 8%;
-  height: 10%;
-  z-index: 10;
-  cursor: pointer;
-}
 
 .projector-slot {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 40%; /* Give it room to hold the screen */
+  height: 40%; 
   overflow: visible;
   z-index: 10;
-  pointer-events: none; /* Prevent this container from interfering with mouse events */
+  pointer-events: none; 
 }
 
 #projector-screen {
@@ -235,7 +235,7 @@ body {
   left: 10%;
   width: 80%;
   height: 150%;
-  background-color: #fdfcf5;
+  background-color:#F1BB87;
   border: 1.25vw solid black;
   z-index: 9;
   transition: top 0.7s ease-in-out;
@@ -278,15 +278,14 @@ body {
 /* Ensure controls are visible and properly positioned */
 .screen-controls {
   position: absolute;
-  bottom: 5%;
+  bottom: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10%;
-  z-index: 1000; /* Ensure it's above other elements */
-  background: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  z-index: 1000;
   margin: 0 auto;
   width: fit-content;
 }
@@ -338,12 +337,14 @@ body {
 
 .slide h1, 
 .slide h2 {
+  font-family: header-font, sans-serif;
   margin-bottom: 1em;
   text-align: center;
   text-decoration: underline;
 }
 
 .slide ul {
+  font-family: body-font, sans-serif;
   display: inline-block;
   text-align: left;
   margin: 0 auto;
@@ -353,6 +354,12 @@ body {
 
 .slide li {
   margin-bottom: 0.5em;
+}
+.slide.last>img {
+  width: 90%;
+  height:100%;
+  align-content: center;
+  object-fit: contain;
 }
 
 @keyframes fadeIn {
@@ -531,7 +538,7 @@ triton-card {
 
 .popup {
   display: none;
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   left: 0;
   top: 0;
@@ -548,35 +555,29 @@ triton-card {
 }
 
 .popup-content {
+  position: absolute;
   background-color: #f09d4a;
-  border: 0.5rem solid #2b2118;
+  border: 1.25vw solid #2b2118;
+  padding:5%;
   border-radius: 20px;
-  padding: 30px;
   text-align: center;
   box-shadow:
     0 0 20px rgba(0, 0, 0, 0.6),
     inset 0 0 10px rgba(0, 0, 0, 0.4);
-  max-width: 400px;
   margin: auto;
-  width: 80%;
+  width: 60%;
+  height:60%;
 }
-
-.close-button {
-  margin-top: 20px;
-  padding: 6px 14px;
-  background-color: #a13c35;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 2px #2b2118;
+#modalTitle {
+  font-family: 'header-font', sans-serif;
+  color: #2b2118;
+  margin:auto;
 }
-
-.popup-content button:not(.close-button) {
+#play,#home{
+  position: static;
   margin: 10px;
-  padding: 16px 36px;
-  font-size: 20px;
+  font-size: 100%;
+  text-align: center;
   background-color: #2b2118;
   color: white;
   border: none;
@@ -585,7 +586,18 @@ triton-card {
   box-shadow: 0 4px #111;
   transition: background-color 0.2s;
 }
-
-.popup-content button:not(.close-button):hover {
+#play,#home {
+  height:35%;
+  width: 50%;
+}
+#play:hover, #home:hover {
   background-color: #3a2a20;
 }
+#play{
+  margin-bottom: 5%;
+}
+#home {
+  margin-bottom: 20%;
+}
+
+
