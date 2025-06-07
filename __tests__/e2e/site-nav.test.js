@@ -1,8 +1,12 @@
 describe("Site Navigation E2E", () => {
   beforeAll(async () => {
-    await page.goto("http://localhost:8080/src/pages/home-page.html");
     await page.coverage.startJSCoverage();
   }, 20000);
+
+  beforeEach(async () => {
+    await page.goto("http://localhost:8080/src/pages/home-page.html");
+    await page.waitForSelector("#navbar-container nav.navbar");
+  });
 
   afterAll(async () => {
     await page.coverage.stopJSCoverage();
