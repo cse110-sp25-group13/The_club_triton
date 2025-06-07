@@ -79,26 +79,6 @@ header p {
   font-weight: 300;
 }
 
-.back-button {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  border: 2px solid var(--accent-color);
-  border-radius: 8px;
-  background: rgba(255, 153, 51, 0.1);
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.back-button:hover {
-  background: var(--accent-color);
-  color: var(--secondary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 153, 51, 0.3);
-}
-
 /* Game control button area - Game style */
 .game-controls {
   text-align: center;
