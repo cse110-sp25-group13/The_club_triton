@@ -684,6 +684,8 @@ export {
   checkWinCondition,
   removeCardFromSlot,
   endGame,
+  resetTimer,
+  MAX_TIME
 };
 
 // restart button

@@ -2,7 +2,10 @@
  * @jest-environment jsdom
  */
 
-import { removeCardFromSlot, playerDeckEl } from "../../../src/scripts/script.js";
+import {
+  removeCardFromSlot,
+  playerDeckEl,
+} from "../../../src/scripts/script.js";
 
 describe("removeCardFromSlot", () => {
   beforeEach(() => {
