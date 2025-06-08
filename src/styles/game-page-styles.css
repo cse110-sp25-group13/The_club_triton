@@ -119,9 +119,9 @@ body {
 /* Game board background and formatting */
 .game-board {
   background-image: url("../imgs/backgrounds/lecture-hall-1.png");
-  background-size: 100% 100%; /* Ensures the image covers the entire container */
+  background-size: 100% 80%; 
+  /* background-size: cover; */
   background-repeat: no-repeat; /* Prevents tiling */
-  background-position: center; /* Centers the image */
 }
 /* Basic play-table formatting */
 .play-table {
@@ -202,7 +202,7 @@ body {
 .professor-character img,
 .student-character img {
   width: 20vw;
-  margin-top: 80%;
+  margin-top: 92%;
 }
 .professor-character img {
   margin-left: 40%;
@@ -213,16 +213,20 @@ body {
 .card-comparison {
   position: absolute;
   display: flex;
-  justify-content: space-around;
 }
 .chosen-prof-card,
 .chosen-student-card {
-  width: 10vw;
+  width: 20%;
   aspect-ratio: 3/4;
-  margin-top: 9vw;
+  margin-top: 15%;
   justify-content: center;
   align-items: center;
+
 }
+.chosen-prof-card {
+  margin-left: 35%;
+}
+
 /*Rules Dropdown Section*/
 
 .projector-slot {
