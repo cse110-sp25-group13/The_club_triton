@@ -301,7 +301,7 @@ class TritonCard extends HTMLElement {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/assets/")
-          ? `${TRITON_CARD_BASE_PATH}${src}`
+          ? `${TRITON_CARD_BASE_PATH}${assets}`
           : src;
         img.alt = "Card Front";
       } else {
@@ -323,7 +323,7 @@ class TritonCard extends HTMLElement {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/assets/")
-          ? `${TRITON_CARD_BASE_PATH}${src}`
+          ? `${TRITON_CARD_BASE_PATH}${assets}`
           : src;
         img.alt = "Card Back";
       } else {
