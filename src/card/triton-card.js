@@ -146,9 +146,7 @@ class TritonCard extends HTMLElement {
       /* Do an horizontal flip when the card is flipped*/
       .card.card-flipped .card-inner {
         transform: rotateY(180deg);
-        // .rarity, .name, .rank, .type, .description,. stars-container {
-        //   display: none;
-        // }
+      
       }
       .card.card-flipped .card-front {
         display: none;
@@ -187,7 +185,7 @@ class TritonCard extends HTMLElement {
           position: absolute;
         }
 
-        .name, .type, .description, .stars-container {
+        .name, .type, .description, .rank, .stars-container {
           position: absolute;
           z-index: 1;
           /* make sure the overflow text is hidden */
@@ -222,15 +220,15 @@ class TritonCard extends HTMLElement {
         .rank {
           width: calc(var(--card-width) * 0.25);
           height: calc(var(--card-width) * 0.25);
-          bottom: 18%;
-          left: 8%;
+          top: -16%;
+          right: 0%;
           font-size: calc(var(--card-font-size) * 3.5);
           text-align: center;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: transparent;
-          // text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
+          color: black;
+          text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
           font-weight: 900;
         }
         .stars-container {
@@ -264,9 +262,8 @@ class TritonCard extends HTMLElement {
           bottom: 3%;
           right: 6%;
           font-size: calc(var(--card-font-size) * 0.85);
-          color: #ff6600;
+          color: transparent;
           font-weight: bold;
-          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
           z-index: 2;
         }
 
@@ -354,16 +351,6 @@ class TritonCard extends HTMLElement {
   set rank(rank) {
     const el = this.#card.querySelector(".rank");
     if (el) el.textContent = rank;
-    const starsContainer = this.shadowRoot.querySelector(".stars-container");
-    if (starsContainer) {
-      starsContainer.innerHTML = "";
-      const safeRank = Math.min(Math.max(+rank, 0), 5);
-      const img = document.createElement("img");
-      img.classList.add("star-ranking");
-      img.src = `../assets/imgs/star_rankings/${safeRank}:5-stars.png`;
-      img.alt = `${safeRank} of 5 stars`;
-      starsContainer.appendChild(img);
-    }
   }
 
   /**
@@ -419,6 +406,16 @@ class TritonCard extends HTMLElement {
     if (rarityElement) {
       rarityElement.textContent = `Rarity: ${value}`;
     }
+    const starsContainer = this.shadowRoot.querySelector(".stars-container");
+        if (starsContainer) {
+          starsContainer.innerHTML = "";
+          const safeRarity = Math.min(Math.max(+value, 0), 5);
+          const img = document.createElement("img");
+          img.classList.add("star-ranking");
+          img.src = `../assets/imgs/star_rankings/${safeRarity}:5-stars.png`;
+          img.alt = `${safeRarity} of 5 stars`;
+          starsContainer.appendChild(img);
+        }
   }
 
   /**
