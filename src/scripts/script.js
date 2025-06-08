@@ -20,7 +20,7 @@ let playerHand = [];
 let aiHand = [];
 let playerScore = { Structure: 0, Living: 0, Dining: 0 };
 let aiScore = { Structure: 0, Living: 0, Dining: 0 };
-const MAX_TIME = 600;
+const MAX_TIME = 60;
 
 const typeBeats = {
   Living: "Dining",
@@ -35,8 +35,6 @@ const playerDeckEl = Array.from(
 const aiDeckEl = Array.from(
   document.querySelectorAll(".prof-deck .prof-cards div"),
 );
-
-
 
 const chosenPlayerSlot = document.querySelector(".chosen-student-card");
 const chosenAiSlot = document.querySelector(".chosen-prof-card");
@@ -160,7 +158,7 @@ function drawCards(count, ai, cardPool = null) {
         //set back of card
         tritonCard.back_image = cardObj.back_image_placeholder;
         // the filp is already built from the tritoncard.js
-        
+
         tritonCard.flip();
         targetSlot.appendChild(tritonCard);
       }
@@ -283,8 +281,6 @@ async function playRound(playerCardId) {
   console.log("%c[playRound] end", "color: blue");
   roundInProgress = false;
 }
-
-
 
 /**
  * Determines the winner between two cards.
