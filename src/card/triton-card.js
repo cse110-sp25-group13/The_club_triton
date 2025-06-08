@@ -146,9 +146,12 @@ class TritonCard extends HTMLElement {
       /* Do an horizontal flip when the card is flipped*/
       .card.card-flipped .card-inner {
         transform: rotateY(180deg);
-        .rarity, .name, .rank, .type, .description,. stars-container {
-          display: none;
-        }
+        // .rarity, .name, .rank, .type, .description,. stars-container {
+        //   display: none;
+        // }
+      }
+      .card.card-flipped .card-front {
+        display: none;
       }
 
       /* Position the front and back side, but make sure they are in the same box, not 2 boxes on top of each other*/
