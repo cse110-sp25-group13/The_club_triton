@@ -128,11 +128,21 @@ function drawCards(count, ai, cardPool = null) {
     tritonCard.rarity = cardObj.rarity;
 
     if (ai) {
-      //tritonCard.dataset.name = cardObj.name;
-      //tritonCard.dataset.rank = cardObj.ranking;
-      //tritonCard.dataset.type = cardObj.type;
-      //tritonCard.dataset.description = cardObj.description;
-      //tritonCard.dataset.rarity = cardObj.rarity;
+      const shadow = tritonCard.shadowRoot;
+      if (shadow) {
+        //overwrite style
+        const style = document.createElement("style");
+        style.setAttribute("ai-static", "true");
+        style.textContent = `
+        .card-inner:hover {
+          overflow: initial !important;
+          transform: none !important;
+          position: static !important;
+          z-index: auto !important;
+        }
+      `;
+        shadow.appendChild(style);
+      }
       let targetSlot = aiDeckEl[i];
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = aiDeckEl.find(
@@ -228,7 +238,10 @@ async function playRound(playerCardId) {
   console.log("[playRound] animate AI from", aiCardEl, "to", chosenAiSlot);
   try {
     await animateCardMove(aiCardEl, chosenAiSlot);
-    console.log("[playRound] AI animation done");
+    let shadow = aiCardEl.shadowRoot;
+    let ai_static_style = shadow.querySelector('style[ai-static="true"]');
+    if (ai_static_style) ai_static_style.remove();
+    aiCardEl.console.log("[playRound] AI animation done");
   } catch (err) {
     console.error("[playRound] AI animation error", err);
   }
@@ -245,14 +258,6 @@ async function playRound(playerCardId) {
 
   // Update score
   updateScore(winner, playerCard, aiCard);
-  // ← skip drawing cards & resetting timer
-  const modal = document.getElementById("gameModal");
-  if (modal && modal.classList.contains("show")) {
-    roundInProgress = false;
-    console.log("[playRound] round ended, modal is already shown");
-    return;
-  }
-
   console.log("[playRound] scores updated", { playerScore, aiScore });
 
   // Draw replacement cards
@@ -441,7 +446,7 @@ function createCardGhost(card, startRect) {
     width: `${startRect.width}px`,
     height: `${startRect.height}px`,
     transition: "transform 0.4s ease-out",
-    zIndex: "8",
+    zIndex: "1000",
     pointerEvents: "none",
   });
 
@@ -692,6 +697,11 @@ export {
   aiDeckEl,
   CARDBACK_PATH,
   checkWinCondition,
+  removeCardFromSlot,
+  endGame,
+  resetTimer,
+  MAX_TIME,
+  initGame,
 };
 
 // restart button

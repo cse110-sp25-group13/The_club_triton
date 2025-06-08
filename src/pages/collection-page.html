@@ -130,7 +130,7 @@
 
       /**
        * Update "PLAY" and "ENTER GAME" button states according to card selection minimum
-      */
+       */
       function updateButtonState(deckSize) {
         const playNavBtn = document.querySelector("#play-nav-btn"); // TEMP for nav button
         console.log("updateButtonState called. playNavBtn:", playNavBtn);
@@ -141,7 +141,9 @@
         enterGameButton.disabled = disableButtons;
         if (playNavBtn) playNavBtn.disabled = disableButtons;
 
-        const tooltip = disableButtons ? "Select at least 10 cards to enter the game." : "";
+        const tooltip = disableButtons
+          ? "Select at least 10 cards to enter the game."
+          : "";
         enterGameButton.title = tooltip;
         if (playNavBtn) playNavBtn.title = tooltip;
       }
@@ -190,7 +192,7 @@
       enterGameButton.addEventListener("click", async () => {
         try {
           const activeDeckIds = await getOwnedCardIds();
-          
+
           // Alert and don't allow game enter if they are using manual deck and don't have min cards
           if (activeDeckIds.length > 0 && activeDeckIds.length < 10) {
             alert("You must select at least 10 cards to enter the game.");
