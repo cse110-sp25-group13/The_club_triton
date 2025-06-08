@@ -27,7 +27,7 @@ describe("Site Navigation E2E", () => {
 
     let currentUrl = page.url();
     expect(currentUrl).toBe(
-      "http://localhost:8080/src/pages/collection-page.html"
+      "http://localhost:8080/src/pages/collection-page.html",
     );
 
     await page.waitForSelector("#navbar-container nav.navbar");
