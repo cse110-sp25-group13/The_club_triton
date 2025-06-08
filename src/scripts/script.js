@@ -123,6 +123,7 @@ function drawCards(count, ai, cardPool = null) {
     tritonCard.type = cardObj.type;
     tritonCard.description = cardObj.description;
     tritonCard.rarity = cardObj.rarity;
+    tritonCard.stars_container = cardObj.stars_container;
 
     if (ai) {
       const shadow = tritonCard.shadowRoot;
@@ -455,7 +456,7 @@ function createCardGhost(card, startRect) {
     width: `${startRect.width}px`,
     height: `${startRect.height}px`,
     transition: "transform 0.4s ease-out",
-    zIndex: "1000",
+    zIndex: "9",
     pointerEvents: "none",
   });
 

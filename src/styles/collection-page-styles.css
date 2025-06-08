@@ -43,7 +43,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../imgs/backgrounds/lecture-hall-1.png");
+  background-image: url("../assets/imgs/backgrounds/lecture-hall-1.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

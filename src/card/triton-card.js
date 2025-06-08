@@ -85,8 +85,10 @@ class TritonCard extends HTMLElement {
         <p class="name">name</p>
         <p class="rank">rank</p>
         <p class="type">type</p>
+        <div class="stars-container"></div>
         <span class="rarity"></span> 
         <p class="description">description</p>
+        
       </div>
       <div class="card-back">
         <div class="card-back-background">
@@ -115,20 +117,16 @@ class TritonCard extends HTMLElement {
         font-optical-sizing: auto;
         font-weight: 800;
         font-style: oblique;
-        overflow: visible;
+
         font-size: var(--card-font-size);
         background-color: transparent;
         aspect-ratio: auto 3/4;
         width: var(--card-width);
         perspective: 1000px; /* Remove this if you don't want the 3D effect */
-        position: relative;
-        z-index: 1;
-        overflow: visible;
       }
 
       /* This container is needed to position the front and back side */
       .card-inner {
-      overflow: visible;
         position: relative;
         width: var(--card-width);
         height: var(--card-height); 
@@ -148,9 +146,10 @@ class TritonCard extends HTMLElement {
       /* Do an horizontal flip when the card is flipped*/
       .card.card-flipped .card-inner {
         transform: rotateY(180deg);
-        .rarity, .name, .rank, .type, .description{
-          display: none;
-        }
+      
+      }
+      .card.card-flipped .card-front {
+        display: none;
       }
 
       /* Position the front and back side, but make sure they are in the same box, not 2 boxes on top of each other*/
@@ -177,16 +176,16 @@ class TritonCard extends HTMLElement {
           height: var(--card-height);   
       }
       /* Style the front side (also fallback if image is missing) */
-        #img-card-front{
-          width: var(--card-image-width);
-          height: var(--card-image-height); 
-        }
+        // #img-card-front{
+        //   width: var(--card-image-width);
+        //   height: var(--card-image-height); 
+        // }
 
         #img-card-border{
           position: absolute;
         }
 
-        .name, .rank, .type, .description {
+        .name, .type, .description, .rank, .stars-container {
           position: absolute;
           z-index: 1;
           /* make sure the overflow text is hidden */
@@ -198,23 +197,21 @@ class TritonCard extends HTMLElement {
           text-align: left;
           /* Improve text readability */
           color: #000;
-          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
           font-weight: bold;
         }
 
         .name {
-          width: calc(var(--card-width) * 0.6);
-          height: calc(var(--card-width) * 0.08);
-          text-align: right; 
-          top: 2%;
-          right: 4%;
+          width: calc(var(--card-width) * 1);
+          height: calc(var(--card-width) * 0.12);
+          text-align: center; 
+          bottom:38%;
           font-size: calc(var(--card-font-size) * 0.9);
         }
 
         .type {
           width: calc(var(--card-width) * 0.4);
           height: calc(var(--card-width) * 0.08);
-          top: 2%;
+          top: 0%;
           left: 8%;
           font-size: calc(var(--card-font-size) * 0.8);
           text-transform: capitalize;
@@ -223,36 +220,50 @@ class TritonCard extends HTMLElement {
         .rank {
           width: calc(var(--card-width) * 0.25);
           height: calc(var(--card-width) * 0.25);
-          bottom: 18%;
-          left: 8%;
+          top: -16%;
+          right: 0%;
           font-size: calc(var(--card-font-size) * 3.5);
           text-align: center;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #000;
+          color: black;
           text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
           font-weight: 900;
         }
-
+        .stars-container {
+          position: absolute;
+          bottom: 22%;
+          left: 6%;
+          display: flex;
+          justify-content: center;
+          width: 88%;
+          z-index: 2;
+        }
+        .stars-container img.star-ranking {
+          width: calc(var(--card-width) * 0.6);
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
         .description {
           width: calc(var(--card-width) * 0.88);
           height: calc(var(--card-width) * 0.35);
           line-height: 1.1;
           left: 6%;
-          bottom: 12%;
+          bottom: -2%;
           font-size: calc(var(--card-font-size) * 0.75);
           padding: 2px;       
         }
+
 
         .rarity {
           position: absolute;
           bottom: 3%;
           right: 6%;
           font-size: calc(var(--card-font-size) * 0.85);
-          color: #ff6600;
+          color: transparent;
           font-weight: bold;
-          text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
           z-index: 2;
         }
 
@@ -387,13 +398,23 @@ class TritonCard extends HTMLElement {
 
   /**
    * Set the rarity displayed on the card.
-   * @param {number|string} value - The rarity value (e.g., 1, 2, 3, 4, 5).
+   * @param {number|string} value - The rDarity value (e.g., 1, 2, 3, 4, 5).
    * @returns {void}
    */
   set rarity(value) {
     const rarityElement = this.#card.querySelector(".rarity");
     if (rarityElement) {
       rarityElement.textContent = `Rarity: ${value}`;
+    }
+    const starsContainer = this.shadowRoot.querySelector(".stars-container");
+    if (starsContainer) {
+      starsContainer.innerHTML = "";
+      const safeRarity = Math.min(Math.max(+value, 0), 5);
+      const img = document.createElement("img");
+      img.classList.add("star-ranking");
+      img.src = `../assets/imgs/star_rankings/${safeRarity}:5-stars.png`;
+      img.alt = `${safeRarity} of 5 stars`;
+      starsContainer.appendChild(img);
     }
   }
 

@@ -123,7 +123,7 @@
 
   {
     "id": "dining_001",
-    "name": "Pines Dining Hall (Muir)",
+    "name": "Pines Dining Hall",
     "type": "Dining",
     "ranking": 4,
     "rarity": 3,
@@ -134,7 +134,7 @@
   },
   {
     "id": "dining_002",
-    "name": "Canyon Vista Marketplace (Warren)",
+    "name": "Canyon Vista Marketplace",
     "type": "Dining",
     "ranking": 3,
     "rarity": 3,
@@ -279,7 +279,7 @@
   },
   {
     "id": "living_003",
-    "name": "Seventh College Residential Buildings",
+    "name": "Seventh College Residential Halls",
     "type": "Living",
     "ranking": 3,
     "rarity": 3,
@@ -290,7 +290,7 @@
   },
   {
     "id": "living_004",
-    "name": "Sixth College Apartments (Kaleidoscope)",
+    "name": "Sixth College's Kaleidoscope",
     "type": "Living",
     "ranking": 3,
     "rarity": 3,
@@ -301,7 +301,7 @@
   },
   {
     "id": "living_005",
-    "name": "Muir College Apartments/Dorms",
+    "name": "Muir College Apartments",
     "type": "Living",
     "ranking": 3,
     "rarity": 2,
@@ -323,7 +323,7 @@
   },
   {
     "id": "living_007",
-    "name": "Marshall College Residence Halls/Apartments",
+    "name": "Marshall Residence Halls",
     "type": "Living",
     "ranking": 3,
     "rarity": 2,

@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Previous button
     prevBtn.disabled = isFirstSlide;
     prevBtn.querySelector("img").src = isFirstSlide
-      ? "../imgs/icons/left-arrow-disabled.png"
-      : "../imgs/icons/left-arrow-enabled.png";
+      ? "../assets/imgs/icons/left-arrow-disabled.png"
+      : "../assets/imgs/icons/left-arrow-enabled.png";
 
     nextBtn.disabled = isLastSlide;
     nextBtn.querySelector("img").src = isLastSlide
-      ? "../imgs/icons/right-arrow-disabled.png"
-      : "../imgs/icons/right-arrow-enabled.png";
+      ? "../assets/imgs/icons/right-arrow-disabled.png"
+      : "../assets/imgs/icons/right-arrow-enabled.png";
 
     // Update counter
     slideCounter.textContent = `${currentSlide + 1}/${totalSlides}`;
