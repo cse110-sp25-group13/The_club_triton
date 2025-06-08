@@ -105,10 +105,11 @@ class TritonCard extends HTMLElement {
           position: relative;
           z-index: 1;
         }
-
-        :host(:hover) {
-          z-index: 1000;
+        
+      :host(:hover) {
+        z-index: 1000;
         }
+    
       .card {
         font-family: "Source Sans 3", sans-serif;
         font-optical-sizing: auto;
@@ -136,14 +137,14 @@ class TritonCard extends HTMLElement {
         transition: transform 0.8s;
         transform-style: preserve-3d;
       }
-
+      
       .card-inner:hover {
         overflow: visible;
         transform: scale(1.7);
         position: relative; /* needed for z-index to take effect */
         z-index: 10;
       }
-
+      
       /* Do an horizontal flip when the card is flipped*/
       .card.card-flipped .card-inner {
         transform: rotateY(180deg);
@@ -152,10 +153,12 @@ class TritonCard extends HTMLElement {
         }
       }
 
-      /* Position the front and back side */
+      /* Position the front and back side, but make sure they are in the same box, not 2 boxes on top of each other*/
       .card-front,
       .card-back {
-        position: relative;
+        position: absolute;   
+        top: 0;                
+        left: 0;
         width: var(--card-width);
         height: var(--card-height);
         -webkit-backface-visibility: hidden; /* Safari */

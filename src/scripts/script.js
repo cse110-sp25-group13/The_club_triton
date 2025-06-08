@@ -36,9 +36,6 @@ const aiDeckEl = Array.from(
   document.querySelectorAll(".prof-deck .prof-cards div"),
 );
 
-const playerWonSlots = document.querySelector(".student-won-cards");
-const aiWonSlots = document.querySelector(".prof-won-cards");
-
 const chosenPlayerSlot = document.querySelector(".chosen-student-card");
 const chosenAiSlot = document.querySelector(".chosen-prof-card");
 
@@ -140,6 +137,12 @@ function drawCards(count, ai, cardPool = null) {
           position: static !important;
           z-index: auto !important;
         }
+          /* quick and dirty fix, when card is face down, do not flip when hover, 
+          only flip when called .flip() */
+        .card.card-flipped .card-inner:hover {
+        transform: rotateY(180deg) !important;
+        
+        }
       `;
         shadow.appendChild(style);
       }
@@ -152,6 +155,11 @@ function drawCards(count, ai, cardPool = null) {
       if (targetSlot) {
         //can you make it not show any info on the cards? supposed to be unknown to player?
         tritonCard.front_image = cardObj.front_image_placeholder;
+        //set back of card
+        tritonCard.back_image = cardObj.back_image_placeholder;
+        // the filp is already built from the tritoncard.js
+
+        tritonCard.flip();
         targetSlot.appendChild(tritonCard);
       }
     } else {
@@ -185,45 +193,45 @@ function drawCards(count, ai, cardPool = null) {
  * @param {string} playerCardId - ID of the selected card in playerHand
  */
 async function playRound(playerCardId) {
-  console.log(
-    "[playRound] called with",
-    playerCardId,
-    "roundInProgress=",
-    roundInProgress,
-  );
+  // console.log(
+  //   "[playRound] called with",
+  //   playerCardId,
+  //   "roundInProgress=",
+  //   roundInProgress,
+  // );
   if (roundInProgress) return;
   roundInProgress = true;
-  console.log("%c[playRound] start", "color: blue", {
-    playerCardId,
-    playerHand,
-    aiHand,
-  });
+  // console.log("%c[playRound] start", "color: blue", {
+  //   playerCardId,
+  //   playerHand,
+  //   aiHand,
+  // });
 
   // Find and remove card from hand
   const playerIdx = playerHand.findIndex((tc) => tc.id === playerCardId);
-  console.log("[playRound] playerIdx =", playerIdx);
+  //console.log("[playRound] playerIdx =", playerIdx);
   const playerCard = playerHand.splice(playerIdx, 1)[0];
-  console.log(
-    "[playRound] drew playerCard =",
-    playerCard,
-    "remaining hand:",
-    playerHand,
-  );
+  // console.log(
+  //   "[playRound] drew playerCard =",
+  //   playerCard,
+  //   "remaining hand:",
+  //   playerHand,
+  // );
 
   // Pick and remove AI card
   const aiIdx = Math.floor(Math.random() * aiHand.length);
-  console.log("[playRound] aiIdx =", aiIdx);
+  //console.log("[playRound] aiIdx =", aiIdx);
   const aiCard = aiHand.splice(aiIdx, 1)[0];
-  console.log("[playRound] drew aiCard =", aiCard, "remaining aiHand:", aiHand);
+  //console.log("[playRound] drew aiCard =", aiCard, "remaining aiHand:", aiHand);
 
   // Animate player card moving
   const playerCardEl = document.getElementById(`tritonCard-${playerCard.id}`);
-  console.log(
-    "[playRound] animate player from",
-    playerCardEl,
-    "to",
-    chosenPlayerSlot,
-  );
+  // console.log(
+  //   "[playRound] animate player from",
+  //   playerCardEl,
+  //   "to",
+  //   chosenPlayerSlot,
+  // );
   try {
     await animateCardMove(playerCardEl, chosenPlayerSlot);
     console.log("[playRound] player animation done");
@@ -235,12 +243,15 @@ async function playRound(playerCardId) {
 
   // Animate AI card moving
   const aiCardEl = document.getElementById(`tritonCard-${aiCard.id}-ai`);
-  console.log("[playRound] animate AI from", aiCardEl, "to", chosenAiSlot);
+  //console.log("[playRound] animate AI from", aiCardEl, "to", chosenAiSlot);
   try {
     await animateCardMove(aiCardEl, chosenAiSlot);
     let shadow = aiCardEl.shadowRoot;
     let ai_static_style = shadow.querySelector('style[ai-static="true"]');
     if (ai_static_style) ai_static_style.remove();
+
+    //flip card once finish animation
+    aiCardEl.flip();
     aiCardEl.console.log("[playRound] AI animation done");
   } catch (err) {
     console.error("[playRound] AI animation error", err);
@@ -249,24 +260,24 @@ async function playRound(playerCardId) {
   //removeCardFromSlot(aiCard.id, aiDeckEl);
 
   // Reveal AI card front
-  console.log("[playRound] reveal AI front image");
+  //console.log("[playRound] reveal AI front image");
   //aiCardEl.front_image = aiCard.front_image_placeholder;
 
   // Determine winner
   const winner = determineWinner(playerCard, aiCard);
-  console.log("[playRound] winner is", winner);
+  //console.log("[playRound] winner is", winner);
 
   // Update score
   updateScore(winner, playerCard, aiCard);
-  console.log("[playRound] scores updated", { playerScore, aiScore });
+  //console.log("[playRound] scores updated", { playerScore, aiScore });
 
   // Draw replacement cards
-  console.log("[playRound] drawing replacements");
+  //console.log("[playRound] drawing replacements");
   const newPlayer = drawCards(1, false, playerDeck);
-  console.log("[playRound] newPlayer cards:", newPlayer);
+  //console.log("[playRound] newPlayer cards:", newPlayer);
   playerHand.push(...newPlayer);
   const newAi = drawCards(1, true, aiDeck);
-  console.log("[playRound] newAi cards:", newAi);
+  //console.log("[playRound] newAi cards:", newAi);
   aiHand.push(...newAi);
 
   // Reset timer
@@ -275,7 +286,6 @@ async function playRound(playerCardId) {
   console.log("%c[playRound] end", "color: blue");
   roundInProgress = false;
 }
-
 /**
  * Actually removes the card from the hand
  * @param {*} cardId
@@ -287,7 +297,6 @@ function removeCardFromSlot(cardId, deckEl) {
     if (card) card.remove();
   });
 }
-
 /**
  * Determines the winner between two cards.
  * @param {Object} playerCard
