@@ -1,6 +1,7 @@
 /**
  * @jest-environment jsdom
  */
+import "../../../src/card/triton-card.js";
 import { jest } from "@jest/globals";
 
 describe("initGame", () => {
