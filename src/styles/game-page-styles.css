@@ -21,17 +21,17 @@ html {
 /* Custom fonts section */
 @font-face {
   font-family: table;
-  src: url("../fonts/club-triton-fonts/ACME-Secret-Agent-Bold.ttf")
+  src: url("../assets/fonts/club-triton-fonts/ACME-Secret-Agent-Bold.ttf")
     format("truetype");
 }
 @font-face {
   font-family: "header-font";
-  src: url("../fonts/club-triton-fonts/Action-Man-Bold-Italic.ttf")
+  src: url("../assets/fonts/club-triton-fonts/Action-Man-Bold-Italic.ttf")
     format("truetype");
 }
 @font-face {
   font-family: "body-font";
-  src: url("../fonts/club-triton-fonts/Action-Man-Italic.ttf")
+  src: url("../assets/fonts/club-triton-fonts/Action-Man-Italic.ttf")
     format("truetype");
 }
 /* Basic body design */
@@ -118,7 +118,7 @@ body {
 }
 /* Game board background and formatting */
 .game-board {
-  background-image: url("../imgs/backgrounds/lecture-hall-1.png");
+  background-image: url("../assets/imgs/backgrounds/lecture-hall-1.png");
   background-size: 100% 80%;
   /* background-size: cover; */
   background-repeat: no-repeat; /* Prevents tiling */

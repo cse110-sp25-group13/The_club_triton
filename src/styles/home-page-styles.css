@@ -44,7 +44,7 @@ animation code stuff area below*/
 }
 
 body {
-  background-image: url("../imgs/backgrounds/geisel-base-theme.png");
+  background-image: url("../assets/imgs/backgrounds/geisel-base-theme.png");
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% auto;
