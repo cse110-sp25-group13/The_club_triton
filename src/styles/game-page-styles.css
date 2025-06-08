@@ -179,17 +179,15 @@ body {
 }
 #prof-structure-card,
 #student-structure-card {
- background: #b1bac6;
+  background: #b1bac6;
 }
 #prof-dining-hall-card,
 #student-dining-hall-card {
   background: #71edd2;
- 
 }
 #prof-living-card,
 #student-living-card {
   background: #72e083;
- 
 }
 /* Character Design Section */
 .game-characters {
