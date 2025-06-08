@@ -1,0 +1,41 @@
+name: Sync src & docs to deploy branch
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  TARGET_BRANCH: deploy
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Fetch & checkout deploy branch
+        run: |
+          git fetch origin ${{ env.TARGET_BRANCH }}
+          git checkout -B ${{ env.TARGET_BRANCH }} origin/${{ env.TARGET_BRANCH }}
+
+      - name: Clean out old files
+        run: |
+          git rm -rf .
+          rm -rf *
+
+      - name: Copy src into root
+        run: cp -R src/* .
+
+      - name: Copy docs folder
+        run: cp -R docs .
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Sync src & docs from main"
+          git push origin ${{ env.TARGET_BRANCH }}
