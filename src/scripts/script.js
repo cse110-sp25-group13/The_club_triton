@@ -682,6 +682,7 @@ export {
   aiDeckEl,
   CARDBACK_PATH,
   checkWinCondition,
+  removeCardFromSlot
 };
 
 // restart button
