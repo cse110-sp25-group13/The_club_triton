@@ -5,6 +5,12 @@ describe("Site Navigation E2E", () => {
 
   beforeEach(async () => {
     await page.goto("http://localhost:8080/src/pages/home-page.html");
+    await page.evaluate(async () => {
+      const { initDB } = await import(
+        "http://localhost:8080/src/scripts/card-system.js"
+      );
+      await initDB();
+    });
     await page.waitForSelector("#navbar-container nav.navbar");
   });
 
@@ -13,7 +19,7 @@ describe("Site Navigation E2E", () => {
   });
 
   it("navs home -> game", async () => {
-    await page.click('a[href="../pages/game-page.html"]');
+    await page.click("#play-nav-btn");
 
     await page.waitForSelector("#instructions");
 
@@ -23,7 +29,6 @@ describe("Site Navigation E2E", () => {
 
   it("navs home -> collection -> game -> home", async () => {
     await page.click('a[href="../pages/collection-page.html"]');
-
     await page.waitForSelector("#card-collection-container");
 
     let currentUrl = page.url();
@@ -32,8 +37,7 @@ describe("Site Navigation E2E", () => {
     );
 
     await page.waitForSelector("#navbar-container nav.navbar");
-    await page.click('a[href="../pages/game-page.html"]');
-
+    await page.click("#play-nav-btn");
     await page.waitForSelector("#instructions");
 
     currentUrl = page.url();
@@ -41,7 +45,6 @@ describe("Site Navigation E2E", () => {
 
     await page.waitForSelector("#navbar-container nav.navbar");
     await page.click('a[href="../pages/home-page.html"]');
-
     await page.waitForSelector(".game-title-container");
 
     currentUrl = page.url();
