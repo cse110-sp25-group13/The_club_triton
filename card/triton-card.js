@@ -294,7 +294,19 @@ class TritonCard extends HTMLElement {
    * @param {string} src - The source URL of the image.
    * @returns {void}
    */
-  set front_image(src) {
+  set front_image(filename) {
+    const img = this.#card.querySelector("#img-card-front");
+    if (img) {
+      if (filename) {
+        img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        img.alt = "Card Front";
+      } else {
+        img.src = "";
+        img.alt = "Card front image placeholder";
+      }
+    }
+  }
+  /*set front_image(src) {
     const img = this.#card.querySelector("#img-card-front");
     if (img) {
       if (src) {
@@ -309,14 +321,26 @@ class TritonCard extends HTMLElement {
         img.alt = "Card front image placeholder";
       }
     }
-  }
+  }*/
 
   /**
    * Set the card-back background image.
    * @param {string} src - The source URL of the image.
    * @returns {void}
    */
-  set back_image(src) {
+  set back_image(filename) {
+    const img = this.#card.querySelector("#img-card-back");
+    if (img) {
+      if (filename) {
+        img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        img.alt = "Card Back";
+      } else {
+        img.src = "";
+        img.alt = "Card back image placeholder";
+      }
+    }
+  }
+  /*set back_image(src) {
     const img = this.#card.querySelector("#img-card-back");
     if (img) {
       if (src) {
@@ -331,7 +355,7 @@ class TritonCard extends HTMLElement {
         img.alt = "Card back image placeholder";
       }
     }
-  }
+  }*/
 
   /**
    * Set the name displayed on the card.
