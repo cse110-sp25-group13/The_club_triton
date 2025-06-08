@@ -13,7 +13,7 @@ describe("Site Navigation E2E", () => {
   });
 
   it("navs home -> game", async () => {
-    await page.click('a[href="../pages/game-page.html"]');
+    await page.click("#play-nav-btn");
 
     await page.waitForSelector("#instructions");
 
@@ -23,17 +23,15 @@ describe("Site Navigation E2E", () => {
 
   it("navs home -> collection -> game -> home", async () => {
     await page.click('a[href="../pages/collection-page.html"]');
-
     await page.waitForSelector("#card-collection-container");
 
     let currentUrl = page.url();
     expect(currentUrl).toBe(
-      "http://localhost:8080/src/pages/collection-page.html",
+      "http://localhost:8080/src/pages/collection-page.html"
     );
 
     await page.waitForSelector("#navbar-container nav.navbar");
-    await page.click('a[href="../pages/game-page.html"]');
-
+    await page.click("#play-nav-btn");
     await page.waitForSelector("#instructions");
 
     currentUrl = page.url();
@@ -41,7 +39,6 @@ describe("Site Navigation E2E", () => {
 
     await page.waitForSelector("#navbar-container nav.navbar");
     await page.click('a[href="../pages/home-page.html"]');
-
     await page.waitForSelector(".game-title-container");
 
     currentUrl = page.url();
