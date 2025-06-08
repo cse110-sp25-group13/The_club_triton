@@ -685,7 +685,8 @@ export {
   removeCardFromSlot,
   endGame,
   resetTimer,
-  MAX_TIME
+  MAX_TIME,
+  initGame,
 };
 
 // restart button
