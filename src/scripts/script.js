@@ -281,7 +281,17 @@ async function playRound(playerCardId) {
   console.log("%c[playRound] end", "color: blue");
   roundInProgress = false;
 }
-
+/**
+ * Actually removes the card from the hand
+ * @param {*} cardId
+ * @param {*} deckEl
+ */
+function removeCardFromSlot(cardId, deckEl) {
+  deckEl.forEach((slot) => {
+    const card = slot.querySelector(`#tritonCard-${cardId}`);
+    if (card) card.remove();
+  });
+}
 /**
  * Determines the winner between two cards.
  * @param {Object} playerCard
