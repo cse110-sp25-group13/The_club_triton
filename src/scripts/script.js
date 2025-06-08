@@ -701,6 +701,11 @@ export {
   aiDeckEl,
   CARDBACK_PATH,
   checkWinCondition,
+  removeCardFromSlot,
+  endGame,
+  resetTimer,
+  MAX_TIME,
+  initGame,
 };
 
 // restart button
