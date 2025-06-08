@@ -6,7 +6,9 @@ describe("Site Navigation E2E", () => {
   beforeEach(async () => {
     await page.goto("http://localhost:8080/src/pages/home-page.html");
     await page.evaluate(async () => {
-      const { initDB } = await import("http://localhost:8080/src/scripts/card-system.js");
+      const { initDB } = await import(
+        "http://localhost:8080/src/scripts/card-system.js"
+      );
       await initDB();
     });
     await page.waitForSelector("#navbar-container nav.navbar");
