@@ -294,29 +294,14 @@ class TritonCard extends HTMLElement {
    * @param {string} src - The source URL of the image.
    * @returns {void}
    */
-  set front_image(filename) {
-    const img = this.#card.querySelector("#img-card-front");
-    if (img) {
-      if (filename) {
-        const isRelativePath = filename.startsWith("http") || filename.startsWith(TRITON_CARD_BASE_PATH);
-        const path = isRelativePath ? filename : `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
-        console.log("Setting front image to:", path);
-        img.src = path;
-        img.alt = "Card Front";
-      } else {
-        img.src = "";
-        img.alt = "Card front image placeholder";
-      }
-    }
-  }
-  /*set front_image(src) {
+  set front_image(src) {
     const img = this.#card.querySelector("#img-card-front");
     if (img) {
       if (src) {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/assets/")
-          ? `${TRITON_CARD_BASE_PATH}${assets}`
+          ? `${TRITON_CARD_BASE_PATH}${src}`
           : src;
         img.alt = "Card Front";
       } else {
@@ -324,36 +309,21 @@ class TritonCard extends HTMLElement {
         img.alt = "Card front image placeholder";
       }
     }
-  }*/
+  }
 
   /**
    * Set the card-back background image.
    * @param {string} src - The source URL of the image.
    * @returns {void}
    */
-  set back_image(filename) {
-    const img = this.#card.querySelector("#img-card-back");
-    if (img) {
-      if (filename) {
-        const isRelativePath = filename.startsWith("http") || filename.startsWith(TRITON_CARD_BASE_PATH);
-        const path = isRelativePath ? filename : `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
-        console.log("Setting back image to:", path);
-        img.src = path;
-        img.alt = "Card Back";
-      } else {
-        img.src = "";
-        img.alt = "Card back image placeholder";
-      }
-    }
-  }
-  /*set back_image(src) {
+  set back_image(src) {
     const img = this.#card.querySelector("#img-card-back");
     if (img) {
       if (src) {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/assets/")
-          ? `${TRITON_CARD_BASE_PATH}${assets}`
+          ? `${TRITON_CARD_BASE_PATH}${src}`
           : src;
         img.alt = "Card Back";
       } else {
@@ -361,7 +331,7 @@ class TritonCard extends HTMLElement {
         img.alt = "Card back image placeholder";
       }
     }
-  }*/
+  }
 
   /**
    * Set the name displayed on the card.
