@@ -121,13 +121,18 @@ function drawCards(count, ai, cardPool = null) {
       ? `tritonCard-${cardObj.id}-ai`
       : `tritonCard-${cardObj.id}`;
     //tritonCard.back_image = cardObj.back_image_placeholder;
-    tritonCard.name = cardObj.name;
-    tritonCard.rank = cardObj.ranking;
-    tritonCard.type = cardObj.type;
-    tritonCard.description = cardObj.description;
-    tritonCard.rarity = cardObj.rarity;
+    //tritonCard.name = cardObj.name;
+    //tritonCard.rank = cardObj.ranking;
+    //tritonCard.type = cardObj.type;
+    //tritonCard.description = cardObj.description;
+    //tritonCard.rarity = cardObj.rarity;
 
     if (ai) {
+      tritonCard.dataset.name = cardObj.name;
+      tritonCard.dataset.rank = cardObj.ranking;
+      tritonCard.dataset.type = cardObj.type;
+      tritonCard.dataset.description = cardObj.description;
+      tritonCard.dataset.rarity = cardObj.rarity;
       let targetSlot = aiDeckEl[i];
       if (targetSlot.querySelector("triton-card")) {
         targetSlot = aiDeckEl.find(
@@ -136,10 +141,15 @@ function drawCards(count, ai, cardPool = null) {
       }
       if (targetSlot) {
         //can you make it not show any info on the cards? supposed to be unknown to player?
-        tritonCard.front_image = cardObj.front_image_placeholder;
+        tritonCard.front_image = cardObj.back_image_placeholder;
         targetSlot.appendChild(tritonCard);
       }
     } else {
+      tritonCard.name = cardObj.name;
+      tritonCard.rank = cardObj.ranking;
+      tritonCard.type = cardObj.type;
+      tritonCard.description = cardObj.description;
+      tritonCard.rarity = cardObj.rarity;
       tritonCard.addEventListener("click", () => {
         playRound(cardObj.id);
       });

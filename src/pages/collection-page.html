@@ -75,6 +75,7 @@
           if (deckCountElement) {
             deckCountElement.textContent = activeDeckIds.length;
           }
+          updateButtonState(activeDeckIds.length);
 
           if (allCards && allCards.length > 0) {
             allCards.forEach((data) => {
@@ -123,6 +124,24 @@
         }
       }
 
+      /**
+       * Update "PLAY" and "ENTER GAME" button states according to card selection minimum
+      */
+      function updateButtonState(deckSize) {
+        const playNavBtn = document.querySelector("#play-nav-btn"); // TEMP for nav button
+        console.log("updateButtonState called. playNavBtn:", playNavBtn);
+
+        // Only disable if deck size is 1–9 (i.e. not empty but not enough)
+        const disableButtons = deckSize > 0 && deckSize < 10;
+
+        enterGameButton.disabled = disableButtons;
+        if (playNavBtn) playNavBtn.disabled = disableButtons;
+
+        const tooltip = disableButtons ? "Select at least 10 cards to enter the game." : "";
+        enterGameButton.title = tooltip;
+        if (playNavBtn) playNavBtn.title = tooltip;
+      }
+
       // Toggle card in active deck status
       async function toggleCardInDeck(cardId) {
         try {
@@ -157,14 +176,20 @@
             '<p class="error-message">Failed to initialize card database.</p>';
         });
 
+      // Navbar load event listener, to make sure "PLAY" button recieves logic
+      document.addEventListener("navbar-loaded", async () => {
+        const activeDeckIds = await getOwnedCardIds();
+        updateButtonState(activeDeckIds.length);
+        console.log("Navbar loaded; play button updated.");
+      });
       // Enter Game button event
       enterGameButton.addEventListener("click", async () => {
         try {
           const activeDeckIds = await getOwnedCardIds();
-          if (activeDeckIds.length === 0) {
-            alert(
-              "Please select at least one card for your deck before entering the game!",
-            );
+          
+          // Alert and don't allow game enter if they are using manual deck and don't have min cards
+          if (activeDeckIds.length > 0 && activeDeckIds.length < 10) {
+            alert("You must select at least 10 cards to enter the game.");
             return;
           }
 

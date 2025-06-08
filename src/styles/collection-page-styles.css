@@ -356,3 +356,10 @@ footer p {
     font-size: 0.9rem;
   }
 }
+
+#enter-game-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  background-color: rgba(0, 0, 0, 0.1);
+}
