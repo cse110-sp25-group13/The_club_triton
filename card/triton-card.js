@@ -298,9 +298,11 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-front");
     if (img) {
       if (filename) {
-        img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        const isRelativePath = filename.startsWith("http") || filename.startsWith(TRITON_CARD_BASE_PATH);
+        const path = isRelativePath ? filename : `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        console.log("Setting front image to:", path);
+        img.src = path;
         img.alt = "Card Front";
-        console.log(img.src);
       } else {
         img.src = "";
         img.alt = "Card front image placeholder";
@@ -333,9 +335,11 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-back");
     if (img) {
       if (filename) {
-        img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        const isRelativePath = filename.startsWith("http") || filename.startsWith(TRITON_CARD_BASE_PATH);
+        const path = isRelativePath ? filename : `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
+        console.log("Setting back image to:", path);
+        img.src = path;
         img.alt = "Card Back";
-        console.log(img.src);
       } else {
         img.src = "";
         img.alt = "Card back image placeholder";
