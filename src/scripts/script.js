@@ -163,6 +163,11 @@ function drawCards(count, ai, cardPool = null) {
         targetSlot.appendChild(tritonCard);
       }
     } else {
+      //tritonCard.name = cardObj.name;
+      //tritonCard.rank = cardObj.ranking;
+      //tritonCard.type = cardObj.type;
+      //tritonCard.description = cardObj.description;
+      //tritonCard.rarity = cardObj.rarity;
       tritonCard.addEventListener("click", () => {
         playRound(cardObj.id);
       });
