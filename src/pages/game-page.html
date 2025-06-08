@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Object Graph Items for Link Previews (@Reviewer NEED TO DEPLOY TO CHECK THIS)-->
+    <meta property="og:title" content="The Club Triton" />
+    <meta
+      property="og:description"
+      content="A game created by Group 13 for CSE 110 SP25 at UCSD. A Uno-esque game in the style of Club Penguin."
+    />
+    <meta property="og:image" content="../imgs/navbar-logo.png" />
+
+    <script
+      src="https://kit.fontawesome.com/186103375e.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="../scripts/load-navbar.js" defer></script>
     <title>Play Now! | Club Triton</title>
     <link
@@ -10,37 +22,102 @@
       href="../styles/game-page-styles.css"
       media="screen"
     />
+
+    <link rel="icon" type="image/x-icon" href="../imgs/navbar-logo.png" />
     <script src="../scripts/game-page-script.js" defer></script>
     <meta
       name="keywords"
       content="Club Triton, tritons, UCSD, UC San Diego, virtual world, mmo, online game, free, free game"
     />
   </head>
+
   <body>
     <div id="navbar-container"></div>
     <main class="game-container">
+      <div id="gameModal" class="popup">
+        <div class="popup-content">
+          <h2 id="modalTitle">🎉 You Win!</h2>
+          <button id="play" onclick="location.reload()">Play Again</button>
+          <button id="home" onclick="window.location.href='home-page.html'">
+            Back to Home
+          </button>
+          <br />
+        </div>
+      </div>
       <section class="game-board">
-        <div id="projector-hitbox"></div>
         <div class="projector-slot">
           <div id="projector-screen">
-            <h1 id="instructions">Instructions</h1>
-            <ul>
-              <li>
-                Click to choose a card from your deck to play against the
-                professor
-              </li>
-              <li>
-                Each card has a type and a number. The types are Living,
-                structure, and Dining Hall.
-              </li>
-            </ul>
+            <div class="screen-handle">▼</div>
+            <div class="screen-content">
+              <!-- Slide 1 -->
+              <div class="slide active">
+                <h1 id="instructions">Game Guide</h1>
+                <ul>
+                  <li>
+                    Each turn, both the student and professor choose a card to
+                    play.
+                  </li>
+                  <li>The green living card beats the blue dining card</li>
+                  <li>The blue dining card beats the gray structure card</li>
+                  <li>The gray structure card beats the green living card</li>
+                  <li>
+                    When the cards are of the same type, the higher rarity beats
+                    them
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="slide">
+                <h2>How to win</h2>
+                <ul>
+                  <li>There are 2 paths to achieve victory in this game</li>
+                  <li>
+                    The first path is to collect 3 types of the same card i.e. 3
+                    blue dining cards
+                  </li>
+                  <li>
+                    The second is to collect 3 unique card types i.e. at least 1
+                    dining, 1 living, and 1 strcuture card
+                  </li>
+                  <li>
+                    The first to either path wins, good luck young triton!
+                  </li>
+                  <li>
+                    The card hierarchy is displayed on the next slide for visual
+                    reference
+                  </li>
+                </ul>
+              </div>
+              <!-- Slide 3 -->
+              <div class="slide last">
+                <img
+                  src="../assets/imgs/backgrounds/rules-dropdown.png"
+                  alt=""
+                />
+              </div>
+            </div>
+
+            <div class="screen-controls">
+              <!-- <img src="../imgs/icons/left-arrow-disabled.png" alt="previous"> -->
+              <button class="nav-btn prev-btn" disabled>
+                <img
+                  src="../assets/imgs/icons/left-arrow-disabled.png"
+                  alt="Previous"
+                  class="arrow-img disabled-arrow"
+                />
+              </button>
+              <span class="slide-counter"></span>
+              <button class="nav-btn next-btn">
+                <img
+                  src="../assets/imgs/icons/right-arrow-enabled.png"
+                  alt="Next Slide"
+                />
+              </button>
+            </div>
           </div>
         </div>
-        <button
-          id="exit-btn"
-          href="home-page.html"
-          title="return to lobby"
-        ></button>
+        <button id="restart-btn" title="restart game">↻</button>
         <section class="won-cards">
           <!--Functionality: After compairson won card goes in their spot. Need a way to keep count of cards-->
           <div class="prof-won-cards">
@@ -54,71 +131,54 @@
             <div id="student-structure-card">0</div>
           </div>
         </section>
+
+        <section class="game-characters">
+          <div class="professor-character">
+            <img
+              src="../assets/imgs/character/cropped-side-view-professor.png"
+              alt="Professor Character"
+            />
+          </div>
+          <div class="student-character">
+            <img
+              src="../assets/imgs/character/cropped-side-view-student.png"
+              alt="Student Character"
+            />
+          </div>
+        </section>
         <div class="card-comparison">
           <!--Functionality: When player chooses card, ai chooses theirs and both cards move to the middle
                           AI card flips and compairson happens. From which winners card goes up to their own card won deck -->
           <section class="chosen-prof-card"></section>
           <section class="chosen-student-card"></section>
         </div>
-        <section class="game-characters">
-          <div class="professor-character">
-            <img
-              src="../imgs/character/cropped-side-view-professor.png"
-              alt="Professor Character"
-            />
-          </div>
-          <div class="student-character">
-            <img
-              src="../imgs/character/cropped-side-view-student.png"
-              alt="Student Character"
-            />
-          </div>
-        </section>
       </section>
       <time class="timer" alt="game countdown">60</time>
       <section class="play-table">
-        <div class="prof-deck">
-          <table class="prof-cards">
-            <h2 id="prof-name">Professor</h2>
-            <tr>
-              <td class="card-5" id="prof-card-5">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-4" id="prof-card-4">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-3" id="prof-card-3">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-2" id="prof-card-2">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-              <td class="card-1" id="prof-card-1">
-                <div class="card-face card-front"></div>
-                <div class="card-face card-back"></div>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="student-deck">
-          <table class="student-cards">
-            <h2 id="student-name">Student</h2>
-            <tr>
-              <td class="card card-1" id="student-card-1"></td>
-              <td class="card card-2" id="student-card-2"></td>
-              <td class="card card-3" id="student-card-3"></td>
-              <td class="card card-4" id="student-card-4"></td>
-              <td class="card card-5" id="student-card-5"></td>
-            </tr>
-          </table>
-        </div>
+        <section class="prof-deck">
+          <h2 id="prof-name">Professor</h2>
+          <section class="prof-cards">
+            <div class="card-slot card-5" id="prof-card-5"></div>
+            <div class="card-slot card-4" id="prof-card-4"></div>
+            <div class="card-slot card-3" id="prof-card-3"></div>
+            <div class="card-slot card-2" id="prof-card-2"></div>
+            <div class="card-slot card-1" id="prof-card-1"></div>
+          </section>
+        </section>
+        <section class="student-deck">
+          <h2 id="student-name">Student</h2>
+          <section class="student-cards">
+            <div class="card-face" id="student-card-1"></div>
+            <div class="card-face" id="student-card-2"></div>
+            <div class="card-face" id="student-card-3"></div>
+            <div class="card-face" id="student-card-4"></div>
+            <div class="card-face" id="student-card-5"></div>
+          </section>
+        </section>
       </section>
     </main>
     <script type="module" src="../scripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <footer class="copyright-info"></footer>
   </body>
 </html>
