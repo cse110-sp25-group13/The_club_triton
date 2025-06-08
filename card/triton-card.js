@@ -300,6 +300,7 @@ class TritonCard extends HTMLElement {
       if (filename) {
         img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
         img.alt = "Card Front";
+        console.log(img.src);
       } else {
         img.src = "";
         img.alt = "Card front image placeholder";
@@ -334,6 +335,7 @@ class TritonCard extends HTMLElement {
       if (filename) {
         img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${filename}`;
         img.alt = "Card Back";
+        console.log(img.src);
       } else {
         img.src = "";
         img.alt = "Card back image placeholder";
