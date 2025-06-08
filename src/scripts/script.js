@@ -141,7 +141,7 @@ function drawCards(count, ai, cardPool = null) {
       }
       if (targetSlot) {
         //can you make it not show any info on the cards? supposed to be unknown to player?
-        tritonCard.front_image = cardObj.back_image_placeholder;
+        tritonCard.front_image = cardObj.front_image_placeholder;
         targetSlot.appendChild(tritonCard);
       }
     } else {
