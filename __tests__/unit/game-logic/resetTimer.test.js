@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-
 import { jest } from "@jest/globals";
 
 let resetTimer;
@@ -24,7 +23,7 @@ describe("resetTimer", () => {
   it("starts the countdown and updates the display", () => {
     resetTimer();
     const timerEl = document.querySelector(".timer");
-    
+
     expect(timerEl.textContent).toBe(String(MAX_TIME));
 
     jest.advanceTimersByTime(1000);
