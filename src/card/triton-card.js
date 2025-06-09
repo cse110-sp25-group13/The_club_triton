@@ -16,6 +16,9 @@ const getBasePath = () => {
       path = "/" + pathSegments[1];
     }
   }
+  else {
+    path = "/src/"
+  }
   return path;
 };
 
@@ -298,9 +301,7 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-front");
     if (img) {
       if (src) {
-        img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
-          : src;
+        img.src = src;
         img.alt = "Card Front";
       } else {
         img.src = "";
@@ -318,9 +319,7 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-back");
     if (img) {
       if (src) {
-        img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
-          : src;
+        img.src = src;
         img.alt = "Card Back";
       } else {
         img.src = "";
