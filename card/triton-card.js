@@ -299,7 +299,7 @@ class TritonCard extends HTMLElement {
     if (img) {
       if (src) {
         img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/assets/")}`
+          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
           : src;
         img.alt = "Card Front";
       } else {
@@ -319,7 +319,7 @@ class TritonCard extends HTMLElement {
     if (img) {
       if (src) {
         img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/assets/")}`
+          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
           : src;
         img.alt = "Card Back";
       } else {
