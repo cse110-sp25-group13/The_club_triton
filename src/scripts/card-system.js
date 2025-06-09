@@ -64,6 +64,9 @@ if (window.location.hostname.includes("github.io")) {
     basePath = "/" + pathSegments[1];
   }
 }
+else {
+  basePath = ".."
+}
 console.log("Asset Base Path determined:", basePath);
 
 let db; // Global variable to hold the database instance (for simplicity; in real projects, use better state management)
@@ -249,7 +252,7 @@ function initDB() {
       try {
         // After database opens successfully, check and populate data if needed
         // Use dynamic basePath for proper JSON loading across environments
-        await populateDataIfEmpty(db, STORE_NAME_CARDS, "../card/cards.json");
+        await populateDataIfEmpty(db, STORE_NAME_CARDS, `${basePath}/card/cards.json`);
         console.log(
           "Database initialization and data population check complete.",
         );
