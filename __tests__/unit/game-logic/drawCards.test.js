@@ -53,9 +53,9 @@ describe("drawCards utility", () => {
         ranking: 5,
         rarity: 5,
         front_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/geisel_library_front.jpg",
+          "/assets/imgs/card_faces_compressed/geisel_library_front.jpg",
         back_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/card_back_default.png",
+          "/assets/imgs/card_faces_compressed/card_back_default.png",
         description:
           "UCSD's iconic 'spaceship' library, named after Dr. Seuss. A haven for study, housing millions of volumes and campus legends.",
         keywords: ["library", "architecture", "study", "Dr. Seuss", "landmark"],
@@ -67,9 +67,9 @@ describe("drawCards utility", () => {
         ranking: 4,
         rarity: 4,
         front_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/price_center_front.jpg",
+          "/assets/imgs/card_faces_compressed/price_center_front.jpg",
         back_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/card_back_default.png",
+          "/assets/imgs/card_faces_compressed/card_back_default.png",
         description:
           "The bustling heart of campus life, offering diverse food, student org spaces, a bookstore, and a movie theater.",
         keywords: ["student center", "food court", "social hub", "activities"],
@@ -84,7 +84,9 @@ describe("drawCards utility", () => {
     expect(card0).not.toBeNull();
     expect(card0.id).toBe(`tritonCard-${pool[0].id}`);
     const img0 = card0.shadowRoot.querySelector("#img-card-front");
-    expect(img0.getAttribute("src")).toBe(`${pool[0].front_image_placeholder}`);
+    expect(img0.getAttribute("src")).toBe(
+      `/src${pool[0].front_image_placeholder}`,
+    );
   });
 
   it("draws cards for the AI and appends triton-card-ai elements with correct front image", () => {
@@ -96,9 +98,9 @@ describe("drawCards utility", () => {
         ranking: 4,
         rarity: 3,
         front_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/pines_dining_front.jpg",
+          "/assets/imgs/card_faces_compressed/pines_dining_front.jpg",
         back_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/card_back_default.png",
+          "/assets/imgs/card_faces_compressed/card_back_default.png",
         description:
           "Muir College's popular dining hall known for its diverse menu, comfy atmosphere, and especially its pasta and deli sandwiches.",
         keywords: ["Muir College", "dining hall", "variety", "comfort food"],
@@ -110,9 +112,9 @@ describe("drawCards utility", () => {
         ranking: 3,
         rarity: 3,
         front_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/canyon_vista_front.jpg",
+          "/assets/imgs/card_faces_compressed/canyon_vista_front.jpg",
         back_image_placeholder:
-          "/src/assets/imgs/card_faces_compressed/card_back_default.png",
+          "/assets/imgs/card_faces_compressed/card_back_default.png",
         description:
           "Warren College's go-to spot with a hip vibe, canyon views, grill favorites, and surprisingly good sushi.",
         keywords: ["Warren College", "dining hall", "grill", "sushi", "views"],
@@ -127,7 +129,7 @@ describe("drawCards utility", () => {
     expect(aiCard0.id).toBe(`tritonCard-${pool[1].id}-ai`);
     const imgAi0 = aiCard0.shadowRoot.querySelector("#img-card-front");
     expect(imgAi0.getAttribute("src")).toBe(
-      `${pool[1].front_image_placeholder}`,
+      `/src${pool[1].front_image_placeholder}`,
     );
   });
 
