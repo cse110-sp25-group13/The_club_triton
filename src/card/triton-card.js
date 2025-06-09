@@ -15,8 +15,7 @@ const getBasePath = () => {
     ) {
       path = "/" + pathSegments[1];
     }
-  }
-  else {
+  } else {
     path = "/src/";
   }
   return path;
