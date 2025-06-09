@@ -1,3 +1,8 @@
+/**
+ * @file game-page-script.js
+ * @description DOM-modifying logic for game-page.
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get elements
   const screen = document.getElementById("projector-screen");

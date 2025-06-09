@@ -1,4 +1,32 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: scripts/script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: scripts/script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * @file script.js
  * @description Core logic for UCSD College Card Compare game.
  * Implements card drawing, comparison, and round resolution.
@@ -92,15 +120,15 @@ async function initGame() {
  * Draw a number of random cards from the deck. Give a new card from library to the ai and player, if the ai =true, change card img to a back of card img to hide the AI card
  * @param {number} count - Number of cards to draw
  * @param {boolean} ai - are we trying to draw card for ai
- * @param {Array<Object>} cardPool - Pool of cards to draw from (optional, defaults to global deck)
- * @returns {Array<Object>} Array of card objects
+ * @param {Array&lt;Object>} cardPool - Pool of cards to draw from (optional, defaults to global deck)
+ * @returns {Array&lt;Object>} Array of card objects
  */
 
 function drawCards(count, ai, cardPool = null) {
   const hand = [];
   const sourcePool = cardPool || deck; // Use provided pool or global deck
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i &lt; count; i++) {
     if (sourcePool.length === 0) {
       console.warn("No more cards available to draw!");
       break;
@@ -334,7 +362,7 @@ function createCardGhost(card, startRect) {
 
   // Create the HTML structure that mirrors triton-card exactly
   ghost.innerHTML = `
-    <div style="
+    &lt;div style="
       position: relative;
       width: 100%;
       height: 100%;
@@ -345,7 +373,7 @@ function createCardGhost(card, startRect) {
     ">
       ${
         cardImage
-          ? `<img src="${cardImage}" style="
+          ? `&lt;img src="${cardImage}" style="
         position: absolute;
         top: 0;
         left: 0;
@@ -358,7 +386,7 @@ function createCardGhost(card, startRect) {
       
       ${
         cardBorder
-          ? `<img src="${cardBorder}" style="
+          ? `&lt;img src="${cardBorder}" style="
         position: absolute;
         top: 0;
         left: 0;
@@ -370,7 +398,7 @@ function createCardGhost(card, startRect) {
           : ""
       }
       
-      <div style="
+      &lt;div style="
         position: absolute;
         top: 2%;
         right: 4%;
@@ -386,9 +414,9 @@ function createCardGhost(card, startRect) {
         text-overflow: ellipsis;
         white-space: normal;
         word-wrap: break-word;
-      ">${cardName}</div>
+      ">${cardName}&lt;/div>
       
-      <div style="
+      &lt;div style="
         position: absolute;
         top: 2%;
         left: 8%;
@@ -401,9 +429,9 @@ function createCardGhost(card, startRect) {
         text-transform: capitalize;
         z-index: 15;
         overflow: hidden;
-      ">${cardType}</div>
+      ">${cardType}&lt;/div>
       
-      <div style="
+      &lt;div style="
         position: absolute;
         bottom: 18%;
         left: 8%;
@@ -417,9 +445,9 @@ function createCardGhost(card, startRect) {
         align-items: center;
         justify-content: center;
         z-index: 15;
-      ">${cardRank}</div>
+      ">${cardRank}&lt;/div>
       
-      <div style="
+      &lt;div style="
         position: absolute;
         bottom: 12%;
         left: 6%;
@@ -432,9 +460,9 @@ function createCardGhost(card, startRect) {
         z-index: 15;
         overflow: hidden;
         padding: 2px;
-      ">${cardDescription}</div>
+      ">${cardDescription}&lt;/div>
       
-      <div style="
+      &lt;div style="
         position: absolute;
         bottom: 3%;
         right: 6%;
@@ -443,8 +471,8 @@ function createCardGhost(card, startRect) {
         font-weight: bold;
         text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
         z-index: 15;
-      ">${cardRarity}</div>
-    </div>
+      ">${cardRarity}&lt;/div>
+    &lt;/div>
   `;
 
   // Style the ghost container
@@ -524,7 +552,7 @@ function animateCardMove(card, targetEl) {
       const existingCard = targetEl.querySelector("triton-card");
       //make sure the card is non empty as well as not the card we are trying to animat
       // then remove old card
-      if (existingCard && existingCard !== card) existingCard.remove();
+      if (existingCard &amp;&amp; existingCard !== card) existingCard.remove();
       targetEl.appendChild(card);
       card.style.visibility = "visible";
       ghost.remove();
@@ -606,7 +634,7 @@ function updateScoreDisplay() {
  */
 function checkWinCondition() {
   // playerScore and aiScore are objects like:
-  // { living: <n>, dining: <n>, structure: <n> }
+  // { living: &lt;n>, dining: &lt;n>, structure: &lt;n> }
   const playerCounts = Object.values(playerScore);
   const aiCounts = Object.values(aiScore);
 
@@ -674,7 +702,7 @@ function resetTimer() {
   countdownInterval = setInterval(() => {
     timeLeft--;
     timerEl.textContent = timeLeft;
-    if (timeLeft <= 0) {
+    if (timeLeft &lt;= 0) {
       clearInterval(countdownInterval);
     }
     const percentage = ((60 - timeLeft) / 60) * 100;
@@ -726,3 +754,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TritonCard.html">TritonCard</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TYPE_BORDER">TYPE_BORDER</a></li><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#createCardGhost">createCardGhost</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getInitialHand">getInitialHand</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 09 2025 04:31:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

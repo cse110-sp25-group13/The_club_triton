@@ -1,3 +1,8 @@
+/**
+ * @file load-navbar.js
+ * @description Loads the navbar HTML element into each page.
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
   const navbarContainer = document.getElementById("navbar-container");
 
