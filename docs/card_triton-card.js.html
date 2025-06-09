@@ -1,6 +1,34 @@
-/**
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: card/triton-card.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: card/triton-card.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
  * TritonCard is a custom web component representing a card with a front and back.
- * @const {Map<string,string>}
+ * @const {Map&lt;string,string>}
  */
 
 // Dynamic base path determination for consistent asset loading
@@ -9,8 +37,8 @@ const getBasePath = () => {
   if (window.location.hostname.includes("github.io")) {
     const pathSegments = window.location.pathname.split("/");
     if (
-      pathSegments.length > 1 &&
-      pathSegments[1] &&
+      pathSegments.length > 1 &amp;&amp;
+      pathSegments[1] &amp;&amp;
       pathSegments[1].toLowerCase() === "the_club_triton"
     ) {
       path = "/" + pathSegments[1];
@@ -39,7 +67,7 @@ const TYPE_COLORS = {
  *
  * Current default path for our assets (but please remember to change the path when
  * the assets directory is updated for any reason)
- * @const {Map<string,string>} TYPE_BORDER
+ * @const {Map&lt;string,string>} TYPE_BORDER
  */
 const TYPE_BORDER = {
   structure: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/default-card-base.png`,
@@ -78,31 +106,31 @@ class TritonCard extends HTMLElement {
     div.classList.toggle("card-flipped");
 
     div.innerHTML = `
-    <div class="card-inner">
-      <div class="card-front">
-        <div class="card-front-background">
-          <img id='img-card-border' src=${this.default_card_border_path}  alt="Card border">
-        </div>
-        <img id = "img-card-front"  alt="Image of the card">
-        <p class="name">name</p>
-        <p class="rank">rank</p>
-        <p class="type">type</p>
-        <div class="stars-container"></div>
-        <span class="rarity"></span> 
-        <p class="description">description</p>
+    &lt;div class="card-inner">
+      &lt;div class="card-front">
+        &lt;div class="card-front-background">
+          &lt;img id='img-card-border' src=${this.default_card_border_path}  alt="Card border">
+        &lt;/div>
+        &lt;img id = "img-card-front"  alt="Image of the card">
+        &lt;p class="name">name&lt;/p>
+        &lt;p class="rank">rank&lt;/p>
+        &lt;p class="type">type&lt;/p>
+        &lt;div class="stars-container">&lt;/div>
+        &lt;span class="rarity">&lt;/span> 
+        &lt;p class="description">description&lt;/p>
         
-      </div>
-      <div class="card-back">
-        <div class="card-back-background">
-          <img id="img-card-back" alt="back of the card">
-        </div>
-      </div>
-    </div>
+      &lt;/div>
+      &lt;div class="card-back">
+        &lt;div class="card-back-background">
+          &lt;img id="img-card-back" alt="back of the card">
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
     `;
 
     // Style
     style.textContent = `
-      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;display=swap');
       :host {
           overflow: visible;
           display: block;
@@ -448,3 +476,26 @@ class TritonCard extends HTMLElement {
 }
 
 customElements.define("triton-card", TritonCard);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TritonCard.html">TritonCard</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TYPE_BORDER">TYPE_BORDER</a></li><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#createCardGhost">createCardGhost</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getInitialHand">getInitialHand</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 09 2025 04:31:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
