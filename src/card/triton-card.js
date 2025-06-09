@@ -412,7 +412,7 @@ class TritonCard extends HTMLElement {
       const safeRarity = Math.min(Math.max(+value, 0), 5);
       const img = document.createElement("img");
       img.classList.add("star-ranking");
-      img.src = `../assets/imgs/star_rankings/${safeRarity}:5-stars.png`;
+      img.src = `../assets/imgs/star_rankings/${safeRarity}-5-stars.png`;
       img.alt = `${safeRarity} of 5 stars`;
       starsContainer.appendChild(img);
     }
