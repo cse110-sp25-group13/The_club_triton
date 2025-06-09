@@ -1,42 +1,7 @@
-// Congratulations, you are retired, buddy.
-// Get a life, don't study CS in your next life.
-// const initialCardData = [
-//   {
-//     id: "structure001", // Suggest ID reflects type and uniqueness
-//     name: "Geisel Library",
-//     type: "Structure", // Ensure consistent type naming
-//     ranking: 5,
-//     rarity: 4,
-//     front_image_placeholder: "assets/images/placeholders/geisel_front.png", // Assume placeholder image at this path
-//     back_image_placeholder: "assets/images/placeholders/geisel_back.png",
-//     description: "The iconic anechoic bird of UCSD's libraries.", // Confirm description content
-//   },
-//   {
-//     id: "dining001",
-//     name: "Price Center Food Court",
-//     type: "Dining",
-//     ranking: 4,
-//     rarity: 3,
-//     front_image_placeholder: "assets/images/placeholders/pc_food_front.png",
-//     back_image_placeholder: "assets/images/placeholders/pc_food_back.png",
-//     description: "A place for every craving, and every student.",
-//   },
-//   {
-//     id: "mascot001",
-//     name: "King Triton",
-//     type: "Mascot",
-//     ranking: 5, // Mascot ranking may have a different meaning, or not used for direct comparison
-//     rarity: 5,
-//     front_image_placeholder: "assets/images/placeholders/triton_front.png",
-//     back_image_placeholder: "assets/images/placeholders/triton_back.png",
-//     description: "The mighty ruler of the Tritons.",
-//   },
-//   // Continue to add more cards as required (5 per type, 15 total)...
-// ];
-
-// export default initialCardData; // If using ES modules
-// or module.exports = initialCardData; // If using CommonJS (Node.js)
-// For now, just define it in this file.
+/**
+ * @file card-system.js
+ * @description IndexedDB API for storing card information.
+ */
 
 export {
   initDB,

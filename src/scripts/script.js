@@ -2,7 +2,6 @@
  * @file script.js
  * @description Core logic for UCSD College Card Compare game.
  * Implements card drawing, comparison, and round resolution.
- * Dependencies: IndexedDB module in card-system.js
  */
 
 console.log("script.js loaded");
