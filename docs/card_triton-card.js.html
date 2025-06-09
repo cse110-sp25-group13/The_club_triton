@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: card/triton-card.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: card/triton-card.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * TritonCard is a custom web component representing a card with a front and back.
+ * @const {Map&lt;string,string>}
+ */
+
+// Dynamic base path determination for consistent asset loading
+const getBasePath = () => {
+  let path = "";
+  if (window.location.hostname.includes("github.io")) {
+    const pathSegments = window.location.pathname.split("/");
+    if (
+      pathSegments.length > 1 &amp;&amp;
+      pathSegments[1] &amp;&amp;
+      pathSegments[1].toLowerCase() === "the_club_triton"
+    ) {
+      path = "/" + pathSegments[1];
+    }
+  } else {
+    path = "/src";
+  }
+  return path;
+};
+
+const TRITON_CARD_BASE_PATH = getBasePath();
+console.log("TritonCard Base Path:", TRITON_CARD_BASE_PATH);
+
+const TYPE_COLORS = {
+  structure: "#003A70", // Dark blue
+  dining: "#FFCD00", // Yellow
+  mascot: "#006A4E", // Dark green
+  living: "#C0C0C0", // Gray
+  default: "#CCCCCC", // A default gray border in case the type does not match
+};
+
+/**
+ * Key: type
+ *
+ * Value: the path of the border with corresponding type
+ *
+ * Current default path for our assets (but please remember to change the path when
+ * the assets directory is updated for any reason)
+ * @const {Map&lt;string,string>} TYPE_BORDER
+ */
+const TYPE_BORDER = {
+  structure: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/default-card-base.png`,
+  dining: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/blue-card-base.png`,
+  mascot: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/dark-card-base.png`,
+  living: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/green-card-base.png`,
+  default: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/yellow-card-base.png`,
+};
+
+/**
+ *
+ */
+class TritonCard extends HTMLElement {
+  //should never use default anyway
+  static default_card_border_path = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/default-card-base.png`; // Update this element to have a different default border
+  #card;
+
+  /**
+   * Create an empty card.
+   * @param {void} none
+   */
+  constructor() {
+    super(); // Inherit everything from HTMLElement
+
+    this.attachShadow({ mode: "open" }); // Attach a shadowDom to this component
+
+    const div = document.createElement("div");
+
+    const style = document.createElement("style");
+
+    // HTML
+    div.classList.add("card");
+    // Responsible for flipping the card
+    div.classList.add("card-flipped");
+    // initially do not flip the card
+    div.classList.toggle("card-flipped");
+
+    div.innerHTML = `
+    &lt;div class="card-inner">
+      &lt;div class="card-front">
+        &lt;div class="card-front-background">
+          &lt;img id='img-card-border' src=${this.default_card_border_path}  alt="Card border">
+        &lt;/div>
+        &lt;img id = "img-card-front"  alt="Image of the card">
+        &lt;p class="name">name&lt;/p>
+        &lt;p class="rank">rank&lt;/p>
+        &lt;p class="type">type&lt;/p>
+        &lt;div class="stars-container">&lt;/div>
+        &lt;span class="rarity">&lt;/span> 
+        &lt;p class="description">description&lt;/p>
+        
+      &lt;/div>
+      &lt;div class="card-back">
+        &lt;div class="card-back-background">
+          &lt;img id="img-card-back" alt="back of the card">
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+    `;
+
+    // Style
+    style.textContent = `
+      @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&amp;display=swap');
+      :host {
+          overflow: visible;
+          display: block;
+          position: relative;
+          z-index: 1;
+        }
+        
+      :host(:hover) {
+        z-index: 1000;
+        }
+    
+      .card {
+        font-family: "Source Sans 3", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: oblique;
+
+        font-size: var(--card-font-size);
+        background-color: transparent;
+        aspect-ratio: auto 3/4;
+        width: var(--card-width);
+        perspective: 1000px; /* Remove this if you don't want the 3D effect */
+      }
+
+      /* This container is needed to position the front and back side */
+      .card-inner {
+        position: relative;
+        width: var(--card-width);
+        height: var(--card-height); 
+        border: none; /* Remove cyan border */
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+      
+      .card-inner:hover {
+        overflow: visible;
+        transform: scale(1.7);
+        position: relative; /* needed for z-index to take effect */
+        z-index: 10;
+      }
+      
+      /* Do an horizontal flip when the card is flipped*/
+      .card.card-flipped .card-inner {
+        transform: rotateY(180deg);
+      
+      }
+      .card.card-flipped .card-front {
+        display: none;
+      }
+
+      /* Position the front and back side, but make sure they are in the same box, not 2 boxes on top of each other*/
+      .card-front,
+      .card-back {
+        position: absolute;   
+        top: 0;                
+        left: 0;
+        width: var(--card-width);
+        height: var(--card-height);
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+      }
+
+      .card-front-background,
+      .card-back-background {
+        position: absolute;
+        top: 0;
+      }
+
+      img {
+          aspect-ratio: auto 3/4;
+          width: var(--card-width);
+          height: var(--card-height);   
+      }
+      /* Style the front side (also fallback if image is missing) */
+        // #img-card-front{
+        //   width: var(--card-image-width);
+        //   height: var(--card-image-height); 
+        // }
+
+        #img-card-border{
+          position: absolute;
+        }
+
+        .name, .type, .description, .rank, .stars-container {
+          position: absolute;
+          z-index: 1;
+          /* make sure the overflow text is hidden */
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+          word-wrap: break-word;
+          /* make sure text isn't centered */
+          text-align: left;
+          /* Improve text readability */
+          color: #000;
+          font-weight: bold;
+        }
+
+        .name {
+          width: calc(var(--card-width) * 1);
+          height: calc(var(--card-width) * 0.12);
+          text-align: center; 
+          bottom:38%;
+          font-size: calc(var(--card-font-size) * 0.9);
+        }
+
+        .type {
+          width: calc(var(--card-width) * 0.4);
+          height: calc(var(--card-width) * 0.08);
+          top: 0%;
+          left: 8%;
+          font-size: calc(var(--card-font-size) * 0.8);
+          text-transform: capitalize;
+        }
+
+        .rank {
+          width: calc(var(--card-width) * 0.25);
+          height: calc(var(--card-width) * 0.25);
+          top: -16%;
+          right: 0%;
+          font-size: calc(var(--card-font-size) * 3.5);
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: black;
+          text-shadow: 3px 3px 6px rgba(255, 255, 255, 1);
+          font-weight: 900;
+        }
+        .stars-container {
+          position: absolute;
+          bottom: 22%;
+          left: 6%;
+          display: flex;
+          justify-content: center;
+          width: 88%;
+          z-index: 2;
+        }
+        .stars-container img.star-ranking {
+          width: calc(var(--card-width) * 0.6);
+          height: auto;
+          display: block;
+          margin: 0 auto;
+        }
+        .description {
+          width: calc(var(--card-width) * 0.88);
+          height: calc(var(--card-width) * 0.35);
+          line-height: 1.1;
+          left: 6%;
+          bottom: -2%;
+          font-size: calc(var(--card-font-size) * 0.75);
+          padding: 2px;       
+        }
+
+
+        .rarity {
+          position: absolute;
+          bottom: 3%;
+          right: 6%;
+          font-size: calc(var(--card-font-size) * 0.85);
+          color: transparent;
+          font-weight: bold;
+          z-index: 2;
+        }
+
+
+      /* Style the back side (same fall back)*/
+      .card-back {
+        background-color: blue;
+        color: red;
+        font-size: 11px;
+        transform: rotateY(180deg);
+      }`;
+
+    this.shadowRoot.appendChild(style);
+    this.shadowRoot.appendChild(div);
+    this.#card = div;
+  }
+
+  /**
+   * flip the card.
+   * @param {void}
+   * @return {void}
+   */
+  flip() {
+    this.#card.classList.toggle("card-flipped");
+  }
+  /**
+   * Set the card-front background image.
+   * @param {string} src - The source URL of the image.
+   * @returns {void}
+   */
+  set front_image(src) {
+    const img = this.#card.querySelector("#img-card-front");
+    if (img) {
+      if (src) {
+        img.src = `${TRITON_CARD_BASE_PATH}${src}`;
+        img.alt = "Card Front";
+      } else {
+        img.src = "";
+        img.alt = "Card front image placeholder";
+      }
+    }
+  }
+
+  /**
+   * Set the card-back background image.
+   * @param {string} src - The source URL of the image.
+   * @returns {void}
+   */
+  set back_image(src) {
+    const img = this.#card.querySelector("#img-card-back");
+    if (img) {
+      if (src) {
+        img.src = `${TRITON_CARD_BASE_PATH}${src}`;
+        img.alt = "Card Back";
+      } else {
+        img.src = "";
+        img.alt = "Card back image placeholder";
+      }
+    }
+  }
+
+  /**
+   * Set the name displayed on the card.
+   * @param {string} name - The name to display.
+   * @returns {void}
+   */
+  set name(name) {
+    const el = this.#card.querySelector(".name");
+    if (el) el.textContent = name;
+  }
+
+  /**
+   * Set the rank displayed on the card.
+   * @param {string} rank - The rank to display.
+   * @returns {void}
+   */
+  set rank(rank) {
+    const el = this.#card.querySelector(".rank");
+    if (el) el.textContent = rank;
+  }
+
+  /**
+   * Set the type displayed on the card and update border color.
+   * @param {string} typeValue - The type to display.
+   * @returns {void}
+   */
+  set type(typeValue) {
+    const typeElement = this.#card.querySelector(".type");
+    if (typeElement) {
+      typeElement.textContent = typeValue;
+    }
+
+    const cardInner = this.#card.querySelector(".card-inner");
+    const border = this.#card.querySelector("#img-card-border");
+    const normalizedType = typeValue ? typeValue.toLowerCase() : "default";
+
+    if (cardInner) {
+      const borderColor = TYPE_COLORS[normalizedType] || TYPE_COLORS["default"];
+      cardInner.style.borderColor = borderColor;
+    }
+    if (border) {
+      const borderPath =
+        TYPE_BORDER[normalizedType] || TritonCard.default_card_border_path;
+      border.src = borderPath;
+      border.onerror = () => {
+        console.error(
+          `Failed to load border image for type: ${normalizedType}. Using default.`,
+        );
+        border.src = TritonCard.default_card_border_path;
+      };
+      console.log("Card border loaded successfully");
+    }
+  }
+
+  /**
+   * Set the description displayed on the card.
+   * @param {string} des - The description to display.
+   * @returns {void}
+   */
+  set description(des) {
+    const el = this.#card.querySelector(".description");
+    if (el) el.textContent = des;
+  }
+
+  /**
+   * Set the rarity displayed on the card.
+   * @param {number|string} value - The rDarity value (e.g., 1, 2, 3, 4, 5).
+   * @returns {void}
+   */
+  set rarity(value) {
+    const rarityElement = this.#card.querySelector(".rarity");
+    if (rarityElement) {
+      rarityElement.textContent = `Rarity: ${value}`;
+    }
+    const starsContainer = this.shadowRoot.querySelector(".stars-container");
+    if (starsContainer) {
+      starsContainer.innerHTML = "";
+      const safeRarity = Math.min(Math.max(+value, 0), 5);
+      const img = document.createElement("img");
+      img.classList.add("star-ranking");
+      img.src = `../assets/imgs/star_rankings/${safeRarity}-5-stars.png`;
+      img.alt = `${safeRarity} of 5 stars`;
+      starsContainer.appendChild(img);
+    }
+  }
+
+  /**
+   * Connect callback
+   * @param {void}
+   * @returns {void}
+   */
+  connectedCallback() {
+    this.updateCardWidth(); // set initial value
+    window.addEventListener("resize", this.updateCardWidth.bind(this));
+  }
+
+  /**
+   * Disconnect callback
+   * @param {void}
+   * @returns {void}
+   */
+  disconnectedCallback() {
+    window.removeEventListener("resize", this.updateCardWidth.bind(this));
+  }
+
+  /**
+   * Function be called to resize the card dimension according to the window width
+   * @param {void}
+   * @returns {void}
+   */
+  updateCardWidth() {
+    const width = window.innerWidth * 0.081;
+    const height = (width * 4) / 3;
+    this.style.setProperty("--card-width", `${width}px`);
+    this.style.setProperty("--card-height", `${height}px`);
+    this.style.setProperty("--card-image-width", `${width}px`);
+    this.style.setProperty("--card-image-height", `${height}px`);
+    this.style.setProperty("--card-font-size", `${(width * 6) / 90}px`);
+  }
+}
+
+customElements.define("triton-card", TritonCard);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="TritonCard.html">TritonCard</a></li></ul><h3>Global</h3><ul><li><a href="global.html#TYPE_BORDER">TYPE_BORDER</a></li><li><a href="global.html#addCardToCollection">addCardToCollection</a></li><li><a href="global.html#checkWinCondition">checkWinCondition</a></li><li><a href="global.html#countdownInterval">countdownInterval</a></li><li><a href="global.html#createCardGhost">createCardGhost</a></li><li><a href="global.html#determineWinner">determineWinner</a></li><li><a href="global.html#drawCards">drawCards</a></li><li><a href="global.html#endGame">endGame</a></li><li><a href="global.html#fetchCardDataFromJson">fetchCardDataFromJson</a></li><li><a href="global.html#getAllCards">getAllCards</a></li><li><a href="global.html#getCardById">getCardById</a></li><li><a href="global.html#getInitialHand">getInitialHand</a></li><li><a href="global.html#getOwnedCardIds">getOwnedCardIds</a></li><li><a href="global.html#getOwnedFullCards">getOwnedFullCards</a></li><li><a href="global.html#initDB">initDB</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#playRound">playRound</a></li><li><a href="global.html#populateDataIfEmpty">populateDataIfEmpty</a></li><li><a href="global.html#removeCardFromCollection">removeCardFromCollection</a></li><li><a href="global.html#removeCardFromSlot">removeCardFromSlot</a></li><li><a href="global.html#updateScore">updateScore</a></li><li><a href="global.html#updateScoreDisplay">updateScoreDisplay</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Mon Jun 09 2025 04:31:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
