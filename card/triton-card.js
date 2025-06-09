@@ -300,10 +300,9 @@ class TritonCard extends HTMLElement {
       if (src) {
         // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
         // Otherwise, treat as already properly formatted URL or relative path
-        /*img.src = src.startsWith("/assets/")
+        img.src = src.startsWith("/assets/")
           ? `${TRITON_CARD_BASE_PATH}${src}`
-          : src;*/
-        img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_faces/${src}`;
+          : src;
         img.alt = "Card Front";
       } else {
         img.src = "";
@@ -413,7 +412,7 @@ class TritonCard extends HTMLElement {
       const safeRarity = Math.min(Math.max(+value, 0), 5);
       const img = document.createElement("img");
       img.classList.add("star-ranking");
-      img.src = `${TRITON_CARD_BASE_PATH}/assets/imgs/star_rankings/${safeRarity}:5-stars.png`;
+      img.src = `../assets/imgs/star_rankings/${safeRarity}:5-stars.png`;
       img.alt = `${safeRarity} of 5 stars`;
       starsContainer.appendChild(img);
     }
