@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "../__tests__/browser",
   use: {
     headless: true,
-    baseURL: "https://cse110-sp25-group13.github.io/The_club_triton/src/pages/",
+    baseURL: "https://cse110-sp25-group13.github.io/The_club_triton/pages/",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
   },

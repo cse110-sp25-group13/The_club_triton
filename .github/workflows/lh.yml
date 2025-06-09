@@ -18,7 +18,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
-            https://cse110-sp25-group13.github.io/The_club_triton/src/pages/game-page.html
+            https://cse110-sp25-group13.github.io/The_club_triton/pages/game-page.html
           budgetPath: ./budget.json
           uploadArtifacts: true
           temporaryPublicStorage: true
