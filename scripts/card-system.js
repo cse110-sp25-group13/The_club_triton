@@ -249,7 +249,7 @@ function initDB() {
       try {
         // After database opens successfully, check and populate data if needed
         // Use dynamic basePath for proper JSON loading across environments
-        await populateDataIfEmpty(db, STORE_NAME_CARDS, "/src/card/cards.json");
+        await populateDataIfEmpty(db, STORE_NAME_CARDS, "../card/cards.json");
         console.log(
           "Database initialization and data population check complete.",
         );
