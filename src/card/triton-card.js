@@ -40,11 +40,11 @@ const TYPE_COLORS = {
  * @const {Map<string,string>} TYPE_BORDER
  */
 const TYPE_BORDER = {
-  structure: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/default-card-base.png`,
-  dining: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/blue-card-base.png`,
-  mascot: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/dark-card-base.png`,
-  living: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/green-card-base.png`,
-  default: `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/yellow-card-base.png`,
+  structure: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/default-card-base.png`,
+  dining: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/blue-card-base.png`,
+  mascot: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/dark-card-base.png`,
+  living: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/green-card-base.png`,
+  default: `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/yellow-card-base.png`,
 };
 
 /**
@@ -52,7 +52,7 @@ const TYPE_BORDER = {
  */
 class TritonCard extends HTMLElement {
   //should never use default anyway
-  static default_card_border_path = `${TRITON_CARD_BASE_PATH}/src/assets/imgs/card_borders/default-card-base.png`; // Update this element to have a different default border
+  static default_card_border_path = `${TRITON_CARD_BASE_PATH}/assets/imgs/card_borders/default-card-base.png`; // Update this element to have a different default border
   #card;
 
   /**
@@ -298,10 +298,8 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-front");
     if (img) {
       if (src) {
-        // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
-        // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src}`
+          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
           : src;
         img.alt = "Card Front";
       } else {
@@ -320,10 +318,8 @@ class TritonCard extends HTMLElement {
     const img = this.#card.querySelector("#img-card-back");
     if (img) {
       if (src) {
-        // If src starts with '/src/', it's a project-relative path from cards.json - add basePath
-        // Otherwise, treat as already properly formatted URL or relative path
         img.src = src.startsWith("/src/")
-          ? `${TRITON_CARD_BASE_PATH}${src}`
+          ? `${TRITON_CARD_BASE_PATH}${src.replace(/^\/src\//, "/")}`
           : src;
         img.alt = "Card Back";
       } else {
