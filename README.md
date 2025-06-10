@@ -13,6 +13,7 @@ or simply go
 ### Releases:
 
 #### 1.0: 06/04/2025
+#### 1.1: 06/08/2025
 
 ## file structure
 
