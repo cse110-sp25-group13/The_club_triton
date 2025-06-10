@@ -4,7 +4,7 @@ Club Penguins card game, UCSD style! Collect themed cards based on UCSD dining, 
 
 # Set Up/Run
 
-To set up/run our application locally, [clone this repository](https://github.com/cse110-sp25-group13/The_club_triton.git), then navigate to `index.html`. Then either use the extension `Live Server` or `npx http-server` to launch.
+To set up/run our application locally, [clone this repository](https://github.com/cse110-sp25-group13/The_club_triton.git), then navigate to `index.html`. Then either use the extension `Live Server` or `npx http-server` to launch. Or, go to our [Github pages hosted site](https://cse110-sp25-group13.github.io/The_club_triton/pages/home-page.html) to view/play.
 
 
 ### Releases:
