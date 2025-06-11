@@ -37,8 +37,8 @@ The_club_triton/
 │   ├── scripts/           # JS logic for game and UI
 │   └── styles/            # CSS for each page/component
 ├── .gitignore
-├── package.json
-├── package-lock.json
+├── package.json           # Project manifest
+├── package-lock.json      # Dependency lockfile
 ├── README.md
-└── jest.setup.js           # Test environment setup
+└── jest.setup.js          # Test environment setup
 ```
