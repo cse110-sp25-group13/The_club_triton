@@ -39,6 +39,6 @@ The_club_triton/
 ├── .gitignore
 ├── package.json           # Project manifest
 ├── package-lock.json      # Dependency lockfile
-├── README.md              # Project overview & setup guide 
+├── README.md              # Project overview & setup guide
 └── jest.setup.js          # Test environment setup
 ```
