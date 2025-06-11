@@ -2,8 +2,7 @@ name: Sync src & docs to deploy branch
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 env:
@@ -15,27 +14,36 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Fetch & checkout deploy branch
+      - name: Checkout deploy branch
         run: |
           git fetch origin ${{ env.TARGET_BRANCH }}
           git checkout -B ${{ env.TARGET_BRANCH }} origin/${{ env.TARGET_BRANCH }}
 
-      - name: Clean out old files
+      - name: Clean deploy branch
         run: |
           git rm -rf .
           rm -rf *
 
-      - name: Copy src into root
-        run: cp -R src/* .
+      - name: Pull src & docs from main
+        run: |
+          git checkout origin/main -- src docs
 
-      - name: Copy docs folder
-        run: cp -R docs .
+      - name: Flatten src into root
+        run: |
+          cp -R src/* .
+          rm -rf src
 
       - name: Commit & push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Sync src & docs from main"
-          git push origin ${{ env.TARGET_BRANCH }}
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Sync src & docs from main"
+            git push origin ${{ env.TARGET_BRANCH }}
+          fi
